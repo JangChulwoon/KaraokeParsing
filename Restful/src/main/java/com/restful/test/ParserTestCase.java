@@ -8,10 +8,11 @@ import org.junit.Assert;
 import org.junit.Test;
 
 import com.resful.parser.Parser;
+import com.restful.vo.Karaoke;
 
 public class ParserTestCase {
 	static Parser ms;
-	List<Map<String,String>> list;
+	List<Karaoke> list;
 
 	@Test
 	public void test() throws IOException {

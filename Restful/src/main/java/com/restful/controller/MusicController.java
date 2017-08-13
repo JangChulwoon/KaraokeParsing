@@ -31,6 +31,7 @@ public class MusicController {
 		List<?> list = null;
 		Parser ms = Parser.initCompany(company);
 		list = ms.checkType(category, title);
+		logger.info("?");
 		return list;
 	}
 

@@ -29,8 +29,8 @@ public class MusicController {
 	public List<?> TitleView(@PathVariable String company, @PathVariable String category, @PathVariable String title,
 			Model model) throws IOException {
 		List<?> list = null;
-		Parser ms = Parser.Init(company);
-		list = ms.Check(category, title);
+		Parser ms = Parser.initCompany(company);
+		list = ms.checkType(category, title);
 		return list;
 	}
 

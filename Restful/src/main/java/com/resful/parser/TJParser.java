@@ -19,7 +19,7 @@ public class TJParser extends Parser {
 		// TODO Auto-generated constructor stub
 	}
 
-	public List<Map<String, String>> SingerParser(String key) throws IOException {
+	public List<Map<String, String>> parseSinger(String key) throws IOException {
 		int count = 0;
 		List<Map<String, String>> list = new ArrayList<Map<String, String>>();
 		Map<String, String> map = new HashMap<String, String>();
@@ -62,7 +62,7 @@ public class TJParser extends Parser {
 		return list;
 	}
 
-	public List<Map<String, String>> TitleParser(String key) throws IOException {
+	public List<Map<String, String>> parseTitle(String key) throws IOException {
 		int count = 0;
 		List<Map<String, String>> list = new ArrayList<Map<String, String>>();
 		Map<String, String> map = new HashMap<String, String>();

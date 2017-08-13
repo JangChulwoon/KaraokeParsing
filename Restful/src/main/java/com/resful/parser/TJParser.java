@@ -24,7 +24,6 @@ public class TJParser extends Parser {
 		List<Map<String, String>> list = new ArrayList<Map<String, String>>();
 		Map<String, String> map = new HashMap<String, String>();
 		Document doc = null;
-		// 인코딩을 안해두면 망함
 		key = URLEncoder.encode(key, "UTF-8");
 		String text = "https://www.tjmedia.co.kr/tjsong/song_search_list.asp?strType=2&strText=" + key
 				+ "&strSize02=500";

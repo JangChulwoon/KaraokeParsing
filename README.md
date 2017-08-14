@@ -23,6 +23,63 @@ api 형태로 제작 중이며, 다음과 같이 사용할 수 있습니다.
 
 현재, TJ만 구현 되어 있으며 추후 금영노래방과 Caching 기능을 구현할 예정입니다.      
 
+#### 구현       
+
+> Controller 부분     
+
+	@GetMapping(value = "/{company}/{category}/{title}")
+	public List<?> TitleView(@PathVariable String company, @PathVariable String category, @PathVariable String title,
+			Model model) throws IOException {
+		List<?> list = null;
+		Parser ms = Parser.initCompany(company);
+		list = ms.checkType(category, title);
+		return list;
+	}     
+
+controller에서 RESTful한 방식으로 url을 설계했습니다.       
+
+> /{company}/{category}/{title}       
+ 
+company 와 category(String)를 받아, Factory Pattern으로 객체를 생성했습니다.    
+    
+	// 객체 생성
+	Parser ms = Parser.initCompany(company);
+
+	public static Parser initCompany(String info) {
+		// 회사 추출
+		if (info.equals("TJ")) {
+			return new TJParser();
+		} else {
+			return null;
+		}
+	} 
+
+	// 검색 
+	list = ms.checkType(category, title);     
+
+	public List<Karaoke> checkType(String category, String name) throws IOException {
+		if (category.equals("music")) {
+			return this.parseTitle(name);
+		} else if (category.equals("singer")) {
+			return this.parseSinger(name);
+		} else {
+			return null;
+		}
+	}      
+
+> checkType 부분은 수정해볼것 생각해볼 것.     
+
+
++ 추가해야 할 부분  
+    
+ 1. 구조       
+ 2. 캐싱
+ 3. 금영  
+
+
+
+
+
 
 #### 패치노트   
 

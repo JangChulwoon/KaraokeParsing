@@ -19,8 +19,8 @@ public class KYParser extends Parser {
 	// 2°¡ Á¦¸ñ
 	public List<Karaoke> parseSinger(String key) throws IOException {
 		key = URLEncoder.encode(key, "euc-kr");
-		String text = "http://www.ikaraoke.kr/isong/search_musictitle.asp?sch_sel=7&sch_txt=" + key + "&page=1";
-		return parseHtmlToText(text, ".tbl_board tbody tr:has(td)", (Element e, List<Karaoke> list) -> {
+		String url = "http://www.ikaraoke.kr/isong/search_musictitle.asp?sch_sel=7&sch_txt=" + key + "&page=1";
+		return parseHtmlToText(url, ".tbl_board tbody tr:has(td)", (Element e, List<Karaoke> list) -> {
 			makeKaraoke(e, list);
 		});
 	}
@@ -28,8 +28,8 @@ public class KYParser extends Parser {
 	@Override
 	public List<Karaoke> parseTitle(String key) throws IOException {
 		key = URLEncoder.encode(key, "euc-kr");
-		String text = "http://www.ikaraoke.kr/isong/search_musictitle.asp?sch_sel=2&sch_txt=" + key + "&page=1";
-		return parseHtmlToText(text, ".tbl_board tbody tr:has(td)", (Element e, List<Karaoke> list) -> {
+		String url = "http://www.ikaraoke.kr/isong/search_musictitle.asp?sch_sel=2&sch_txt=" + key + "&page=1";
+		return parseHtmlToText(url, ".tbl_board tbody tr:has(td)", (Element e, List<Karaoke> list) -> {
 			makeKaraoke(e, list);
 		});
 	}

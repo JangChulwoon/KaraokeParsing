@@ -20,16 +20,16 @@ public class TJParser extends Parser {
 
 	public List<Karaoke> parseSinger(String key) throws IOException {
 		key = URLEncoder.encode(key, "UTF-8");
-		String text = "https://www.tjmedia.co.kr/tjsong/song_search_list.asp?strType=2&strText=" + key
+		String url = "https://www.tjmedia.co.kr/tjsong/song_search_list.asp?strType=2&strText=" + key
 				+ "&strSize02=10";
-		return parseHtmlToText(text ,"table.board_type1 tr:has(td)", (Element e, List<Karaoke> list) -> { makeKaraoke(e,list);});
+		return parseHtmlToText(url ,"table.board_type1 tr:has(td)", (Element e, List<Karaoke> list) -> { makeKaraoke(e,list);});
 	}
 
 	public List<Karaoke> parseTitle(String key) throws IOException {
 		key = URLEncoder.encode(key, "UTF-8");
-		String text = "https://www.tjmedia.co.kr/tjsong/song_search_list.asp?strType=1&strText=" + key
+		String url = "https://www.tjmedia.co.kr/tjsong/song_search_list.asp?strType=1&strText=" + key
 				+ "&strCond=0&strSize01=10";
-		return parseHtmlToText(text ,"table.board_type1 tr:has(td)", (Element e, List<Karaoke> list) -> { makeKaraoke(e,list); });
+		return parseHtmlToText(url ,"table.board_type1 tr:has(td)", (Element e, List<Karaoke> list) -> { makeKaraoke(e,list); });
 	}
 	
 	private void makeKaraoke(Element e, List<Karaoke> list) {

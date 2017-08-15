@@ -34,10 +34,10 @@ public abstract class Parser {
 	}
 	
 	
-	protected List<Karaoke> parseHtmlToText(String text,String selector ,ParserCallback callback){
+	protected List<Karaoke> parseHtmlToText(String url,String selector ,ParserCallback callback){
 		List<Karaoke> list = new ArrayList<Karaoke>();
 		try {
-			Document doc = Jsoup.connect(text).get();
+			Document doc = Jsoup.connect(url).get();
 			Elements tds = doc.select(selector);
 			try {
 				for (Element e : tds) {
@@ -48,7 +48,7 @@ public abstract class Parser {
 			}
 		}catch(IOException exception) {
 			// ¿Á»£√‚
-			this.parseHtmlToText(text, selector, callback);
+			this.parseHtmlToText(url, selector, callback);
 		}
 	
 		return list;

@@ -2,6 +2,7 @@ package org.karaoke.controller;
 
 import java.io.IOException;
 import java.util.List;
+import java.util.Optional;
 
 import org.apache.log4j.Logger;
 import org.apache.log4j.spi.LoggerFactory;
@@ -25,10 +26,14 @@ public class MusicController {
 		this.karaokeService = karaokeService;
 	}
 
-	@GetMapping(value = "/{company}/{type}/{title}")
-	public List<?> TitleView(@PathVariable String company, @PathVariable String type, @PathVariable String title,
+	@GetMapping(value = { "/{company}/{type}/{title}", "/{company}/{type}/" })
+	public List<?> parseKaraoke(@PathVariable String company, @PathVariable String type, @PathVariable Optional<String> title,
 			Model model) throws IOException {
-		return karaokeService.makeKaraokeNumber(company, type, title);
+		if (title.isPresent()) {
+			return karaokeService.makeKaraokeNumber(company, type, title.get());
+		  } else {
+		    return null;
+		  }
 	}
 
 }

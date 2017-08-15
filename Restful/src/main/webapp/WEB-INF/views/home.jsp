@@ -18,14 +18,37 @@
 
 입력 :: <input id = "title" type="text" size ="25" >
 
-<div class ="text-box">
+<div>
 	결과가 없습니다.
+	<table class ="text-box">
+	</table>
 </div>
+
+<script type="x/handlebars" id="list-template">
+{{#item}}
+
+			<tr>
+				<td>
+					{{number}}
+				</td>
+				<td>
+					{{singer}}
+				</td>
+				<td>
+					{{title}}
+				</td>
+			</tr>
+		
+{{/item}}
+</script>
+
 
 <script
   src="https://code.jquery.com/jquery-3.2.1.min.js"
   integrity="sha256-hwg4gsxgFZhOsEEamdOYGBf13FyQuiTwlAQgxVSNgt4="
   crossorigin="anonymous"></script>
+  
+<script src = "https://cdn.jsdelivr.net/handlebarsjs/4.0.8/handlebars.min.js"></script>
 
 <script>
 	$(function(){
@@ -34,6 +57,12 @@
 		// keydown 지울때나 / Caps Lock / ctrl 을 호출.
 		// 땔때 발생 
 		// keyup  얘는 keydown이랑 유사 
+		var source = $("#list-template").html();
+		var template = Handlebars.compile(source);    
+		//template(data);
+
+
+
 		$("#title").on("keyup",function(){
 			var company =  $("input[name=company]:checked").val();
 			var type =  $("input[name=type]:checked").val();
@@ -42,7 +71,9 @@
 				url : company+"/"+type+"/"+title,
 				method : "get"
 				}).then(function(data){
-					console.log(data);
+					$(".text-box").empty();
+				
+					$(".text-box").append(template({item : data}));
 				});
 		});
 	});

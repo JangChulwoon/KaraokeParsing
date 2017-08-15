@@ -34,17 +34,23 @@ public abstract class Parser {
 	}
 	
 	
-	protected List<Karaoke> parseHtmlToText(String text,String selector ,ParserCallback callback) throws IOException {
+	protected List<Karaoke> parseHtmlToText(String text,String selector ,ParserCallback callback){
 		List<Karaoke> list = new ArrayList<Karaoke>();
-		Document doc = Jsoup.connect(text).get();
-		Elements tds = doc.select(selector);
 		try {
-			for (Element e : tds) {
-				callback.HtmlToTextCallback(e, list);
+			Document doc = Jsoup.connect(text).get();
+			Elements tds = doc.select(selector);
+			try {
+				for (Element e : tds) {
+					callback.HtmlToTextCallback(e, list);
+				}
+			} catch (IndexOutOfBoundsException exception) {
+				return null;
 			}
-		} catch (IndexOutOfBoundsException exception) {
-			return null;
+		}catch(IOException exception) {
+			// ¿Á»£√‚
+			this.parseHtmlToText(text, selector, callback);
 		}
+	
 		return list;
 	}
 

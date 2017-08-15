@@ -1,4 +1,4 @@
-package com.restful.vo;
+package org.karaoke.domain;
 
 import org.apache.commons.lang3.builder.ToStringBuilder;
 import org.apache.commons.lang3.builder.ToStringStyle;

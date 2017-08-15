@@ -68,7 +68,8 @@ company 와 category(String)를 받아, Factory Pattern으로 객체를 생성�
 	}      
 
 > checkType 부분은 수정해볼것 생각해볼 것.     
-
+> try catch 도 바꿔야 할 부분. 
+> service layer 추가할 것. 
 
 + 추가해야 할 부분  
     
@@ -91,4 +92,10 @@ TJ 노래방 파싱 완료
 
 기존 프로젝트 소스 정리      
 
- 
+ + Java doc 진행 
+ + Scheduling 진행 
+
+FE 
+- throttle
+- debounce 
+thinking .. 

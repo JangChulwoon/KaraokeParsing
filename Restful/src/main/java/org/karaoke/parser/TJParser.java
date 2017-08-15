@@ -1,4 +1,4 @@
-package com.resful.parser;
+package org.karaoke.parser;
 
 import java.io.IOException;
 import java.net.URLEncoder;
@@ -12,8 +12,7 @@ import org.jsoup.Jsoup;
 import org.jsoup.nodes.Document;
 import org.jsoup.nodes.Element;
 import org.jsoup.select.Elements;
-
-import com.restful.vo.Karaoke;
+import org.karaoke.domain.Karaoke;
 
 public class TJParser extends Parser {
 

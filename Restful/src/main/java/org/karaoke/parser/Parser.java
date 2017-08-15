@@ -1,10 +1,11 @@
-package com.resful.parser;
+package org.karaoke.parser;
 
 import java.io.IOException;
+import java.util.Collections;
 import java.util.List;
 import java.util.Map;
 
-import com.restful.vo.Karaoke;
+import org.karaoke.domain.Karaoke;
 
 public abstract class Parser {
 	private Parser parser = null;
@@ -13,9 +14,9 @@ public abstract class Parser {
 
 	}
 
-	public static Parser initCompany(String info) {
+	public static Parser initCompany(String company) {
 		// 회사 추출
-		if (info.equals("TJ")) {
+		if ("TJ".equals(company)) {
 			return new TJParser();
 		} else {
 			return null;
@@ -23,9 +24,9 @@ public abstract class Parser {
 	}
 
 	public List<Karaoke> checkType(String category, String name) throws IOException {
-		if (category.equals("music")) {
+		if ("song".equals(category)) {
 			return this.parseTitle(name);
-		} else if (category.equals("singer")) {
+		} else if ("singer".equals(category)) {
 			return this.parseSinger(name);
 		} else {
 			return null;

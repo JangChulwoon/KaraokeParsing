@@ -18,45 +18,35 @@ public class KYParser extends Parser{
 
 	// 2가 제목 
 	public List<Karaoke> parseSinger(String key) throws IOException {
-		List<Karaoke> list = new ArrayList<Karaoke>();
 		key = URLEncoder.encode(key, "euc-kr");
 		String text = "http://www.ikaraoke.kr/isong/search_musictitle.asp?sch_sel=7&sch_txt="
 				+ key
 				+ "&page=1";
-		parseHtmlToText(list, text);
-		return list;
+		return parseHtmlToText(text ,".tbl_board tbody tr:has(td)", callback);
 	}
 
 	@Override
 	public List<Karaoke> parseTitle(String key) throws IOException {
-		List<Karaoke> list = new ArrayList<Karaoke>();
 		key = URLEncoder.encode(key, "euc-kr");
 		String text = "http://www.ikaraoke.kr/isong/search_musictitle.asp?sch_sel=2&sch_txt="
 				+ key
 				+ "&page=1";
-		parseHtmlToText(list, text);
-		return list;
+		return parseHtmlToText(text ,".tbl_board tbody tr:has(td)", callback);
 	}
 	
-	private void parseHtmlToText(List<Karaoke> list, String text) throws IOException {
-		Document doc = Jsoup.connect(text).get();
-		Elements tds = doc.select(".tbl_board tbody tr:has(td)");
-		// 다른 방법이 없나 ?
-		String[] tdLine = null;
-		try {
-			for (Element e : tds) {
-				Karaoke karaoke = new Karaoke();
-				karaoke.setNumber(e.child(0).text());
-				karaoke.setTitle(e.child(1).text());
-				karaoke.setSinger(e.child(2).text());
-				tdLine = e.child(3).text().split("작곡");
-				karaoke.setLyricist(tdLine[1].replaceAll("작사", ""));
-				karaoke.setComposer(tdLine[0]);
-				list.add(karaoke);
-			}
-		} catch (IndexOutOfBoundsException exception) {
-			list = null;
-			return;
+
+	private static ParserCallback callback = new ParserCallback() {
+		private String tdLine[];
+		public void HtmlToTextCallback(Element e, List<Karaoke> list) {
+			// TODO Auto-generated method stub
+			Karaoke karaoke = new Karaoke();
+			karaoke.setNumber(e.child(0).text());
+			karaoke.setTitle(e.child(1).text());
+			karaoke.setSinger(e.child(2).text());
+			tdLine = e.child(3).text().split("작곡");
+			karaoke.setLyricist(tdLine[1].replaceAll("작사", ""));
+			karaoke.setComposer(tdLine[0]);
+			list.add(karaoke);
 		}
-	}
+	};
 }

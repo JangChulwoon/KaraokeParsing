@@ -12,27 +12,41 @@ import org.jsoup.Jsoup;
 import org.jsoup.nodes.Document;
 import org.jsoup.nodes.Element;
 import org.jsoup.select.Elements;
+import org.karaoke.common.CacheTJ;
 import org.karaoke.domain.Karaoke;
 
 public class TJParser extends Parser {
 
 	Logger log = Logger.getLogger(this.getClass());
 
-	public List<Karaoke> parseSinger(String key) throws IOException {
-		key = URLEncoder.encode(key, "UTF-8");
-		String url = "https://www.tjmedia.co.kr/tjsong/song_search_list.asp?strType=2&strText=" + key
-				+ "&strSize02=10";
-		return parseHtmlToText(url ,"table.board_type1 tr:has(td)", (Element e, List<Karaoke> list) -> { makeKaraoke(e,list);});
+	public List<Karaoke> parseSinger(String keyworld) throws IOException {
+		keyworld = URLEncoder.encode(keyworld, "UTF-8");
+		if (CacheTJ.isHit(keyworld)) {
+			log.info("hit!!!");
+			return CacheTJ.getCachedsong(keyworld);
+		} else {
+			String url = "https://www.tjmedia.co.kr/tjsong/song_search_list.asp?strType=2&strText=" + keyworld
+					+ "&strSize02=10";
+			log.info("check");
+			CacheTJ.insertCachedSong(keyworld,
+					parseHtmlToText(url, "table.board_type1 tr:has(td)", (Element e, List<Karaoke> list) -> {
+						makeKaraoke(e, list);
+					}));
+		}
+		return CacheTJ.getCachedsong(keyworld);
 	}
 
-	public List<Karaoke> parseTitle(String key) throws IOException {
-		key = URLEncoder.encode(key, "UTF-8");
-		String url = "https://www.tjmedia.co.kr/tjsong/song_search_list.asp?strType=1&strText=" + key
+	public List<Karaoke> parseTitle(String keyworld) throws IOException {
+		keyworld = URLEncoder.encode(keyworld, "UTF-8");
+		String url = "https://www.tjmedia.co.kr/tjsong/song_search_list.asp?strType=1&strText=" + keyworld
 				+ "&strCond=0&strSize01=10";
-		return parseHtmlToText(url ,"table.board_type1 tr:has(td)", (Element e, List<Karaoke> list) -> { makeKaraoke(e,list); });
+		return parseHtmlToText(url, "table.board_type1 tr:has(td)", (Element e, List<Karaoke> list) -> {
+			makeKaraoke(e, list);
+		});
 	}
-	
+
 	private void makeKaraoke(Element e, List<Karaoke> list) {
+		log.info("no cached");
 		Karaoke karaoke = new Karaoke();
 		karaoke.setNumber(e.child(0).text());
 		karaoke.setTitle(e.child(1).text());
@@ -41,6 +55,5 @@ public class TJParser extends Parser {
 		karaoke.setComposer(e.child(4).text());
 		list.add(karaoke);
 	}
-
 
 }

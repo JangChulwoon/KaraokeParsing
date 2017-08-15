@@ -118,6 +118,13 @@ parseTitle 과 parseSinger의 공통된 부분을 분리하는 과정에서, par
 익명 Class 보다 조금더 깔끔한것 같아, 람다를 사용했습니다.     
 
 
+
+> Parser Class들 간의 ClassDiagram  
+
+<img src="./classDiagram.jpg" >          
+
+
+
 + 추가해야 할 부분  
     
       

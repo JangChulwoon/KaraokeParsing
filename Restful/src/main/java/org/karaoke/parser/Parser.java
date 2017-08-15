@@ -2,9 +2,7 @@ package org.karaoke.parser;
 
 import java.io.IOException;
 import java.util.ArrayList;
-import java.util.Collections;
 import java.util.List;
-import java.util.Map;
 
 import org.jsoup.Jsoup;
 import org.jsoup.nodes.Document;
@@ -14,7 +12,10 @@ import org.karaoke.domain.Karaoke;
 
 public abstract class Parser {
 
+
+	
 	public static Parser initCompany(String company) {
+		
 		if ("TJ".equals(company)) {
 			return new TJParser();
 		} else if ("KY".equals(company)) {
@@ -24,10 +25,10 @@ public abstract class Parser {
 	}
 
 	public List<Karaoke> checkType(String category, String name) throws IOException {
+		// need cachedMap
 		if ("song".equals(category)) {
 			return this.parseTitle(name);
 		} else if ("singer".equals(category)) {
-			
 			return this.parseSinger(name);
 		} else {
 			return null;
@@ -48,7 +49,6 @@ public abstract class Parser {
 				return null;
 			}
 		}catch(IOException exception) {
-			// ¿Á»£√‚
 			this.parseHtmlToText(url, selector, callback);
 		}
 	

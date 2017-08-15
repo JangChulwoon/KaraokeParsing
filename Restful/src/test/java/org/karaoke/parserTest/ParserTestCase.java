@@ -26,13 +26,15 @@ public class ParserTestCase {
 
 	@Test
 	public void ParseTJ() throws IOException {
-		List<Karaoke> list = karaokeService.makeKaraokeNumber("TJ", "song", "¾È¾ÆÁà");
+		List<Karaoke> list = karaokeService.makeKaraokeNumber("TJ", "singer", "ì•„ì´ìœ ");
+		karaokeService.makeKaraokeNumber("TJ", "singer", "ì•„ì´ìœ ");
+		karaokeService.makeKaraokeNumber("TJ", "singer", "ì•„ì´ìœ ");
 		Assert.assertNotNull(list);
 	}
 	
 	@Test
 	public void ParseKJ() throws IOException {
-		List<Karaoke> list = karaokeService.makeKaraokeNumber("KY", "song", "¾È¾ÆÁà");
+		List<Karaoke> list = karaokeService.makeKaraokeNumber("KY", "song", "ì²«ëˆˆ");
 		Assert.assertNotNull(list);
 	}
 

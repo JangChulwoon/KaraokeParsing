@@ -8,7 +8,7 @@ import org.junit.Assert;
 import org.junit.Test;
 import org.junit.runner.RunWith;
 import org.karaoke.domain.Karaoke;
-import org.karaoke.parser.KJParser;
+import org.karaoke.parser.KYParser;
 import org.karaoke.service.KaraokeService;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.test.context.ContextConfiguration;
@@ -32,9 +32,8 @@ public class ParserTestCase {
 	
 	@Test
 	public void ParseKJ() throws IOException {
-		KJParser kj  = new KJParser();
-		List<Karaoke> list = kj.parseTitle("Ã¹´«");
-		log.info(list.toString());
+		List<Karaoke> list = karaokeService.makeKaraokeNumber("KY", "song", "¾È¾ÆÁà");
+		Assert.assertNotNull(list);
 	}
 
 }

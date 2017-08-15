@@ -18,8 +18,8 @@ public abstract class Parser {
 		// 회사 추출
 		if ("TJ".equals(company)) {
 			return new TJParser();
-		} else if ("KJ".equals(company)) {
-			return new KJParser();
+		} else if ("KY".equals(company)) {
+			return new KYParser();
 		}
 		return null;
 	}

@@ -27,6 +27,7 @@ public abstract class Parser {
 		if ("song".equals(category)) {
 			return this.parseTitle(name);
 		} else if ("singer".equals(category)) {
+			
 			return this.parseSinger(name);
 		} else {
 			return null;

@@ -29,11 +29,7 @@ public class MusicController {
 	@GetMapping(value = { "/{company}/{type}/{title}", "/{company}/{type}/" })
 	public List<?> parseKaraoke(@PathVariable String company, @PathVariable String type, @PathVariable Optional<String> title,
 			Model model) throws IOException {
-		if (title.isPresent()) {
-			return karaokeService.makeKaraokeNumber(company, type, title.get());
-		  } else {
-		    return null;
-		  }
+		return karaokeService.makeKaraokeNumber(company, type, title.orElseGet(()->""));
 	}
 
 }

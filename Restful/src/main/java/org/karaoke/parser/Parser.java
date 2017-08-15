@@ -18,9 +18,10 @@ public abstract class Parser {
 		// 회사 추출
 		if ("TJ".equals(company)) {
 			return new TJParser();
-		} else {
-			return null;
+		} else if ("KJ".equals(company)) {
+			return new KJParser();
 		}
+		return null;
 	}
 
 	public List<Karaoke> checkType(String category, String name) throws IOException {

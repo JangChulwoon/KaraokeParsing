@@ -29,6 +29,17 @@ public class ParserTestCase {
 		List<Karaoke> list = karaokeService.makeKaraokeNumber("TJ", "singer", "아이유");
 		karaokeService.makeKaraokeNumber("TJ", "singer", "아이유");
 		karaokeService.makeKaraokeNumber("TJ", "singer", "아이유");
+		karaokeService.makeKaraokeNumber("TJ", "singer", "아이유");
+		karaokeService.makeKaraokeNumber("TJ", "singer", "아이유");
+		karaokeService.makeKaraokeNumber("TJ", "singer", "아이유");
+		
+		// song
+		karaokeService.makeKaraokeNumber("TJ", "song", "아이유");
+		karaokeService.makeKaraokeNumber("TJ", "song", "아이유");
+		karaokeService.makeKaraokeNumber("TJ", "song", "아이유");
+		karaokeService.makeKaraokeNumber("TJ", "song", "아이유");
+		karaokeService.makeKaraokeNumber("TJ", "song", "아이유");
+		
 		Assert.assertNotNull(list);
 	}
 	

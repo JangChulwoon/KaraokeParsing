@@ -51,7 +51,6 @@ public abstract class Parser {
 		}catch(IOException exception) {
 			this.parseHtmlToText(url, selector, callback);
 		}
-	
 		return list;
 	}
 

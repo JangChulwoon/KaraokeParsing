@@ -4,6 +4,7 @@ import java.io.IOException;
 import java.util.ArrayList;
 import java.util.List;
 
+import org.apache.log4j.Logger;
 import org.jsoup.Jsoup;
 import org.jsoup.nodes.Document;
 import org.jsoup.nodes.Element;
@@ -12,7 +13,7 @@ import org.karaoke.domain.Karaoke;
 
 public abstract class Parser {
 
-
+	Logger log = Logger.getLogger(this.getClass());
 	
 	public static Parser initCompany(String company) {
 		
@@ -49,6 +50,7 @@ public abstract class Parser {
 				return null;
 			}
 		}catch(IOException exception) {
+		
 			this.parseHtmlToText(url, selector, callback);
 		}
 		return list;

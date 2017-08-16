@@ -43,7 +43,6 @@ public class TJParser extends Parser {
 
 
 	private void makeKaraoke(Element e, List<Karaoke> list) {
-		log.info("no cached");
 		Karaoke karaoke = new Karaoke();
 		karaoke.setNumber(e.child(0).text());
 		karaoke.setTitle(e.child(1).text());

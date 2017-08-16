@@ -16,7 +16,7 @@ public class KYParser extends Parser {
 
 	Logger log = Logger.getLogger(this.getClass());
 
-	// 2°¡ Á¦¸ñ
+	// 2ï¿½ï¿½ ï¿½ï¿½ï¿½ï¿½
 	public List<Karaoke> parseSinger(String key) throws IOException {
 		key = URLEncoder.encode(key, "euc-kr");
 		String url = "http://www.ikaraoke.kr/isong/search_musictitle.asp?sch_sel=7&sch_txt=" + key + "&page=1";
@@ -40,8 +40,8 @@ public class KYParser extends Parser {
 		karaoke.setNumber(e.child(0).text());
 		karaoke.setTitle(e.child(1).text());
 		karaoke.setSinger(e.child(2).text());
-		tdLine = e.child(3).text().split("ÀÛ°î");
-		karaoke.setLyricist(tdLine[1].replaceAll("ÀÛ»ç", ""));
+		tdLine = e.child(3).text().split("ìž‘ê³¡");
+		karaoke.setLyricist(tdLine[1].replaceAll("ìž‘ì‚¬", ""));
 		karaoke.setComposer(tdLine[0]);
 		list.add(karaoke);
 	}

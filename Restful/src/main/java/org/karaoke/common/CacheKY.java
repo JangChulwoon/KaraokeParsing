@@ -7,7 +7,7 @@ import java.util.Map;
 import org.apache.log4j.Logger;
 import org.karaoke.domain.Karaoke;
 
-public  class CacheTJ {
+public final class CacheKY {
 	private static final Map<String, List<Karaoke>> cachedSong = new HashMap<String, List<Karaoke>>();
 	private static final Map<String, List<Karaoke>> cachedSinger = new HashMap<String, List<Karaoke>>();
 

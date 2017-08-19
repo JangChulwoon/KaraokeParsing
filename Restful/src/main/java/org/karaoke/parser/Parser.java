@@ -1,9 +1,12 @@
 package org.karaoke.parser;
 
 import java.io.IOException;
+import java.io.UnsupportedEncodingException;
+import java.net.URLEncoder;
 import java.util.ArrayList;
 import java.util.List;
 
+import org.apache.log4j.Logger;
 import org.jsoup.Jsoup;
 import org.jsoup.nodes.Document;
 import org.jsoup.nodes.Element;
@@ -12,8 +15,7 @@ import org.karaoke.domain.Karaoke;
 
 public abstract class Parser {
 
-
-	
+	Logger log = Logger.getLogger(this.getClass());
 	public static Parser initCompany(String company) {
 		
 		if ("TJ".equals(company)) {
@@ -49,11 +51,26 @@ public abstract class Parser {
 				return null;
 			}
 		}catch(IOException exception) {
+		
 			this.parseHtmlToText(url, selector, callback);
 		}
 		return list;
 	}
 
+	protected List<Karaoke> buildCached(String keyworld, String cachedType, String url, ParserCallback callback)
+			throws UnsupportedEncodingException {
+		log.info("URL :: " + url);
+		keyworld = URLEncoder.encode(keyworld, "UTF-8");
+		if (cache.isHit(keyworld, cachedType)) {
+			log.info("hit!!");
+			return cache.getCached(keyworld, cachedType);
+		} else {
+			log.info("key" + keyworld);
+			cache.insertCached(keyworld, cachedType, parseHtmlToText(url, ".tbl_board tbody tr:has(td)", callback));
+		}
+		return cache.getCached(keyworld, cachedType);
+	}
+	
 	public abstract List<Karaoke> parseSinger(String key) throws IOException;
 
 	public abstract List<Karaoke> parseTitle(String key) throws IOException;

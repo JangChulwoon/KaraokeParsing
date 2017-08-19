@@ -8,7 +8,7 @@ import org.apache.log4j.Logger;
 import org.karaoke.domain.Karaoke;
 import org.springframework.stereotype.Component;
 
-public class CacheTJ {
+public  class CacheKY {
 	private static Map<String, List<Karaoke>> cachedSong = new HashMap<String, List<Karaoke>>();
 	private static Map<String, List<Karaoke>> cachedSinger = new HashMap<String, List<Karaoke>>();
 
@@ -20,7 +20,7 @@ public class CacheTJ {
 		}
 	}
 
-	public static List<Karaoke> getCached(String keyworld, String type) {
+	public static  List<Karaoke> getCached(String keyworld, String type) {
 		if ("singer".equals(type)) {
 			return cachedSinger.get(keyworld);
 		}

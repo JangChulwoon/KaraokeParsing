@@ -4,13 +4,12 @@ import java.util.HashMap;
 import java.util.List;
 import java.util.Map;
 
-import org.apache.log4j.Logger;
 import org.karaoke.domain.Karaoke;
-import org.springframework.stereotype.Component;
 
-public class CacheTJ {
-	private static Map<String, List<Karaoke>> cachedSong = new HashMap<String, List<Karaoke>>();
-	private static Map<String, List<Karaoke>> cachedSinger = new HashMap<String, List<Karaoke>>();
+
+public  class CacheTJ {
+	private static final Map<String, List<Karaoke>> cachedSong = new HashMap<String, List<Karaoke>>();
+	private static final Map<String, List<Karaoke>> cachedSinger = new HashMap<String, List<Karaoke>>();
 
 	public static void insertCached(String keyworld, String type, List<Karaoke> list) {
 		if ("singer".equals(type)) {

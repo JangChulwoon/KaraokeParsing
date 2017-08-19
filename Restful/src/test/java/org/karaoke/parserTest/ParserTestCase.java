@@ -50,7 +50,7 @@ public class ParserTestCase {
 		karaokeService.makeKaraokeNumber("TJ", "singer", "아이유");
 
 		// then
-		Assert.assertTrue(CachedUtil.isHit(cachedSinger, "singer"));
+		Assert.assertTrue(CacheTJ.isHit(cachedSinger, "singer"));
 		Assert.assertFalse(CacheTJ.isHit(uncachedSinger, "singer"));
 
 	}
@@ -94,4 +94,5 @@ public class ParserTestCase {
 		Assert.assertTrue(CacheKY.isHit(cachedSong, "song"));
 		Assert.assertFalse(CacheKY.isHit(uncachedSong, "song"));
 	}
+
 }

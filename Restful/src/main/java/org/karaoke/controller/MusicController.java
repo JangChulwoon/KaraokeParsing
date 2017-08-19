@@ -9,6 +9,7 @@ import org.apache.log4j.spi.LoggerFactory;
 import org.junit.experimental.theories.Theories;
 import org.karaoke.service.KaraokeService;
 import org.springframework.beans.factory.annotation.Autowired;
+import org.springframework.context.ApplicationContext;
 import org.springframework.ui.Model;
 import org.springframework.web.bind.annotation.GetMapping;
 import org.springframework.web.bind.annotation.PathVariable;
@@ -28,7 +29,7 @@ public class MusicController {
 
 	@GetMapping(value = { "/{company}/{type}/{title}", "/{company}/{type}/" })
 	public List<?> parseKaraoke(@PathVariable String company, @PathVariable String type, @PathVariable Optional<String> title,
-			Model model) throws IOException {
+			Model model) throws IOException {		
 		return karaokeService.makeKaraokeNumber(company, type, title.orElseGet(()->""));
 	}
 

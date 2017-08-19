@@ -17,8 +17,9 @@ public abstract class Parser {
 
 	Logger log = Logger.getLogger(this.getClass());
 
+	
+	// 조금더 생각해 볼것. 
 	public static Parser initCompany(String company) {
-
 		if ("TJ".equals(company)) {
 			return new TJParser();
 		} else if ("KY".equals(company)) {

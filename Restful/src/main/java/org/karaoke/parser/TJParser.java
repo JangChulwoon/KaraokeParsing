@@ -7,7 +7,7 @@ import java.util.List;
 
 import org.apache.log4j.Logger;
 import org.jsoup.nodes.Element;
-import org.karaoke.common.CacheTJ;
+import org.karaoke.cache.CacheTJ;
 import org.karaoke.domain.Karaoke;
 
 public class TJParser extends Parser {

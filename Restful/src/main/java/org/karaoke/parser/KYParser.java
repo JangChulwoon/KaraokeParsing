@@ -7,7 +7,7 @@ import java.util.List;
 
 import org.apache.log4j.Logger;
 import org.jsoup.nodes.Element;
-import org.karaoke.common.CacheKY;
+import org.karaoke.cache.CacheKY;
 import org.karaoke.domain.Karaoke;
 
 public class KYParser extends Parser {

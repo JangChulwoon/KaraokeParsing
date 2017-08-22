@@ -9,7 +9,9 @@ import org.apache.log4j.Logger;
 import org.jsoup.nodes.Element;
 import org.karaoke.cache.CacheKY;
 import org.karaoke.domain.Karaoke;
+import org.springframework.stereotype.Component;
 
+@Component("KY")
 public class KYParser extends Parser {
 
 	Logger log = Logger.getLogger(this.getClass());

@@ -4,6 +4,8 @@ import java.io.IOException;
 import java.util.List;
 import java.util.Optional;
 
+import javax.inject.Inject;
+
 import org.apache.log4j.Logger;
 import org.apache.log4j.spi.LoggerFactory;
 import org.junit.experimental.theories.Theories;
@@ -22,7 +24,7 @@ public class MusicController {
 
 	KaraokeService karaokeService;
 
-	@Autowired
+	@Inject
 	public void setKaraokeService(KaraokeService karaokeService) {
 		this.karaokeService = karaokeService;
 	}

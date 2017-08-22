@@ -6,24 +6,34 @@ import java.net.URLEncoder;
 import java.util.ArrayList;
 import java.util.List;
 
+import javax.annotation.Resource;
+
 import org.apache.log4j.Logger;
 import org.jsoup.Jsoup;
 import org.jsoup.nodes.Document;
 import org.jsoup.nodes.Element;
 import org.jsoup.select.Elements;
 import org.karaoke.domain.Karaoke;
+import org.springframework.beans.factory.annotation.Autowired;
+import org.springframework.stereotype.Component;
 
-public abstract class Parser {
+@Component("commonParaser")
+public class Parser {
 
 	Logger log = Logger.getLogger(this.getClass());
 
-	
-	// 조금더 생각해 볼것. 
-	public static Parser initCompany(String company) {
+	@Resource(name = "TJ")
+	Parser TJParser;
+
+	@Resource(name = "KY")
+	Parser KYParser;
+
+	// 조금더 생각해 볼것.
+	public Parser initCompany(String company) {
 		if ("TJ".equals(company)) {
-			return new TJParser();
+			return TJParser;
 		} else if ("KY".equals(company)) {
-			return new KYParser();
+			return KYParser;
 		}
 		return null;
 	}
@@ -58,8 +68,12 @@ public abstract class Parser {
 		return list;
 	}
 
+	// abstract일 경우 bean으로 등록이 안되는 문제가 발생... 
+	public List<Karaoke> parseSinger(String key) throws IOException {
+		return null;
+	}
 
-	public abstract List<Karaoke> parseSinger(String key) throws IOException;
-
-	public abstract List<Karaoke> parseTitle(String key) throws IOException;
+	public List<Karaoke> parseTitle(String key) throws IOException {
+		return null;
+	}
 }

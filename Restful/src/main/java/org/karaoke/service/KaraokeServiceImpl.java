@@ -3,6 +3,9 @@ package org.karaoke.service;
 import java.io.IOException;
 import java.util.List;
 
+import javax.annotation.Resource;
+import javax.inject.Inject;
+
 import org.apache.log4j.Logger;
 import org.karaoke.domain.Karaoke;
 import org.karaoke.parser.Parser;
@@ -14,6 +17,9 @@ import org.springframework.stereotype.Service;
 public class KaraokeServiceImpl implements KaraokeService {
 	Logger log = Logger.getLogger(this.getClass());
 
+	@Resource(name = "commonParaser")
+	Parser parser;
+	
 	public List<Karaoke> makeKaraokeNumber(String company, String type, String title) {
 		// invalidate
 		if (company == null || type == null || title == null 
@@ -21,7 +27,7 @@ public class KaraokeServiceImpl implements KaraokeService {
 			return null;
 		}
 		List<Karaoke> list = null;
-		Parser ms = Parser.initCompany(company);
+		Parser ms = parser.initCompany(company);
 		try {
 			list = ms.checkType(type, title);
 		} catch (IOException e) {

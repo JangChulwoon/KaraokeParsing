@@ -7,8 +7,9 @@
 
 
 	<!-- Root Context: defines shared resources visible to all other web components -->
-	<context:component-scan base-package="org.karaoke" />
-
+	<context:component-scan base-package="org.karaoke.parser" />
+	<context:component-scan base-package="org.karaoke.service" />
+	
 	
 	<!-- 해당 태그들은 크론탭을 설정에 필요한 태그들 -->
 	<task:scheduler id="jobScheduler" pool-size="10" />

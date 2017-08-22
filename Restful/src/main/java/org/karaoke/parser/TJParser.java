@@ -9,7 +9,9 @@ import org.apache.log4j.Logger;
 import org.jsoup.nodes.Element;
 import org.karaoke.cache.CacheTJ;
 import org.karaoke.domain.Karaoke;
+import org.springframework.stereotype.Component;
 
+@Component("TJ")
 public class TJParser extends Parser {
 
 	Logger log = Logger.getLogger(this.getClass());

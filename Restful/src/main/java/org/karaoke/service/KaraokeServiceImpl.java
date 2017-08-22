@@ -17,9 +17,13 @@ import org.springframework.stereotype.Service;
 public class KaraokeServiceImpl implements KaraokeService {
 	Logger log = Logger.getLogger(this.getClass());
 
-	@Resource(name = "commonParaser")
 	Parser parser;
 	
+	@Resource(name = "commonParaser")
+	public void setParser(Parser parser) {
+		this.parser = parser;
+	}
+
 	public List<Karaoke> makeKaraokeNumber(String company, String type, String title) {
 		// invalidate
 		if (company == null || type == null || title == null 

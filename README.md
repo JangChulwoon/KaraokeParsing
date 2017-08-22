@@ -152,7 +152,31 @@ service 계층 추가.
 > 2017 .08.16
 
 TJ Cache 구현 완료       
-KY 구현 후, 관련부분 리펙토링 예정.       
+KY 구현 후, 관련부분 리펙토링 예정.        
+
+> 2017 .08.17   
+
+KY 캐싱 구현.      
+
+> 2017 08.22       
+
+전략패턴 부분의 new 키워드 삭제.    
+
+    
+	그 과정에서 추상클래스 였던 Parser를 일반클래스로 돌리고
+	abstract method들의 반환값을 null로 설정.     
+
+	// abstract일 경우 bean으로 등록이 안되는 문제가 발생... 
+	public List<Karaoke> parseSinger(String key) throws IOException {
+		return null;
+	}
+
+	public List<Karaoke> parseTitle(String key) throws IOException {
+		return null;
+	}
+
+해당 부분들은 자식 Class에서 Override를 하여 사용.      
+
 
 
 

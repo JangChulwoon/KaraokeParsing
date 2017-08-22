@@ -5,18 +5,30 @@ import java.io.UnsupportedEncodingException;
 import java.net.URLEncoder;
 import java.util.List;
 
+import javax.annotation.Resource;
+import javax.inject.Inject;
+
 import org.apache.log4j.Logger;
 import org.junit.Assert;
+import org.junit.Before;
 import org.junit.Test;
 import org.junit.runner.RunWith;
+import org.karaoke.cache.Cache;
 import org.karaoke.cache.CacheKY;
 import org.karaoke.cache.CacheTJ;
 import org.karaoke.domain.Karaoke;
+import org.karaoke.parser.Parser;
 import org.karaoke.service.KaraokeService;
+import org.mockito.Mock;
+import org.mockito.MockitoAnnotations;
 import org.springframework.beans.factory.annotation.Autowired;
+import org.springframework.context.annotation.Bean;
 import org.springframework.test.context.ContextConfiguration;
 import org.springframework.test.context.junit4.SpringJUnit4ClassRunner;
 import org.springframework.test.context.web.WebAppConfiguration;
+
+
+import static org.mockito.Mockito.*;
 
 @WebAppConfiguration
 @RunWith(SpringJUnit4ClassRunner.class)
@@ -27,6 +39,18 @@ public class ParserTestCase {
 	@Autowired
 	KaraokeService karaokeService;
 
+	@Resource(name = "TJCache")
+	Cache CacheTJ;
+	
+	@Resource(name = "KYCache")
+	Cache CacheKY;
+	
+	@Before
+	public void setUp() {
+		MockitoAnnotations.initMocks(this); 
+	}
+	
+	
 	@Test
 	public void ParseTJ() throws IOException {
 		List<Karaoke> list = karaokeService.makeKaraokeNumber("TJ", "singer", "아이유");
@@ -37,7 +61,6 @@ public class ParserTestCase {
 	@Test
 	public void ParseKJ() throws IOException {
 		List<Karaoke> list = karaokeService.makeKaraokeNumber("KY", "song", "첫눈");
-		log.info(list.toString());
 		Assert.assertNotNull(list);
 	}
 

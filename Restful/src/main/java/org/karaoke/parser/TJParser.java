@@ -5,8 +5,11 @@ import java.io.UnsupportedEncodingException;
 import java.net.URLEncoder;
 import java.util.List;
 
+import javax.annotation.Resource;
+
 import org.apache.log4j.Logger;
 import org.jsoup.nodes.Element;
+import org.karaoke.cache.Cache;
 import org.karaoke.cache.CacheTJ;
 import org.karaoke.domain.Karaoke;
 import org.springframework.stereotype.Component;
@@ -16,6 +19,9 @@ public class TJParser extends Parser {
 
 	Logger log = Logger.getLogger(this.getClass());
 
+	@Resource(name = "TJCache")
+	Cache Cache;
+	
 	public List<Karaoke> parseSinger(String keyworld) throws IOException {
 		String url = "https://www.tjmedia.co.kr/tjsong/song_search_list.asp?strType=2&strText=" + keyworld
 				+ "&strSize02=10";
@@ -32,16 +38,16 @@ public class TJParser extends Parser {
 	private List<Karaoke> buildCached(String keyworld, String cachedType, String url)
 			throws UnsupportedEncodingException {
 		keyworld = URLEncoder.encode(keyworld, "UTF-8");
-		if (CacheTJ.isHit(keyworld, cachedType)) {
+		if (Cache.isHit(keyworld, cachedType)) {
 			log.info("hit!!");
-			return CacheTJ.getCached(keyworld, cachedType);
+			return Cache.getCached(keyworld, cachedType);
 		} else {
-			CacheTJ.insertCached(keyworld, cachedType,
+			Cache.insertCached(keyworld, cachedType,
 					parseHtmlToText(url, "table.board_type1 tr:has(td)", (Element e, List<Karaoke> list) -> {
 						makeKaraoke(e, list);
 					}));
 		}
-		return CacheTJ.getCached(keyworld, cachedType);
+		return Cache.getCached(keyworld, cachedType);
 	}
 
 	private void makeKaraoke(Element e, List<Karaoke> list) {

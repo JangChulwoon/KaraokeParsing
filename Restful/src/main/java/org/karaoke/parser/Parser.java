@@ -22,11 +22,18 @@ public class Parser {
 
 	Logger log = Logger.getLogger(this.getClass());
 
-	@Resource(name = "TJ")
 	Parser TJParser;
+	Parser KYParser;
+
+	@Resource(name = "TJ")
+	public void setTJParser(Parser tJParser) {
+		TJParser = tJParser;
+	}
 
 	@Resource(name = "KY")
-	Parser KYParser;
+	public void setKYParser(Parser kYParser) {
+		KYParser = kYParser;
+	}
 
 	// 조금더 생각해 볼것.
 	public Parser initCompany(String company) {
@@ -68,7 +75,7 @@ public class Parser {
 		return list;
 	}
 
-	// abstract일 경우 bean으로 등록이 안되는 문제가 발생... 
+	// abstract일 경우 bean으로 등록이 안되는 문제가 발생...
 	public List<Karaoke> parseSinger(String key) throws IOException {
 		return null;
 	}

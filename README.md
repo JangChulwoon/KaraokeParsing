@@ -124,15 +124,6 @@ parseTitle 과 parseSinger의 공통된 부분을 분리하는 과정에서, par
 <img src="./classDiagram.jpg" >          
 
 
-
-+ 추가해야 할 부분  
-    
-      
- 1. 캐싱 (진행중)
- 2. Java doc 진행 
- 3. Scheduling 진행 
-
-
 #### 패치노트   
 
 > ~ 2016.12       
@@ -177,6 +168,14 @@ KY 캐싱 구현.
 
 해당 부분들은 자식 Class에서 Override를 하여 사용.      
 
+Cache 부분을 구조화하고, 객체를 Spring이 관리하게끔 수정      
 
 
 
+
++ 추가해야 할 부분  
+    
+      
+ 1. 캐싱 (진행중) - Scheduler을 통한 데이터 관리 진행해야함.
+ 2. Java doc 진행 
+ 3. Scheduling 진행 

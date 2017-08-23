@@ -14,4 +14,7 @@ public interface Cache {
 	public List<Karaoke> getCached(String keyworld, String type);
 
 	public boolean isHit(String keyworld, String type);
+	
+	public void destroyCache();
+	
 }

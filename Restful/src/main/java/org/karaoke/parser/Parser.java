@@ -21,19 +21,11 @@ import org.springframework.stereotype.Component;
 public class Parser {
 
 	Logger log = Logger.getLogger(this.getClass());
-
-	Parser TJParser;
-	Parser KYParser;
-
+	
 	@Resource(name = "TJ")
-	public void setTJParser(Parser tJParser) {
-		TJParser = tJParser;
-	}
-
+	Parser TJParser;
 	@Resource(name = "KY")
-	public void setKYParser(Parser kYParser) {
-		KYParser = kYParser;
-	}
+	Parser KYParser;
 
 	// 조금더 생각해 볼것.
 	public Parser initCompany(String company) {

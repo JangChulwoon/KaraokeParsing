@@ -6,16 +6,16 @@ import java.util.Map;
 import java.util.concurrent.ConcurrentHashMap;
 
 import org.apache.log4j.Logger;
-import org.karaoke.domain.Karaoke;
+import org.karaoke.domain.KaraokeBuild;
 import org.springframework.stereotype.Component;
 
 @Component("TJCache")
 public class CacheTJ implements Cache {
 	private final Logger logger = Logger.getLogger(this.getClass());
-	private Map<String, List<Karaoke>> cachedSong = new HashMap<String, List<Karaoke>>();
-	private Map<String, List<Karaoke>> cachedSinger = new HashMap<String, List<Karaoke>>();
+	private Map<String, List<KaraokeBuild>> cachedSong = new HashMap<String, List<KaraokeBuild>>();
+	private Map<String, List<KaraokeBuild>> cachedSinger = new HashMap<String, List<KaraokeBuild>>();
 
-	public void insertCached(String keyworld, String type, List<Karaoke> list) {	
+	public void insertCached(String keyworld, String type, List<KaraokeBuild> list) {	
 		if ("singer".equals(type)) {
 			cachedSinger.put(keyworld, list);
 		} else {
@@ -23,7 +23,7 @@ public class CacheTJ implements Cache {
 		}
 	}
 
-	public List<Karaoke> getCached(String keyworld, String type) {
+	public List<KaraokeBuild> getCached(String keyworld, String type) {
 		if ("singer".equals(type)) {
 			return cachedSinger.get(keyworld);
 		}

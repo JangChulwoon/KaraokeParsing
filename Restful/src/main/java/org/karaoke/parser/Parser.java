@@ -13,7 +13,7 @@ import org.jsoup.Jsoup;
 import org.jsoup.nodes.Document;
 import org.jsoup.nodes.Element;
 import org.jsoup.select.Elements;
-import org.karaoke.domain.Karaoke;
+import org.karaoke.domain.KaraokeBuild;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Component;
 
@@ -37,7 +37,7 @@ public class Parser {
 		return null;
 	}
 
-	public List<Karaoke> checkType(String category, String name) throws IOException {
+	public List<KaraokeBuild> checkType(String category, String name) throws IOException {
 		// need cachedMap
 		if ("song".equals(category)) {
 			return this.parseTitle(name);
@@ -48,8 +48,8 @@ public class Parser {
 		}
 	}
 
-	protected List<Karaoke> parseHtmlToText(String url, String selector, ParserCallback callback) {
-		List<Karaoke> list = new ArrayList<Karaoke>();
+	protected List<KaraokeBuild> parseHtmlToText(String url, String selector, ParserCallback callback) {
+		List<KaraokeBuild> list = new ArrayList<KaraokeBuild>();
 		try {
 			Document doc = Jsoup.connect(url).get();
 			Elements tds = doc.select(selector);
@@ -68,11 +68,11 @@ public class Parser {
 	}
 
 	// abstract일 경우 bean으로 등록이 안되는 문제가 발생...
-	public List<Karaoke> parseSinger(String key) throws IOException {
+	public List<KaraokeBuild> parseSinger(String key) throws IOException {
 		return null;
 	}
 
-	public List<Karaoke> parseTitle(String key) throws IOException {
+	public List<KaraokeBuild> parseTitle(String key) throws IOException {
 		return null;
 	}
 }

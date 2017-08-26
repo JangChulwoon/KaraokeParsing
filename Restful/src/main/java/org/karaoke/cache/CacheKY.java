@@ -5,17 +5,17 @@ import java.util.List;
 import java.util.Map;
 import java.util.concurrent.ConcurrentHashMap;
 
-import org.karaoke.domain.Karaoke;
+import org.karaoke.domain.KaraokeBuild;
 import org.springframework.stereotype.Component;
 
 @Component("KYCache")
 public class CacheKY implements Cache {
 
 	// 동기화 문제가 없나 ? HashTable ? ConcurrentHashMap !
-	private Map<String, List<Karaoke>> cachedSong = new ConcurrentHashMap<String, List<Karaoke>>();
-	private Map<String, List<Karaoke>> cachedSinger = new ConcurrentHashMap<String, List<Karaoke>>();
+	private Map<String, List<KaraokeBuild>> cachedSong = new ConcurrentHashMap<String, List<KaraokeBuild>>();
+	private Map<String, List<KaraokeBuild>> cachedSinger = new ConcurrentHashMap<String, List<KaraokeBuild>>();
 
-	public void insertCached(String keyworld, String type, List<Karaoke> list) {
+	public void insertCached(String keyworld, String type, List<KaraokeBuild> list) {
 		if ("singer".equals(type)) {
 			cachedSinger.put(keyworld, list);
 		} else {
@@ -23,7 +23,7 @@ public class CacheKY implements Cache {
 		}
 	}
 
-	public List<Karaoke> getCached(String keyworld, String type) {
+	public List<KaraokeBuild> getCached(String keyworld, String type) {
 		if ("singer".equals(type)) {
 			return cachedSinger.get(keyworld);
 		}

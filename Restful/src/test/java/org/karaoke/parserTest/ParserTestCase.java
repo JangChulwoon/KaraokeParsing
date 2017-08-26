@@ -16,7 +16,7 @@ import org.junit.runner.RunWith;
 import org.karaoke.cache.Cache;
 import org.karaoke.cache.CacheKY;
 import org.karaoke.cache.CacheTJ;
-import org.karaoke.domain.Karaoke;
+import org.karaoke.domain.KaraokeBuild;
 import org.karaoke.parser.Parser;
 import org.karaoke.service.KaraokeService;
 import org.mockito.Mock;
@@ -53,14 +53,14 @@ public class ParserTestCase {
 	
 	@Test
 	public void ParseTJ() throws IOException {
-		List<Karaoke> list = karaokeService.makeKaraokeNumber("TJ", "singer", "아이유");
+		List<KaraokeBuild> list = karaokeService.makeKaraokeNumber("TJ", "singer", "아이유");
 
 		Assert.assertNotNull(list);
 	}
 
 	@Test
 	public void ParseKJ() throws IOException {
-		List<Karaoke> list = karaokeService.makeKaraokeNumber("KY", "song", "첫눈");
+		List<KaraokeBuild> list = karaokeService.makeKaraokeNumber("KY", "song", "첫눈");
 		Assert.assertNotNull(list);
 	}
 
@@ -97,7 +97,7 @@ public class ParserTestCase {
 		String uncachedSinger = URLEncoder.encode("10cm", "UTF-8");
 
 		// should
-		List<Karaoke> list = karaokeService.makeKaraokeNumber("KY", "singer", "아이유");
+		List<KaraokeBuild> list = karaokeService.makeKaraokeNumber("KY", "singer", "아이유");
 
 		// then
 		Assert.assertTrue(CacheKY.isHit(cachedSinger, "singer"));

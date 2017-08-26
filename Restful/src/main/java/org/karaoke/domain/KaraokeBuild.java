@@ -3,8 +3,7 @@ package org.karaoke.domain;
 import org.apache.commons.lang3.builder.ToStringBuilder;
 import org.apache.commons.lang3.builder.ToStringStyle;
 
-// class 명이 이래도 될지 .. 
-public class Karaoke {
+public class KaraokeBuild {
 	private String number;
 	private String title;
 	private String singer;
@@ -15,40 +14,45 @@ public class Karaoke {
 		return number;
 	}
 
-	public void setNumber(String number) {
+	public KaraokeBuild setNumber(String number) {
 		this.number = number;
+		return this;
 	}
 
 	public String getTitle() {
 		return title;
 	}
 
-	public void setTitle(String title) {
+	public KaraokeBuild setTitle(String title) {
 		this.title = title;
+		return this;
 	}
 
 	public String getSinger() {
 		return singer;
 	}
 
-	public void setSinger(String singer) {
+	public KaraokeBuild setSinger(String singer) {
 		this.singer = singer;
+		return this;
 	}
 
 	public String getLyricist() {
 		return lyricist;
 	}
 
-	public void setLyricist(String lyricist) {
+	public KaraokeBuild setLyricist(String lyricist) {
 		this.lyricist = lyricist;
+		return this;
 	}
 
 	public String getComposer() {
 		return composer;
 	}
 
-	public void setComposer(String composer) {
+	public KaraokeBuild setComposer(String composer) {
 		this.composer = composer;
+		return this;
 	}
 
 	@Override

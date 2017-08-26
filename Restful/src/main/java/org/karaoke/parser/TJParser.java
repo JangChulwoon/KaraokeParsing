@@ -11,7 +11,7 @@ import org.apache.log4j.Logger;
 import org.jsoup.nodes.Element;
 import org.karaoke.cache.Cache;
 import org.karaoke.cache.CacheTJ;
-import org.karaoke.domain.Karaoke;
+import org.karaoke.domain.KaraokeBuild;
 import org.springframework.stereotype.Component;
 
 @Component("TJ")
@@ -22,20 +22,20 @@ public class TJParser extends Parser {
 	@Resource(name = "TJCache")
 	Cache Cache;
 	
-	public List<Karaoke> parseSinger(String keyworld) throws IOException {
+	public List<KaraokeBuild> parseSinger(String keyworld) throws IOException {
 		String url = "https://www.tjmedia.co.kr/tjsong/song_search_list.asp?strType=2&strText=" + keyworld
 				+ "&strSize02=10";
 		return buildCached(keyworld, "singer", url);
 	}
 
-	public List<Karaoke> parseTitle(String keyworld) throws IOException {
+	public List<KaraokeBuild> parseTitle(String keyworld) throws IOException {
 		String url = "https://www.tjmedia.co.kr/tjsong/song_search_list.asp?strType=1&strText=" + keyworld
 				+ "&strCond=0&strSize01=10";
 		return buildCached(keyworld, "song", url);
 	}
 
 	// KY 도 구현하고 나면 util로 만들 수 있지 않을까 ????
-	private List<Karaoke> buildCached(String keyworld, String cachedType, String url)
+	private List<KaraokeBuild> buildCached(String keyworld, String cachedType, String url)
 			throws UnsupportedEncodingException {
 		keyworld = URLEncoder.encode(keyworld, "UTF-8");
 		if (Cache.isHit(keyworld, cachedType)) {
@@ -43,15 +43,15 @@ public class TJParser extends Parser {
 			return Cache.getCached(keyworld, cachedType);
 		} else {
 			Cache.insertCached(keyworld, cachedType,
-					parseHtmlToText(url, "table.board_type1 tr:has(td)", (Element e, List<Karaoke> list) -> {
+					parseHtmlToText(url, "table.board_type1 tr:has(td)", (Element e, List<KaraokeBuild> list) -> {
 						makeKaraoke(e, list);
 					}));
 		}
 		return Cache.getCached(keyworld, cachedType);
 	}
 
-	private void makeKaraoke(Element e, List<Karaoke> list) {
-		Karaoke karaoke = new Karaoke();
+	private void makeKaraoke(Element e, List<KaraokeBuild> list) {
+		KaraokeBuild karaoke = new KaraokeBuild();
 		karaoke.setNumber(e.child(0).text());
 		karaoke.setTitle(e.child(1).text());
 		karaoke.setSinger(e.child(2).text());

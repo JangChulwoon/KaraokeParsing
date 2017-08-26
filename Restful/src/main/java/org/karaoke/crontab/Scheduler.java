@@ -17,7 +17,6 @@ public class Scheduler {
 	@Resource(name = "KYCache")
 	Cache KYCache;
 	
-	
 	@Scheduled(cron = "10 * * * * *")
 	public void cronTest1() {
 		logger.info("Cache Clear");

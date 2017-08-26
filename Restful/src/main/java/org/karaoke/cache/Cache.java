@@ -4,14 +4,14 @@ import java.util.List;
 
 import javax.annotation.Resource;
 
-import org.karaoke.domain.Karaoke;
+import org.karaoke.domain.KaraokeBuild;
 import org.springframework.stereotype.Component;
 
 public interface Cache {
 
-	public void insertCached(String keyworld, String type, List<Karaoke> list);
+	public void insertCached(String keyworld, String type, List<KaraokeBuild> list);
 
-	public List<Karaoke> getCached(String keyworld, String type);
+	public List<KaraokeBuild> getCached(String keyworld, String type);
 
 	public boolean isHit(String keyworld, String type);
 	

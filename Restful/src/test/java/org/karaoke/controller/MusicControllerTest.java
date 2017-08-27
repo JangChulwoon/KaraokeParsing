@@ -4,7 +4,7 @@ import static org.mockito.Mockito.*;
 import static org.springframework.test.web.servlet.request.MockMvcRequestBuilders.*;
 import static org.springframework.test.web.servlet.result.MockMvcResultHandlers.print;
 import static org.springframework.test.web.servlet.result.MockMvcResultMatchers.*;
-import static org.hamcrest.Matchers.hasSize;
+import static org.hamcrest.Matchers.*;
 import java.util.ArrayList;
 import java.util.List;
 
@@ -58,9 +58,10 @@ public class MusicControllerTest {
 		list.add(karaoke);
 		when(service.makeKaraokeNumber(company, type, title)).thenReturn(list);
 
-		// than ? 
+		
 		mvc.perform(get(url)).andExpect(content().contentType("application/json;charset=UTF-8"))
 				.andExpect(content().contentType("application/json;charset=UTF-8"))
+				.andDo(print())
 				.andExpect(jsonPath("$",hasSize(1)))
 				.andExpect(jsonPath("$[0].number").value("number"));
 		verify(service,times(1)).makeKaraokeNumber(company, type, title);

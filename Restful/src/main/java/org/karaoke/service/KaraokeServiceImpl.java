@@ -18,11 +18,14 @@ public class KaraokeServiceImpl implements KaraokeService {
 	Logger log = Logger.getLogger(this.getClass());
 
 	Parser parser;
-
+	
 	@Resource(name = "commonParaser")
 	public void setParser(Parser parser) {
 		this.parser = parser;
 	}
+
+
+
 
 	public List<KaraokeBuild> makeKaraokeNumber(String company, String type, String title) {
 		// invalidate
@@ -31,9 +34,9 @@ public class KaraokeServiceImpl implements KaraokeService {
 			return null;
 		}
 		List<KaraokeBuild> list = null;
-		Parser ms = parser.initCompany(company);
+		Parser companyParser = parser.initCompany(company);
 		try {
-			list = ms.checkType(type, title);
+			list = companyParser.checkType(type, title);
 		} catch (IOException e) {
 			// TODO Auto-generated catch block
 			e.printStackTrace();

@@ -5,6 +5,7 @@ import static org.mockito.Mockito.times;
 import static org.mockito.Mockito.verify;
 import static org.mockito.Mockito.when;
 
+import java.io.IOException;
 import java.util.ArrayList;
 import java.util.List;
 
@@ -32,6 +33,9 @@ public class KaraokeServiceTest {
 	@Mock
 	Parser parser;
 
+	@Mock 
+	Parser companyParser;
+	
 	@Before
 	public void setUp() {
 		MockitoAnnotations.initMocks(this);
@@ -43,18 +47,19 @@ public class KaraokeServiceTest {
 	// Test 할 부분이 많다 .. ?
 	
 	@Test
-	public void shouldParseKaraoke() {
+	public void shouldParseKaraoke() throws IOException {
 		String company = "KY", type = "song", title = "첫눈";
 		KaraokeBuild karaoke = new KaraokeBuild();
 		karaoke.setNumber("010").setSinger("정준일").setComposer("정준일").setTitle("첫눈").setLyricist("정준일");
 		List<KaraokeBuild> list = new ArrayList<KaraokeBuild>();
-		when(parser.initCompany(company)).thenReturn(new KYParser());
-		when(service.makeKaraokeNumber(company, type, title)).thenReturn(list);
+		when(parser.initCompany(company)).thenReturn(companyParser);
+		when(companyParser.checkType(type,title)).thenReturn(list);
 
 		// when
 		List<KaraokeBuild> returnKategory = service.makeKaraokeNumber(company, type, title);
 
-		verify(service, times(1)).makeKaraokeNumber(company, type, title);
+		verify(parser,times(1)).initCompany(company);
+		verify(companyParser,times(1)).checkType(type,title);
 		Assert.assertThat(list, is(returnKategory));
 	}
 

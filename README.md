@@ -176,10 +176,21 @@ Cache 부분을 구조화하고, 객체를 Spring이 관리하게끔 수정
 단순한 Cache 비우는 Util 생성 .      
 AWS 서버 재 설정 중 ...  
 
+> 2017 08.26       
+
+controller Layer Test Case 작성 완료         
+
+> 2017 08.27    
+
+Service Layer Test Case 작성 완료          
+Parser Layer Test Case 작성 완료      
+ 
+
+
 
 + 추가해야 할 부분  
     
       
- 1. 캐싱 (진행중) - Scheduler을 통한 데이터 관리 진행해야함.
+ 1. 캐싱 관리 (진행중) - Scheduler을 통한 데이터 관리 진행해야함.
  2. Java doc 진행 
- 3. Scheduling 진행 
+

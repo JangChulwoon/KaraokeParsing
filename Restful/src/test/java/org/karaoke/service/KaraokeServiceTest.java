@@ -44,7 +44,6 @@ public class KaraokeServiceTest {
 	}
 
 	
-	// Test 할 부분이 많다 .. ?
 	
 	@Test
 	public void shouldParseKaraoke() throws IOException {

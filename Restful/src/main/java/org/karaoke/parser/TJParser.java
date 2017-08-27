@@ -33,6 +33,11 @@ public class TJParser extends Parser {
 				+ "&strCond=0&strSize01=10";
 		return buildCached(keyworld, "song", url);
 	}
+	
+	public List<KaraokeBuild> parseNumber(String keyworld) throws IOException {
+		String url = "https://www.tjmedia.co.kr/tjsong/song_search_list.asp?searchOrderItem=&searchOrderType=&strCond=1&strType=16&strWord=1&strText=" + keyworld;
+		return buildCached(keyworld, "number", url);
+	}
 
 	// KY 도 구현하고 나면 util로 만들 수 있지 않을까 ????
 	private List<KaraokeBuild> buildCached(String keyworld, String cachedType, String url)

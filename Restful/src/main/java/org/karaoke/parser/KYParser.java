@@ -36,6 +36,13 @@ public class KYParser extends Parser {
 				+ URLEncoder.encode(keyworld, "euc-kr") + "&page=1";
 		return buildCached(keyworld, "song", url);
 	}
+	
+	@Override
+	public List<KaraokeBuild> parseNumber(String keyworld) throws IOException {
+		String url = "http://www.ikaraoke.kr/isong/search_musictitle.asp?sch_sel=1&sch_txt="
+				+ keyworld + "&page=1";
+		return buildCached(keyworld, "number", url);
+	}
 
 	// KY 도 구현하고 나면 util로 만들 수 있지 않을까 ????
 	private List<KaraokeBuild> buildCached(String keyworld, String cachedType, String url)

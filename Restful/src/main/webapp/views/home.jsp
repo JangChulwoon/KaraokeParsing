@@ -10,10 +10,10 @@
 	<input type="radio" name="company" value="TJ" checked> 금영 ::
 	<input type="radio" name="company" value="KY">
 
-	<br> 가수 ::
-	<input type="radio" name="type" value="singer" checked> 제목 ::
-	<input type="radio" name="type" value="song">
-
+	<br> 
+	가수 ::<input type="radio" name="type" value="singer" checked> 
+	제목 ::<input type="radio" name="type" value="song"> 
+	번호 ::<input type="radio" name="type" value="number">
 	<br> 입력 ::
 	<input id="title" type="text" size="25">
 

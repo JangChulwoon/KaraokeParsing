@@ -43,9 +43,10 @@ public class Parser {
 			return this.parseTitle(name);
 		} else if ("singer".equals(category)) {
 			return this.parseSinger(name);
-		} else {
-			return null;
+		} else if("number".equals(category)) {
+			return this.parseNumber(name);
 		}
+		return null;
 	}
 
 	protected List<KaraokeBuild> parseHtmlToText(String url, String selector, ParserCallback callback) {
@@ -61,18 +62,22 @@ public class Parser {
 				return null;
 			}
 		} catch (IOException exception) {
-
-			this.parseHtmlToText(url, selector, callback);
+			//this.parseHtmlToText(url, selector, callback);
 		}
 		return list;
 	}
 
 	// abstract일 경우 bean으로 등록이 안되는 문제가 발생...
-	public List<KaraokeBuild> parseSinger(String key) throws IOException {
+	public List<KaraokeBuild> parseSinger(String name) throws IOException {
 		return null;
 	}
 
-	public List<KaraokeBuild> parseTitle(String key) throws IOException {
+	public List<KaraokeBuild> parseTitle(String name) throws IOException {
 		return null;
 	}
+	
+	public List<KaraokeBuild> parseNumber(String name) throws IOException {
+		return null;
+	}
+	
 }

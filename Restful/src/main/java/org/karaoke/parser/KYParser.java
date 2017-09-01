@@ -20,8 +20,12 @@ public class KYParser extends Parser {
 
 	Logger log = Logger.getLogger(this.getClass());
 
-	@Resource(name = "KYCache")
 	Cache Cache;
+	
+	@Resource(name = "KYCache")
+	public void setCache(Cache cache) {
+		this.Cache = cache;
+	}
 	
 	@Override
 	public List<KaraokeBuild> parseSinger(String keyworld) throws IOException {

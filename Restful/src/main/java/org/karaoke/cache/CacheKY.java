@@ -1,5 +1,6 @@
 package org.karaoke.cache;
 
+import java.util.ArrayList;
 import java.util.HashMap;
 import java.util.List;
 import java.util.Map;
@@ -17,6 +18,10 @@ public class CacheKY implements Cache {
 	private Map<String, List<KaraokeBuild>> cachedNumber = new ConcurrentHashMap<String, List<KaraokeBuild>>();
 
 	public void insertCached(String keyworld, String type, List<KaraokeBuild> list) {
+		if(!Cache.super.isNotNullList(list)) {
+			list = new ArrayList<>();
+		}
+		// should modify method structure #1
 		if ("singer".equals(type)) {
 			cachedSinger.put(keyworld, list);
 		}else if("number".equals(type)) {

@@ -13,6 +13,7 @@ import org.jsoup.Jsoup;
 import org.jsoup.nodes.Document;
 import org.jsoup.nodes.Element;
 import org.jsoup.select.Elements;
+import org.karaoke.cache.Cache;
 import org.karaoke.domain.KaraokeBuild;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Component;
@@ -27,6 +28,13 @@ public class Parser {
 	@Resource(name = "KY")
 	Parser KYParser;
 
+	Cache Cache;
+	
+	public void setCache(Cache cache) {
+		Cache = cache;
+	}
+	
+	
 	// 조금더 생각해 볼것.
 	public Parser initCompany(String company) {
 		if ("TJ".equals(company)) {

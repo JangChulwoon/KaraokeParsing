@@ -19,23 +19,30 @@ public class TJParser extends Parser {
 
 	Logger log = Logger.getLogger(this.getClass());
 
-	@Resource(name = "TJCache")
 	Cache Cache;
 	
+	@Resource(name = "TJCache")
+	public void setCache(Cache cache) {
+		this.Cache = cache;
+	}
+
 	public List<KaraokeBuild> parseSinger(String keyworld) throws IOException {
 		String url = "https://www.tjmedia.co.kr/tjsong/song_search_list.asp?strType=2&strText=" + keyworld
 				+ "&strSize02=10";
+		log.info("TJ singer"+url);
 		return buildCached(keyworld, "singer", url);
 	}
 
 	public List<KaraokeBuild> parseTitle(String keyworld) throws IOException {
 		String url = "https://www.tjmedia.co.kr/tjsong/song_search_list.asp?strType=1&strText=" + keyworld
 				+ "&strCond=0&strSize01=10";
+		log.info("TJ title   "+url);
 		return buildCached(keyworld, "song", url);
 	}
 	
 	public List<KaraokeBuild> parseNumber(String keyworld) throws IOException {
 		String url = "https://www.tjmedia.co.kr/tjsong/song_search_list.asp?searchOrderItem=&searchOrderType=&strCond=1&strType=16&strWord=1&strText=" + keyworld;
+		log.info("TJ number"+url);
 		return buildCached(keyworld, "number", url);
 	}
 

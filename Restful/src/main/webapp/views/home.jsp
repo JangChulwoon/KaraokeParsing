@@ -63,7 +63,7 @@
 			var template = Handlebars.compile(source);
 			//template(data);
 
-			$("#title").keyup($.debounce( 250,makeTextBox));
+			$("#title").keyup($.debounce( 800,makeTextBox));
 
 			function makeTextBox() {
 				var company = $("input[name=company]:checked").val();

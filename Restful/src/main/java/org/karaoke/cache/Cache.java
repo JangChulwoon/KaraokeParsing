@@ -1,5 +1,6 @@
 package org.karaoke.cache;
 
+import java.util.ArrayList;
 import java.util.List;
 
 import javax.annotation.Resource;
@@ -9,7 +10,11 @@ import org.springframework.stereotype.Component;
 
 public interface Cache {
 
-	public void insertCached(String keyworld, String type, List<KaraokeBuild> list);
+	default void insertCached(String keyworld, String type, List<KaraokeBuild> list) {
+		if(isNotNullList(list)) {
+			list = new ArrayList<>();
+		}
+	}
 	
 	default boolean isNotNullList(List<KaraokeBuild> list) {
 		if(list == null || list.size() ==0) {

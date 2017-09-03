@@ -50,6 +50,8 @@ controller에서 RESTful한 방식으로 url을 설계했습니다.
  
 company 와 category(String)를 받아, Factory Pattern으로 객체를 생성했습니다.    
     
+####  이전 ver     
+
 	// 객체 생성
 	Parser ms = Parser.initCompany(company);
 
@@ -76,6 +78,32 @@ company 와 category(String)를 받아, Factory Pattern으로 객체를 생성�
 		}
 	}      
 
+#### 이후 ver     
+
+	// 객체 생성
+	Parser ms = Parser.initCompany(company);
+		
+	// 구현부
+
+	@Resources(name = "TJ")
+	Parser TJParser;
+	@Resources(name = "KY")
+	Parser KYParser;
+
+
+	public static Parser initCompany(String info) {
+		// 회사 추출
+		if ("TJ".equals(company)) {
+			return TJParser;
+		} else if ("KY".equals(company)) {
+			return KYParser;
+		}
+		return null;
+	} 
+ 
+매번 요청마다 객체를 생성하는 것이 비효율적일 뿐더러, Spring을 사용하면서 DI를 사용하지 않는 다는점에서 보기 좋지않은 코드인것 같아 위와같이 수정하였습니다.      
+
+
 > Template Pattern을 공부하면서 작성했던 부분 입니다.  
 > 구현은 하위 클래스에게 맡기고, abstruct class 에선 메서드 선언만 해두었습니다.     
 
@@ -99,7 +127,9 @@ parseTitle 과 parseSinger의 공통된 부분을 분리하는 과정에서, par
 		}
 	
 		return list;
-	}
+	}   
+
+
 해당 함수는 url과 selector, ParserCallback 받고, 내부 구현은 ParserCallback의 함수를 사용합니다. jdbc template의 callback 함수를 보고 영감(?)을 받아 위와같이 구현했습니다.         
 
 	public interface ParserCallback {
@@ -185,12 +215,31 @@ controller Layer Test Case 작성 완료
 Service Layer Test Case 작성 완료          
 Parser Layer Test Case 작성 완료      
  
+> 2017 9.01      
+
+ConcurrentHashMap으로 수정하면서 발생한 NullPoint Error 해결     
+
+이전엔 HashMap을 사용했지만, thread safe 하지 않으므로 ConcurrentHashMap 사용.     
+
+HashTable 과 ConcurrentHashMap의 차이는 synchronized를 메소드에 적용하는지, 메소드 내부에 적용하는지에 대한 차이.      
+
+ConcurrentHashMap이 내부에  synchronized을 사용하는 방식으로 구현함. 성능 우수     
+관련 내용은 다음을 참조.      
+
+[HashMap, Hashtable, ConcurrentHashMap 동기화 처리 방식[마이너의 일상]](http://tomining.tistory.com/169)    
+
+> 2017 9.03     
+
+Java8 부터 등장한 Default Method를 사용하여 하위 Parser들의 로직 추상화진행     
+
+
+
 
 
 
 + 추가해야 할 부분  
     
-      
+ 0. I/O 관련 성능최적화 가능한지 알아볼것.       
  1. 캐싱 관리 (진행중) - Scheduler을 통한 데이터 관리 진행해야함.
  2. Java doc 진행 
 

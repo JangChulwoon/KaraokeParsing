@@ -18,13 +18,11 @@ public class CacheTJ implements Cache {
 	private Map<String, List<KaraokeBuild>> cachedNumber = new ConcurrentHashMap<String, List<KaraokeBuild>>();
 
 	public void insertCached(String keyworld, String type, List<KaraokeBuild> list) {
-		Cache.super.insertCached(keyworld, type, list);
 		if ("singer".equals(type)) {
 			cachedSinger.put(keyworld, list);
 		} else if ("number".equals(type)) {
 			cachedNumber.put(keyworld, list);
 		} else if("song".equals(type)){
-			System.out.println("insert");
 			cachedSong.put(keyworld, list);
 		}
 	}

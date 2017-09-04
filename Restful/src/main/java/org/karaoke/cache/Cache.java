@@ -10,19 +10,8 @@ import org.springframework.stereotype.Component;
 
 public interface Cache {
 
-	default void insertCached(String keyworld, String type, List<KaraokeBuild> list) {
-		if(isNotNullList(list)) {
-			list = new ArrayList<>();
-		}
-	}
+	void insertCached(String keyworld, String type, List<KaraokeBuild> list);
 	
-	default boolean isNotNullList(List<KaraokeBuild> list) {
-		if(list == null || list.size() ==0) {
-			return false;
-		}
-		return true;
-	}
-
 	public List<KaraokeBuild> getCached(String keyworld, String type);
 
 	public boolean isHit(String keyworld, String type);

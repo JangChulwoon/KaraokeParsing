@@ -23,11 +23,7 @@ public class ParserTest {
 	@Resource(name = "commonParaser")
 	Parser parser;
 
-	@Resource(name = "TJCache")
-	Cache CacheTJ;
 
-	@Resource(name = "KYCache")
-	Cache CacheKY;
 
 	@Test
 	public void shouldInitCompanyTJ() throws IOException {

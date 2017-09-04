@@ -60,14 +60,15 @@ public class Parser {
 	protected List<KaraokeBuild> parseHtmlToText(String url, String selector, ParserCallback callback) {
 		List<KaraokeBuild> list = new ArrayList<KaraokeBuild>();
 		try {
-			Document doc = Jsoup.connect(url).get();
+			Document doc = Jsoup.connect(url).timeout(5000).get();
 			Elements tds = doc.select(selector);
+			int size = tds.size();
 			try {
-				for (Element e : tds) {
-					callback.HtmlToTextCallback(e, list);
+				for(int i =0; i<size; ++i) {
+					callback.HtmlToTextCallback(tds.get(i), list);
 				}
 			} catch (IndexOutOfBoundsException exception) {
-				return null;
+				return list;
 			}
 		} catch (IOException exception) {
 			//this.parseHtmlToText(url, selector, callback);

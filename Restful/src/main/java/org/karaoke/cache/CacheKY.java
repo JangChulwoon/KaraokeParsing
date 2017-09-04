@@ -18,7 +18,6 @@ public class CacheKY implements Cache {
 	private Map<String, List<KaraokeBuild>> cachedNumber = new ConcurrentHashMap<String, List<KaraokeBuild>>();
 
 	public void insertCached(String keyworld, String type, List<KaraokeBuild> list) {
-		Cache.super.insertCached(keyworld, type, list);
 		if ("singer".equals(type)) {
 			cachedSinger.put(keyworld, list);
 		}else if("number".equals(type)) {

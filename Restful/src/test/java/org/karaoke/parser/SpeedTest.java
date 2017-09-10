@@ -27,9 +27,10 @@ public class SpeedTest {
 		// one request spend 1 second ..
 		// when
 		for(int i =0; i<10; ++i) {
-			returnParser.checkType(type, i+"");
+			returnParser.runParser(type, "29");
 		}
 	}
+	
 	
 /*	@Test
 	public void shouldSpeedKY() throws IOException {
@@ -39,7 +40,7 @@ public class SpeedTest {
 		// one request spend 1 second ..
 		// when
 		for(int i =0; i<10; ++i) {
-			returnParser.checkType(type, i+"");
+			returnParser.runParser(type, i+"");
 		}
 	}*/
 }

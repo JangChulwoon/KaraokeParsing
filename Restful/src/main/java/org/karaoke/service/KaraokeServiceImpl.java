@@ -36,7 +36,7 @@ public class KaraokeServiceImpl implements KaraokeService {
 		List<KaraokeBuild> list = null;
 		Parser companyParser = parser.initCompany(company);
 		try {
-			list = companyParser.checkType(type, title);
+			list = companyParser.runParser(type, title);
 		} catch (IOException e) {
 			// TODO Auto-generated catch block
 			e.printStackTrace();

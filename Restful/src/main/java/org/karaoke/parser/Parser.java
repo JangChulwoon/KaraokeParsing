@@ -16,17 +16,21 @@ import org.jsoup.select.Elements;
 import org.karaoke.cache.Cache;
 import org.karaoke.domain.KaraokeBuild;
 import org.springframework.beans.factory.annotation.Autowired;
+import org.springframework.context.ApplicationContext;
 import org.springframework.stereotype.Component;
 
 @Component("commonParaser")
 public class Parser {
 
 	Logger log = Logger.getLogger(this.getClass());
+
+	@Autowired
+    private ApplicationContext applicationContext;
 	
-	@Resource(name = "TJ")
+/*	@Resource(name = "TJ")
 	Parser TJParser;
 	@Resource(name = "KY")
-	Parser KYParser;
+	Parser KYParser;*/
 
 	Cache Cache;
 	
@@ -37,15 +41,16 @@ public class Parser {
 	
 	// 조금더 생각해 볼것.
 	public Parser initCompany(String company) {
-		if ("TJ".equals(company)) {
+		return (Parser)applicationContext.getBean(company);
+		/*if ("TJ".equals(company)) {
 			return TJParser;
 		} else if ("KY".equals(company)) {
 			return KYParser;
 		}
-		return null;
+		return null;*/
 	}
 
-	public List<KaraokeBuild> checkType(String category, String name) throws IOException {
+	public List<KaraokeBuild> runParser(String category, String name) throws IOException {
 		// need cachedMap
 		if ("song".equals(category)) {
 			return this.parseTitle(name);

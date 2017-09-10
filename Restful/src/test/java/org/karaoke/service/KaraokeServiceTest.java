@@ -52,13 +52,13 @@ public class KaraokeServiceTest {
 		karaoke.setNumber("010").setSinger("정준일").setComposer("정준일").setTitle("첫눈").setLyricist("정준일");
 		List<KaraokeBuild> list = new ArrayList<KaraokeBuild>();
 		when(parser.initCompany(company)).thenReturn(companyParser);
-		when(companyParser.checkType(type,title)).thenReturn(list);
+		when(companyParser.runParser(type,title)).thenReturn(list);
 
 		// when
 		List<KaraokeBuild> returnKategory = service.makeKaraokeNumber(company, type, title);
 
 		verify(parser,times(1)).initCompany(company);
-		verify(companyParser,times(1)).checkType(type,title);
+		verify(companyParser,times(1)).runParser(type,title);
 		Assert.assertThat(list, is(returnKategory));
 	}
 

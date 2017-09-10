@@ -52,7 +52,7 @@ public class CacheTest {
 		Parser returnParser = parser.initCompany(company);
 
 		// when
-		returnParser.checkType(type, keyworld);
+		returnParser.runParser(type, keyworld);
 
 		// then
 		Assert.assertTrue(CacheTJ.isHit(cachedSinger, "singer"));
@@ -69,7 +69,7 @@ public class CacheTest {
 		Parser returnParser = parser.initCompany(company);
 
 		// when
-		returnParser.checkType(type, keyworld);
+		returnParser.runParser(type, keyworld);
 
 		// then
 		Assert.assertTrue(CacheTJ.isHit(cachedSinger, "song"));
@@ -85,7 +85,7 @@ public class CacheTest {
 		Parser returnParser = parser.initCompany(company);
 
 		// when
-		returnParser.checkType(type, keyworld);
+		returnParser.runParser(type, keyworld);
 
 		// then
 		Assert.assertTrue(CacheKY.isHit(cachedSinger, "singer"));
@@ -102,7 +102,7 @@ public class CacheTest {
 		Parser returnParser = parser.initCompany(company);
 
 		// when
-		returnParser.checkType(type, keyworld);
+		returnParser.runParser(type, keyworld);
 
 		// then
 		Assert.assertTrue(CacheKY.isHit(cachedSinger, "song"));
@@ -120,7 +120,7 @@ public class CacheTest {
 		returnParser.setCache(mockCachedTJ);
 
 		// when
-		returnParser.checkType(type, keyworld);
+		returnParser.runParser(type, keyworld);
 
 		// then
 		

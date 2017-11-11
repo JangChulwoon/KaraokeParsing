@@ -3,6 +3,7 @@ package org.karaoke.parser;
 import lombok.extern.slf4j.Slf4j;
 import org.junit.Test;
 import org.junit.runner.RunWith;
+import org.karaoke.domain.Category;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.boot.test.context.SpringBootTest;
 import org.springframework.test.context.junit4.SpringRunner;
@@ -19,11 +20,7 @@ public class KaraokeApplicationTests {
 
 	@Test
 	public void shouldParseSingerKY() throws IOException {
-		parser.parseSingerKY("IU");
+		parser.parseKY(Category.song,"IU",1);
 	}
 
-    @Test
-    public void shouldParseTitleKY() throws IOException {
-        log.info(" list {}", parser.parseTitleKY("노땡큐"));
-    }
 }

@@ -1,6 +1,6 @@
 package org.karaoke.domain;
 
 public enum Company {
-    singer,
-    song
+    KY,
+    TJ
 }

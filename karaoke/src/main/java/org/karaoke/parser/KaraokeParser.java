@@ -16,8 +16,7 @@ import java.util.HashMap;
 import java.util.List;
 import java.util.Map;
 
-import static org.karaoke.domain.Category.singer;
-import static org.karaoke.domain.Category.song;
+import static org.karaoke.domain.Category.*;
 
 @Component
 @Slf4j
@@ -35,8 +34,8 @@ public class KaraokeParser {
     @PostConstruct
     public void setUp() {
         argument = new HashMap<>();
-        argument.put(singer, "sch_sel=7");
-        argument.put(song, "sch_sel=2");
+        argument.put(SINGER, "sch_sel=7");
+        argument.put(SONG, "sch_sel=2");
 
     }
 

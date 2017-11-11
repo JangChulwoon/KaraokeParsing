@@ -4,6 +4,7 @@ package org.karaoke.restcontroller;
 import com.fasterxml.jackson.databind.util.JSONPObject;
 import lombok.extern.slf4j.Slf4j;
 import org.karaoke.domain.Category;
+import org.karaoke.domain.Company;
 import org.karaoke.parser.KaraokeParser;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.boot.autoconfigure.AutoConfigureOrder;
@@ -22,7 +23,7 @@ public class KaraokeController {
     KaraokeParser parser;
 
     @GetMapping("/{company}/{category}/{word}")
-    public List<?> selectKaraoke(@PathVariable String company, @PathVariable Category category, @PathVariable String word) throws IOException {
+    public List<?> selectKaraoke(@PathVariable Company company, @PathVariable Category category, @PathVariable String word) throws IOException {
         return parser.parseKY(category,word,1);
     }
 

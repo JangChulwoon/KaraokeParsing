@@ -22,7 +22,12 @@ public class KaraokeController {
 
     @GetMapping("/{company}/{category}/{word}")
     public List<?> selectKaraoke(@PathVariable String company, @PathVariable String category, @PathVariable String word) throws IOException {
-        return parser.parseKY(word);
+        if("song".equals(category)){
+            return parser.parseTitleKY(word);
+        }else if("singer".equals(category)){
+            return parser.parseSingerKY(word);
+        }
+        return null;
     }
 
 }

@@ -19,11 +19,28 @@ public class KaraokeParser {
     // 1. TJ 파서만든다
     // 2. KY 파서 만든다
     // 3. 두개를 추상화한다 .
-    private static final String url = "http://www.ikaraoke.kr/isong/search_musictitle.asp?sch_sel=7&sch_txt=";
+    private static final String singerUrl = "http://www.ikaraoke.kr/isong/search_musictitle.asp?sch_sel=7&sch_txt=";
+    private static final String titleUrl = "http://www.ikaraoke.kr/isong/search_musictitle.asp?sch_sel=2&sch_txt=";
 
 
-    public List<Karaoke> parseKY(String singer) throws IOException {
-        String requestUrl = url + URLEncoder.encode(singer, "euc-kr") + "&page=1";
+    public List<Karaoke> parseSingerKY(String singer) throws IOException {
+        String requestUrl = singerUrl + URLEncoder.encode(singer, "euc-kr") + "&page=1";
+        Document doc = Jsoup.connect(requestUrl).get();
+        Elements elements = doc.select(".tbl_board tr:has(td)");
+        List<Karaoke> list = new ArrayList<>();
+        elements.forEach(element -> {
+            Karaoke karaoke = new Karaoke()
+                    .setNumber(element.child(0).text())
+                    .setTitle(element.child(1).text())
+                    .setSinger(element.child(2).text())
+                    .setAdditionalInfo(element.child(3).text());
+            list.add(karaoke);
+        });
+        return list;
+    }
+
+    public List<Karaoke> parseTitleKY(String title) throws IOException {
+        String requestUrl = titleUrl + URLEncoder.encode(title, "euc-kr") + "&page=1";
         Document doc = Jsoup.connect(requestUrl).get();
         Elements elements = doc.select(".tbl_board tr:has(td)");
         List<Karaoke> list = new ArrayList<>();

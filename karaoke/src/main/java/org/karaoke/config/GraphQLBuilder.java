@@ -30,7 +30,7 @@ public class GraphQLBuilder {
 
     private GraphQLObjectType Karaoke = newObject()
             .name("Karaoke")
-            .description("Karaoke Bean")
+            .description("노래방 번호,제목,가수명을 갖고있는 Type 입니다. ")
             .field(newFieldDefinition()
                     .name("number")
                     .type(GraphQLString))
@@ -41,6 +41,7 @@ public class GraphQLBuilder {
                     .name("singer")
                     .type(GraphQLString))
             .build();
+
     GraphQLObjectType objectType = newObject()
             .name("selectKaraoke")
             .field(newFieldDefinition()
@@ -71,6 +72,7 @@ public class GraphQLBuilder {
     private GraphQLSchema schema = GraphQLSchema.newSchema()
             .query(objectType)
             .build();
+
     private GraphQL graphQL = GraphQL.newGraphQL(schema)
             .build();
 

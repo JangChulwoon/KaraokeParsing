@@ -8,7 +8,6 @@ public class Karaoke {
     private String number;
     private String title;
     private String singer;
-    private String additionalInfo;
 
     public String getNumber() {
         return number;
@@ -34,15 +33,6 @@ public class Karaoke {
 
     public Karaoke setSinger(String singer) {
         this.singer = singer;
-        return this;
-    }
-
-    public String getAdditionalInfo() {
-        return additionalInfo;
-    }
-
-    public Karaoke setAdditionalInfo(String additionalInfo) {
-        this.additionalInfo = additionalInfo;
         return this;
     }
 

@@ -20,7 +20,8 @@ public class KaraokeApplicationTests {
 
 	@Test
 	public void shouldParseSingerKY() throws IOException {
-		parser.parseKY(Category.SONG,"IU",1);
+		// Test를 어떻게 할것인가 ?
+		//parser.parseKY(Category.SONG,"IU",1);
 	}
 
 }

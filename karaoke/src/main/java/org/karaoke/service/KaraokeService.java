@@ -30,9 +30,16 @@ public class KaraokeService {
     @Autowired
     private ApplicationContext context;
 
-    public List<Karaoke> parseKaraoke(Argument argument, int page) throws IOException {
+    public List<Karaoke> parseKaraoke(Argument argument, int page){
+        log.info("여기 옴 ");
         Parser karaokeParser = (Parser) context.getBean(argument.getCompany().toString());
-        return karaokeParser.parse(argument,page);
+        try {
+            log.info(karaokeParser.parse(argument,page).toString());
+            return karaokeParser.parse(argument,page);
+        } catch (IOException e) {
+            log.error("Cause : {} , Message : {}",e.getCause(),e.getMessage());
+        }
+        return null;
     }
 
 }

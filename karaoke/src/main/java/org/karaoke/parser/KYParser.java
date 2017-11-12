@@ -1,5 +1,6 @@
 package org.karaoke.parser;
 
+import lombok.extern.slf4j.Slf4j;
 import org.jsoup.Jsoup;
 import org.jsoup.nodes.Document;
 import org.jsoup.select.Elements;
@@ -20,6 +21,7 @@ import static org.karaoke.domain.Category.SINGER;
 import static org.karaoke.domain.Category.SONG;
 
 @Component("KY")
+@Slf4j
 public class KYParser extends   Parser{
 
     private static final String URL = "http://www.ikaraoke.kr/isong/search_musictitle.asp?";
@@ -38,9 +40,10 @@ public class KYParser extends   Parser{
                 .append("&sch_txt=")
                 .append(URLEncoder.encode(argument.getWord(), "euc-kr"))
                 .append("&page=").append(page);
-        Document doc = Jsoup.connect(str.toString()).get();
-        Elements elements = doc.select(".tbl_board tr:has(td)");
+        log.info("url : {}",str.toString());
+        Elements elements = selectElemetsFromOtherService(str,".tbl_board tr:has(td)");
         return buildKaraokeList(elements);
     }
+
 
 }

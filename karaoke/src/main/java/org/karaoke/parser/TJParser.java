@@ -1,8 +1,6 @@
 package org.karaoke.parser;
 
 import lombok.extern.slf4j.Slf4j;
-import org.jsoup.Jsoup;
-import org.jsoup.nodes.Document;
 import org.jsoup.select.Elements;
 import org.karaoke.domain.Argument;
 import org.karaoke.domain.Category;
@@ -11,7 +9,6 @@ import org.springframework.stereotype.Component;
 
 import javax.annotation.PostConstruct;
 import java.io.IOException;
-import java.util.ArrayList;
 import java.util.HashMap;
 import java.util.List;
 import java.util.Map;
@@ -39,8 +36,7 @@ public class TJParser extends Parser {
                 .append("&strText=")
                 .append(argument.getWord())
                 .append("&strSize02=10");
-        Document doc = Jsoup.connect(str.toString()).get();
-        Elements elements = doc.select("table.board_type1 tr:has(td)");
+        Elements elements = selectElemetsFromOtherService(str, "table.board_type1 tr:has(td)");
         return buildKaraokeList(elements);
     }
 }

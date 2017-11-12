@@ -1,6 +1,8 @@
 package org.karaoke.parser;
 
 import lombok.extern.slf4j.Slf4j;
+import org.jsoup.Jsoup;
+import org.jsoup.nodes.Document;
 import org.jsoup.select.Elements;
 import org.karaoke.domain.Argument;
 import org.karaoke.domain.Karaoke;
@@ -15,7 +17,7 @@ public abstract class Parser {
 
    public abstract List<Karaoke> parse(Argument argument, int page) throws IOException;
 
-    protected List<Karaoke> buildKaraokeList(Elements elements) {
+   protected List<Karaoke> buildKaraokeList(Elements elements) {
         List<Karaoke> list = new ArrayList<>();
         try {
             elements.forEach(element -> {
@@ -29,5 +31,10 @@ public abstract class Parser {
             log.error("Cause : {} , Message : {}",e.getCause(),e.getMessage());
         }
         return list;
+    }
+
+    protected Elements selectElemetsFromOtherService(StringBuilder str,String cssQuery) throws IOException {
+        Document doc = Jsoup.connect(str.toString()).timeout(5000).get();
+        return doc.select(cssQuery);
     }
 }

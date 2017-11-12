@@ -1,3 +1,7 @@
+[![Build Status](https://travis-ci.org/JangChulwoon/KaraokeParsing.svg?branch=master)](https://travis-ci.org/JangChulwoon/KaraokeParsing)    
+
+
+
 ### 개요     
 
 코인노래방이 증가하면서, 부르고 싶은 노래를 저장하고 싶은 때가 있습니다.       

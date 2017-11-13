@@ -13,7 +13,9 @@ import org.springframework.web.bind.annotation.*;
 
 import javax.annotation.PostConstruct;
 import java.io.IOException;
+import java.util.HashMap;
 import java.util.List;
+import java.util.Map;
 
 @RestController
 @Slf4j
@@ -31,10 +33,9 @@ public class KaraokeController {
     }
 
     @PostMapping("/karaokeGraphiQL")
-    public ExecutionResult selectByGraphiQL(@RequestBody String query)
+    public ExecutionResult selectByGraphiQL(@RequestBody Map query)
             throws InterruptedException {
-        JSONObject json = new JSONObject(query);
-        ExecutionInput executionInput = ExecutionInput.newExecutionInput().query(json.get("query").toString()).build();
+        ExecutionInput executionInput = ExecutionInput.newExecutionInput().query(query.get("query").toString()).variables((Map) query.get("variables")).build();
         return  graphQL.execute(executionInput);
     }
 

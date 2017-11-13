@@ -1,7 +1,8 @@
 [![Build Status](https://travis-ci.org/JangChulwoon/KaraokeParsing.svg?branch=master)](https://travis-ci.org/JangChulwoon/KaraokeParsing)    
 
 
-
+> 현재 프로젝트를 재 구성하고 있습니다.  아래 내용은 이전에 작성한 문서로,
+> 현재 버전과는 조금 다를 수 있습니다. - 2017.11.13
 ### 개요     
 
 코인노래방이 증가하면서, 부르고 싶은 노래를 저장하고 싶은 때가 있습니다.       

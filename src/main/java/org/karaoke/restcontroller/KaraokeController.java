@@ -16,6 +16,7 @@ import java.io.IOException;
 import java.util.HashMap;
 import java.util.List;
 import java.util.Map;
+import java.util.concurrent.CompletableFuture;
 
 @RestController
 @Slf4j
@@ -40,9 +41,9 @@ public class KaraokeController {
     }
 
     @PostMapping("/karaokeGraphQL")
-    public ExecutionResult selectByGraphQL(@RequestBody String query)
+    public CompletableFuture<ExecutionResult> selectByGraphQL(@RequestBody String query)
             throws InterruptedException {
         ExecutionInput executionInput = ExecutionInput.newExecutionInput().query(query).build();
-        return  graphQL.execute(executionInput);
+        return graphQL.executeAsync(executionInput);
     }
 }

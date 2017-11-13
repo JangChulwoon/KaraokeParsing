@@ -1,34 +1,26 @@
-package org.karaoke.config;
+package org.karaoke.graphql;
 
 import graphql.GraphQL;
 import graphql.schema.*;
-import static graphql.schema.GraphQLInputObjectType.*;
-import static graphql.schema.GraphQLEnumType.*;
 import lombok.extern.slf4j.Slf4j;
-import org.karaoke.domain.Argument;
-import org.karaoke.domain.Category;
-import org.karaoke.domain.Company;
-import org.karaoke.service.KaraokeService;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.context.annotation.Bean;
-import org.springframework.context.annotation.Configuration;
 import org.springframework.stereotype.Component;
 
-import java.util.HashMap;
-import java.util.Map;
+import javax.annotation.PostConstruct;
 
 import static graphql.Scalars.GraphQLInt;
 import static graphql.Scalars.GraphQLString;
+import static graphql.schema.GraphQLEnumType.newEnum;
 import static graphql.schema.GraphQLFieldDefinition.newFieldDefinition;
 import static graphql.schema.GraphQLObjectType.newObject;
 
 @Component
 @Slf4j
 public class GraphQLBuilder {
-    // 코드 정리가 필요할거 같다
 
     @Autowired
-    private KaraokeService service;
+    DataFetcher dataFetcher;
 
     private GraphQLObjectType Karaoke = newObject()
             .name("Karaoke")
@@ -72,36 +64,31 @@ public class GraphQLBuilder {
                     .build())
             .build();
 
-    GraphQLObjectType objectType = newObject()
-            .name("selectKaraoke")
-            .field(newFieldDefinition()
-                    .name("Karaoke")
-                    .type(new GraphQLList(Karaoke))
-                    .dataFetcher((env) -> {
-                        Map<String,String> map = new HashMap();
-                        map = env.getArgument("karaoke");
-                        log.info("{}",map);
-                         Argument arg = new Argument()
-                                .setCompany(Company.valueOf(map.get("company")))
-                                .setCategory(Category.valueOf(map.get("category")))
-                                .setWord(map.get("keyword"));
-                        return service.parseKaraoke(arg, env.getArgument("page"));
-                    })
-                    .argument(GraphQLArgument.newArgument()
-                            .name("karaoke")
-                            .type(karaoke).build())
-                    .argument(GraphQLArgument.newArgument()
-                            .name("page")
-                            .type(GraphQLInt))
-            )
-            .build();
+    GraphQLObjectType objectType;
+    private GraphQL graphQL;
+    @PostConstruct
+    public void setUp(){
+        objectType = newObject()
+                .name("selectKaraoke")
+                .field(newFieldDefinition()
+                        .name("Karaoke")
+                        .type(new GraphQLList(Karaoke))
+                        .dataFetcher(dataFetcher)
+                        .argument(GraphQLArgument.newArgument()
+                                .name("karaoke")
+                                .type(karaoke))
+                        .argument(GraphQLArgument.newArgument()
+                                .name("page")
+                                .type(GraphQLInt))
+                )
+                .build();
 
-    private GraphQLSchema schema = GraphQLSchema.newSchema()
-            .query(objectType)
-            .build();
-
-    private GraphQL graphQL = GraphQL.newGraphQL(schema)
-            .build();
+        GraphQLSchema schema = GraphQLSchema.newSchema()
+                .query(objectType)
+                .build();
+        graphQL = GraphQL.newGraphQL(schema)
+                .build();
+    }
 
 
     @Bean

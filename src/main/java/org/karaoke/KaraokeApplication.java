@@ -8,6 +8,10 @@ import org.springframework.boot.autoconfigure.SpringBootApplication;
 import org.springframework.context.annotation.Bean;
 import org.springframework.context.annotation.ComponentScan;
 import org.springframework.format.support.FormattingConversionService;
+import org.springframework.scheduling.concurrent.ThreadPoolTaskExecutor;
+
+import java.util.concurrent.ExecutorService;
+import java.util.concurrent.Executors;
 
 @SpringBootApplication
 @ComponentScan("org.karaoke")
@@ -23,6 +27,18 @@ public class KaraokeApplication {
         conversion.addConverter(new CompanyConverter());
         return conversion;
     }
+
+    @Bean
+    public ThreadPoolTaskExecutor esbean(){
+        ThreadPoolTaskExecutor es = new ThreadPoolTaskExecutor();
+        es.setThreadNamePrefix("Customs ");
+        es.setCorePoolSize(100);
+        es.setMaxPoolSize(100);
+        es.setQueueCapacity(100);
+        return es;
+
+    }
+
 
     public static void main(String[] args) {
         SpringApplication.run(KaraokeApplication.class, args);

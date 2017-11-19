@@ -41,9 +41,8 @@ public class KaraokeController {
     }
 
     @PostMapping("/karaokeGraphQL")
-    public CompletableFuture<ExecutionResult> selectByGraphQL(@RequestBody String query)
-            throws InterruptedException {
-        ExecutionInput executionInput = ExecutionInput.newExecutionInput().query(query).build();
+    public CompletableFuture<ExecutionResult> selectByGraphQL(@RequestBody Map query) throws InterruptedException {
+        ExecutionInput executionInput = ExecutionInput.newExecutionInput().query(query.get("query").toString()).variables((Map) query.get("variables")).operationName(query.getOrDefault("operationName","").toString()).build();
         return graphQL.executeAsync(executionInput);
     }
 }

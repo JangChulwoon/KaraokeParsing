@@ -30,7 +30,6 @@ public class GraphQLBuilder {
 
     private GraphQL graphQL;
 
-    // 이 코드는 조금 수정해야겟다.
     @PostConstruct
     public void setUp(){
 
@@ -58,6 +57,7 @@ public class GraphQLBuilder {
                 .name("CATEGORY")
                 .value("SINGER")
                 .value("SONG")
+                .value("NUMBER")
                 .build();
 
         GraphQLInputObjectType karaoke = GraphQLInputObjectType.newInputObject()
@@ -76,53 +76,6 @@ public class GraphQLBuilder {
                         .build())
                 .build();
 
-
-
-
-
-        // 여기부턴 학습용
-
-        GraphQLObjectType inter1 = newObject()
-                .name("Karaoke1")
-                .description("노래방 번호,제목,가수명을 갖고있는 Type 입니다. ")
-                .field(newFieldDefinition()
-                        .name("name")
-                        .type(GraphQLString))
-                .field(newFieldDefinition()
-                        .name("title")
-                        .type(GraphQLString))
-                .build();
-        GraphQLObjectType inter2 = newObject()
-                .name("Karaoke2")
-                .description("노래방 번호,제목,가수명을 갖고있는 Type 입니다. ")
-                .field(newFieldDefinition()
-                        .name("name")
-                        .type(GraphQLString))
-                .field(newFieldDefinition()
-                        .name("tt")
-                        .type(GraphQLString))
-                .build();
-
-        GraphQLUnionType PetType = GraphQLUnionType.newUnionType()
-                .name("Hello")
-                .possibleType(inter1)
-                .possibleType(inter2)
-                .typeResolver(
-                        new TypeResolver() {
-                            @Override
-                            public GraphQLObjectType getType(TypeResolutionEnvironment env) {
-                                log.info("{}", env.getObject().toString());
-                                if(env.getObject() instanceof  Map){
-                                    return inter2;
-                                }else{
-                                    return inter1;
-                                }
-
-                            }
-                        }
-                )
-                .build();
-
         GraphQLObjectType objectType = newObject().name("selectKaraoke")
                 .field(newFieldDefinition()
                         .name("Karaoke")
@@ -133,25 +86,12 @@ public class GraphQLBuilder {
                                 .type(karaoke))
                         .argument(GraphQLArgument.newArgument()
                                 .name("page")
-                                .type(GraphQLInt)))
-                .field(newFieldDefinition()
-                        .name("Karaoke11")
-                        .type(PetType)
-                        .dataFetcher((env)-> {
-                            Map<String ,String> map = new HashMap<>();
-                            map.put("title","제목");
-                            map.put("tt","제목1");
-                            return map;
-                        } ))
-                .build();
-
+                                .type(GraphQLInt))).build();
 
         GraphQLSchema schema = GraphQLSchema.newSchema()
-                .query(objectType)
-                .build();
+                .query(objectType).build();
 
-        graphQL = GraphQL.newGraphQL(schema)
-                .build();
+        graphQL = GraphQL.newGraphQL(schema).build();
     }
 
     @Bean

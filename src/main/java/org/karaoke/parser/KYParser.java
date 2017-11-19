@@ -17,6 +17,7 @@ import java.util.HashMap;
 import java.util.List;
 import java.util.Map;
 
+import static org.karaoke.domain.Category.NUMBER;
 import static org.karaoke.domain.Category.SINGER;
 import static org.karaoke.domain.Category.SONG;
 
@@ -32,6 +33,7 @@ public class KYParser extends   Parser{
         URLQuery = new HashMap<>();
         URLQuery.put(SINGER, "sch_sel=7");
         URLQuery.put(SONG, "sch_sel=2");
+        URLQuery.put(NUMBER, "sch_sel=1");
     }
 
     public List<Karaoke> parse(Argument argument, int page) throws IOException {

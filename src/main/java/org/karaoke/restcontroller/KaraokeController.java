@@ -37,6 +37,7 @@ public class KaraokeController {
     public ExecutionResult selectByGraphiQL(@RequestBody Map query)
             throws InterruptedException {
         ExecutionInput executionInput = ExecutionInput.newExecutionInput().query(query.get("query").toString()).variables((Map) query.get("variables")).build();
+        // execute는 blocking
         return  graphQL.execute(executionInput);
     }
 

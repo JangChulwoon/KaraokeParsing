@@ -13,6 +13,7 @@ import java.util.HashMap;
 import java.util.List;
 import java.util.Map;
 
+import static org.karaoke.domain.Category.NUMBER;
 import static org.karaoke.domain.Category.SINGER;
 import static org.karaoke.domain.Category.SONG;
 
@@ -28,8 +29,8 @@ public class TJParser extends Parser {
         URLQuery = new HashMap<>();
         URLQuery.put(SINGER, "strType=2");
         URLQuery.put(SONG, "strType=1");
+        URLQuery.put(NUMBER, "strType=16");
     }
-
     public List<Karaoke> parse(Argument argument, int page) throws IOException {
         StringBuilder str = new StringBuilder(URL);
         str.append(URLQuery.get(argument.getCategory()))

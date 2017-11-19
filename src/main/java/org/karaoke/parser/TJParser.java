@@ -36,7 +36,9 @@ public class TJParser extends Parser {
         str.append(URLQuery.get(argument.getCategory()))
                 .append("&strText=")
                 .append(argument.getWord())
-                .append("&strSize02=10");
+                .append("&strSize02=10")
+                .append("&intPage=")
+                .append(page);
         Elements elements = selectElemetsFromOtherService(str, "table.board_type1 tr:has(td)");
         return buildKaraokeList(elements);
     }

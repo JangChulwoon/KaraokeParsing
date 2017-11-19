@@ -42,7 +42,6 @@ public class KYParser extends   Parser{
                 .append("&sch_txt=")
                 .append(URLEncoder.encode(argument.getWord(), "euc-kr"))
                 .append("&page=").append(page);
-        log.info("url : {}",str.toString());
         Elements elements = selectElemetsFromOtherService(str,".tbl_board tr:has(td)");
         return buildKaraokeList(elements);
     }

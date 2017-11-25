@@ -16,7 +16,7 @@ public abstract class Parser {
 
     public abstract List<Karaoke> parse(Argument argument, int page) throws IOException;
 
-    protected List<Karaoke> buildKaraokeList(Elements elements) {
+    protected List<Karaoke> buildKaraokes(Elements elements) {
         return elements.stream()
                 .filter(e -> e.children().size() > 1)
                 .map(e ->
@@ -27,7 +27,7 @@ public abstract class Parser {
                 ).collect(Collectors.toList());
     }
 
-    protected Elements selectElemetsFromOtherService(StringBuilder str, String cssQuery) throws IOException {
+    protected Elements getDOMIntoJsoup(StringBuilder str, String cssQuery) throws IOException {
         Document doc = Jsoup.connect(str.toString()).timeout(5000).get();
         return doc.select(cssQuery);
     }

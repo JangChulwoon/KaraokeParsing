@@ -1,8 +1,6 @@
 package org.karaoke.parser;
 
 import lombok.extern.slf4j.Slf4j;
-import org.jsoup.Jsoup;
-import org.jsoup.nodes.Document;
 import org.jsoup.select.Elements;
 import org.karaoke.domain.Argument;
 import org.karaoke.domain.Category;
@@ -12,7 +10,6 @@ import org.springframework.stereotype.Component;
 import javax.annotation.PostConstruct;
 import java.io.IOException;
 import java.net.URLEncoder;
-import java.util.ArrayList;
 import java.util.HashMap;
 import java.util.List;
 import java.util.Map;
@@ -42,8 +39,8 @@ public class KYParser extends   Parser{
                 .append("&sch_txt=")
                 .append(URLEncoder.encode(argument.getWord(), "euc-kr"))
                 .append("&page=").append(page);
-        Elements elements = selectElemetsFromOtherService(str,".tbl_board tr:has(td)");
-        return buildKaraokeList(elements);
+        Elements elements = getDOMIntoJsoup(str,".tbl_board tr:has(td)");
+        return buildKaraokes(elements);
     }
 
 

@@ -1,7 +1,9 @@
 package org.karaoke.graphql;
 
+import com.github.benmanes.caffeine.cache.Cache;
 import graphql.GraphQL;
 import graphql.execution.ExecutorServiceExecutionStrategy;
+import graphql.execution.preparsed.PreparsedDocumentEntry;
 import graphql.schema.*;
 import lombok.extern.slf4j.Slf4j;
 import org.springframework.beans.factory.annotation.Autowired;
@@ -27,6 +29,9 @@ public class GraphQLBuilder {
 
     @Autowired
     ExecutorService es;
+
+    @Autowired
+    Cache<String, PreparsedDocumentEntry> parsedDocumentCache;
 
     private GraphQL graphQL;
 
@@ -96,6 +101,7 @@ public class GraphQLBuilder {
 
         graphQL = GraphQL.newGraphQL(schema)
                 .queryExecutionStrategy(new ExecutorServiceExecutionStrategy(es))
+                .preparsedDocumentProvider(parsedDocumentCache::get)
                 .build();
     }
 

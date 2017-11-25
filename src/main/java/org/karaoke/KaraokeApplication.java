@@ -8,6 +8,7 @@ import org.springframework.boot.autoconfigure.SpringBootApplication;
 import org.springframework.context.annotation.Bean;
 import org.springframework.context.annotation.ComponentScan;
 import org.springframework.format.support.FormattingConversionService;
+import org.springframework.scheduling.concurrent.CustomizableThreadFactory;
 import org.springframework.scheduling.concurrent.ThreadPoolTaskExecutor;
 
 import java.util.concurrent.ExecutorService;
@@ -29,12 +30,8 @@ public class KaraokeApplication {
     }
 
     @Bean
-    public ThreadPoolTaskExecutor esbean(){
-        ThreadPoolTaskExecutor es = new ThreadPoolTaskExecutor();
-        es.setThreadNamePrefix("Customs ");
-        es.setCorePoolSize(100);
-        es.setMaxPoolSize(100);
-        es.setQueueCapacity(100);
+    public ExecutorService es(){
+        ExecutorService es = Executors.newCachedThreadPool(new CustomizableThreadFactory("Customize-Thread "));
         return es;
 
     }

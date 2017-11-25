@@ -1,7 +1,9 @@
 package org.karaoke.graphql;
 
+import com.github.benmanes.caffeine.cache.Cache;
 import graphql.GraphQL;
-import graphql.TypeResolutionEnvironment;
+import graphql.execution.ExecutorServiceExecutionStrategy;
+import graphql.execution.preparsed.PreparsedDocumentEntry;
 import graphql.schema.*;
 import lombok.extern.slf4j.Slf4j;
 import org.springframework.beans.factory.annotation.Autowired;
@@ -10,10 +12,7 @@ import org.springframework.stereotype.Component;
 
 import javax.annotation.PostConstruct;
 
-import java.util.ArrayList;
-import java.util.HashMap;
-import java.util.List;
-import java.util.Map;
+import java.util.concurrent.ExecutorService;
 
 import static graphql.Scalars.GraphQLInt;
 import static graphql.Scalars.GraphQLString;
@@ -28,10 +27,18 @@ public class GraphQLBuilder {
     @Autowired
     DataFetcher dataFetcher;
 
+    @Autowired
+    ExecutorService es;
+
+    @Autowired
+    Cache<String, PreparsedDocumentEntry> parsedDocumentCache;
+
     private GraphQL graphQL;
 
+
+
     @PostConstruct
-    public void setUp(){
+    public void setUp() {
 
         GraphQLObjectType Karaoke = newObject()
                 .name("Karaoke")
@@ -47,13 +54,13 @@ public class GraphQLBuilder {
                         .type(GraphQLString))
                 .build();
 
-         GraphQLEnumType company = newEnum()
+        GraphQLEnumType company = newEnum()
                 .name("COMPANY")
                 .value("KY")
                 .value("TJ")
                 .build();
 
-         GraphQLEnumType category = newEnum()
+        GraphQLEnumType category = newEnum()
                 .name("CATEGORY")
                 .value("SINGER")
                 .value("SONG")
@@ -89,9 +96,13 @@ public class GraphQLBuilder {
                                 .type(GraphQLInt))).build();
 
         GraphQLSchema schema = GraphQLSchema.newSchema()
-                .query(objectType).build();
+                .query(objectType)
+                .build();
 
-        graphQL = GraphQL.newGraphQL(schema).build();
+        graphQL = GraphQL.newGraphQL(schema)
+                .queryExecutionStrategy(new ExecutorServiceExecutionStrategy(es))
+                .preparsedDocumentProvider(parsedDocumentCache::get)
+                .build();
     }
 
     @Bean

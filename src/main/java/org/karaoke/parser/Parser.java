@@ -6,34 +6,28 @@ import org.jsoup.nodes.Document;
 import org.jsoup.select.Elements;
 import org.karaoke.domain.Argument;
 import org.karaoke.domain.Karaoke;
-import org.springframework.stereotype.Component;
 
 import java.io.IOException;
-import java.util.ArrayList;
 import java.util.List;
+import java.util.stream.Collectors;
 
 @Slf4j
 public abstract class Parser {
 
-   public abstract List<Karaoke> parse(Argument argument, int page) throws IOException;
+    public abstract List<Karaoke> parse(Argument argument, int page) throws IOException;
 
-   protected List<Karaoke> buildKaraokeList(Elements elements) {
-        List<Karaoke> list = new ArrayList<>();
-        try {
-            elements.forEach(element -> {
-                Karaoke karaoke = new Karaoke()
-                        .setNumber(element.child(0).text())
-                        .setTitle(element.child(1).text())
-                        .setSinger(element.child(2).text());
-                list.add(karaoke);
-            });
-        }catch (IndexOutOfBoundsException e){
-            log.error("Cause : {} , Message : {}",e.getCause(),e.getMessage());
-        }
-        return list;
+    protected List<Karaoke> buildKaraokes(Elements elements) {
+        return elements.stream()
+                .filter(e -> e.children().size() > 1)
+                .map(e ->
+                     new Karaoke()
+                            .setNumber(e.child(0).text())
+                            .setTitle(e.child(1).text())
+                            .setSinger(e.child(2).text())
+                ).collect(Collectors.toList());
     }
 
-    protected Elements selectElemetsFromOtherService(StringBuilder str,String cssQuery) throws IOException {
+    protected Elements getDOMIntoJsoup(StringBuilder str, String cssQuery) throws IOException {
         Document doc = Jsoup.connect(str.toString()).timeout(5000).get();
         return doc.select(cssQuery);
     }

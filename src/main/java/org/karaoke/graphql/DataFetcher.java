@@ -23,11 +23,6 @@ public class DataFetcher implements graphql.schema.DataFetcher {
     @Override
     public Object get(DataFetchingEnvironment env) {
         return   CompletableFuture.supplyAsync(()->{
-            try {
-                Thread.sleep(2000);
-            } catch (InterruptedException e) {
-                e.printStackTrace();
-            }
             Map<String,String> map = env.getArgument("karaoke");
             Argument arg = new Argument()
                     .setCompany(Company.valueOf(map.get("company")))

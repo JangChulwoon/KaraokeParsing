@@ -25,6 +25,15 @@ public class CacheManager {
         map = new ConcurrentHashMap<>();
     }
 
+    public List<Karaoke> manageCache(Argument argument, int page) {
+        List<Karaoke> list = this.loadKaraokesByWord(argument, page);
+        if (list == null) { // Cache가 비어있다.
+            list = service.parseKaraoke(argument, page);
+            this.add(argument, page, list);
+        }
+        return list;
+    }
+
     private List<Karaoke> loadKaraokesByWord(Argument word, int page) {
         return map.get(buildKey(word) + page);
     }
@@ -34,16 +43,7 @@ public class CacheManager {
     }
 
     private String buildKey(Argument arg) {
-        return arg.getCompany().toString() + arg.getCategory().toString() + arg.getWord();
-    }
-
-    public List<Karaoke> manageCache(Argument argument, int page) {
-        List<Karaoke> list = this.loadKaraokesByWord(argument, page);
-        if (list == null) {
-            list = service.parseKaraoke(argument, page);
-            this.add(argument, page, list);
-        }
-        return list;
+        return arg.toString();
     }
 
 }

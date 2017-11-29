@@ -13,7 +13,6 @@ import org.springframework.web.bind.annotation.*;
 
 import java.io.IOException;
 import java.util.List;
-import java.util.Map;
 import java.util.concurrent.CompletableFuture;
 
 @RestController
@@ -31,7 +30,7 @@ public class KaraokeController {
         return parser.parseKaraoke(argument, page);
     }
 
-    @PostMapping("/karaokeGraphiQL") // 이게 되네 ...  이거 argument로 바꿔보고 싶은데  !
+    @PostMapping("/karaokeGraphiQL")
     public CompletableFuture<ExecutionResult> selectByGraphiQL(@RequestBody GraphQLQuery graphQLQuery) {
         return graphQL.executeAsync(buildExecutionInput(graphQLQuery));
     }

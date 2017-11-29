@@ -3,7 +3,6 @@ package org.karaoke;
 import com.github.benmanes.caffeine.cache.Cache;
 import com.github.benmanes.caffeine.cache.Caffeine;
 import graphql.execution.preparsed.PreparsedDocumentEntry;
-import org.karaoke.argumentResolver.QueryArgumentResolver;
 import org.karaoke.converter.CategoryConverter;
 import org.karaoke.converter.CompanyConverter;
 import org.springframework.beans.factory.annotation.Autowired;
@@ -50,12 +49,4 @@ public class KaraokeApplication {
         return Caffeine.newBuilder().maximumSize(1000).build();
     }
 
-    // 부트에서 webMvc 를 어떻게 쓰지 ???  찾아보자
-    @Configuration
-    public class Config extends WebMvcConfigurerAdapter {
-        @Override
-        public void addArgumentResolvers(List<HandlerMethodArgumentResolver> argumentResolvers) {
-            argumentResolvers.add(new QueryArgumentResolver());
-        }
-    }
 }

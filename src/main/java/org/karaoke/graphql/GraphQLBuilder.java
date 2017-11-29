@@ -35,8 +35,6 @@ public class GraphQLBuilder {
 
     private GraphQL graphQL;
 
-
-
     @PostConstruct
     public void setUp() {
 

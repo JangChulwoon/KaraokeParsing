@@ -3,6 +3,7 @@ package org.karaoke;
 import com.github.benmanes.caffeine.cache.Cache;
 import com.github.benmanes.caffeine.cache.Caffeine;
 import graphql.execution.preparsed.PreparsedDocumentEntry;
+import org.karaoke.argumentResolver.QueryArgumentResolver;
 import org.karaoke.converter.CategoryConverter;
 import org.karaoke.converter.CompanyConverter;
 import org.springframework.beans.factory.annotation.Autowired;
@@ -10,9 +11,13 @@ import org.springframework.boot.SpringApplication;
 import org.springframework.boot.autoconfigure.SpringBootApplication;
 import org.springframework.context.annotation.Bean;
 import org.springframework.context.annotation.ComponentScan;
+import org.springframework.context.annotation.Configuration;
 import org.springframework.format.support.FormattingConversionService;
 import org.springframework.scheduling.concurrent.CustomizableThreadFactory;
+import org.springframework.web.method.support.HandlerMethodArgumentResolver;
+import org.springframework.web.servlet.config.annotation.WebMvcConfigurerAdapter;
 
+import java.util.List;
 import java.util.concurrent.ExecutorService;
 import java.util.concurrent.Executors;
 
@@ -45,4 +50,12 @@ public class KaraokeApplication {
         return Caffeine.newBuilder().maximumSize(1000).build();
     }
 
+    // 부트에서 webMvc 를 어떻게 쓰지 ???  찾아보자
+    @Configuration
+    public class Config extends WebMvcConfigurerAdapter {
+        @Override
+        public void addArgumentResolvers(List<HandlerMethodArgumentResolver> argumentResolvers) {
+            argumentResolvers.add(new QueryArgumentResolver());
+        }
+    }
 }

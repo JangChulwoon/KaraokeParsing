@@ -6,13 +6,13 @@ import graphql.ExecutionResult;
 import graphql.GraphQL;
 import lombok.extern.slf4j.Slf4j;
 import org.karaoke.domain.Argument;
+import org.karaoke.domain.GraphQLQuery;
 import org.karaoke.service.KaraokeService;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.web.bind.annotation.*;
 
 import java.io.IOException;
 import java.util.List;
-import java.util.Map;
 import java.util.concurrent.CompletableFuture;
 
 @RestController
@@ -31,20 +31,20 @@ public class KaraokeController {
     }
 
     @PostMapping("/karaokeGraphiQL")
-    public CompletableFuture<ExecutionResult> selectByGraphiQL(@RequestBody Map query) {
-        return graphQL.executeAsync(buildExecutionInput(query));
+    public CompletableFuture<ExecutionResult> selectByGraphiQL(@RequestBody GraphQLQuery graphQLQuery) {
+        return graphQL.executeAsync(buildExecutionInput(graphQLQuery));
     }
 
     @PostMapping("/karaokeGraphQL")
-    public CompletableFuture<ExecutionResult> selectByGraphQL(@RequestBody Map query) {
-        return graphQL.executeAsync(buildExecutionInput(query));
+    public CompletableFuture<ExecutionResult> selectByGraphQL(GraphQLQuery query) {
+        return null;
     }
 
-    private ExecutionInput buildExecutionInput(@RequestBody Map query) {
+    private ExecutionInput buildExecutionInput(GraphQLQuery graphQLQuery) {
         return ExecutionInput.newExecutionInput()
-                .query(query.get("query").toString())
-                .variables((Map) query.get("variables"))
-                .operationName(query.getOrDefault("operationName", "").toString())
+                .query(graphQLQuery.getQuery())
+                .variables(graphQLQuery.getVariables())
+                .operationName(graphQLQuery.getOperationName())
                 .build();
     }
 }

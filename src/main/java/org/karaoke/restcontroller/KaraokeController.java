@@ -25,11 +25,13 @@ public class KaraokeController {
     @Autowired
     GraphQL graphQL;
 
+    //Rest Controller
     @GetMapping("/{company}/{category}/{word}")
     public List<?> selectKaraoke(@ModelAttribute Argument argument, @RequestParam(required = false, defaultValue = "1") int page) throws IOException {
         return parser.parseKaraoke(argument, page);
     }
 
+    //GraphQL Controller
     @PostMapping("/karaokeGraphiQL")
     public CompletableFuture<ExecutionResult> selectByGraphiQL(@RequestBody GraphQLQuery graphQLQuery) {
         return graphQL.executeAsync(buildExecutionInput(graphQLQuery));

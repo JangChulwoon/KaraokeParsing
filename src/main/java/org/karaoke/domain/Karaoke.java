@@ -3,11 +3,14 @@ package org.karaoke.domain;
 import org.apache.commons.lang3.builder.ToStringBuilder;
 import org.apache.commons.lang3.builder.ToStringStyle;
 
+import java.sql.Timestamp;
+
 public class Karaoke {
 
     private String number;
     private String title;
     private String singer;
+    private Timestamp inputTime;
 
     public String getNumber() {
         return number;
@@ -33,6 +36,15 @@ public class Karaoke {
 
     public Karaoke setSinger(String singer) {
         this.singer = singer;
+        return this;
+    }
+
+    public Timestamp getInputTime() {
+        return inputTime;
+    }
+
+    public Karaoke setInputTime(Timestamp inputTime) {
+        this.inputTime = inputTime;
         return this;
     }
 

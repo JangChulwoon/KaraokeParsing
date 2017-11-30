@@ -39,7 +39,7 @@ public class TJParser extends Parser {
                 .append("&strSize02=10")
                 .append("&intPage=")
                 .append(page);
-        Elements elements = getDOMIntoJsoup(str, "table.board_type1 tr:has(td)");
+        Elements elements = fetchDOM(str, "table.board_type1 tr:has(td)");
         return buildKaraokes(elements);
     }
 }

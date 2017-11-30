@@ -39,7 +39,7 @@ public class KYParser extends   Parser{
                 .append("&sch_txt=")
                 .append(URLEncoder.encode(argument.getWord(), "euc-kr"))
                 .append("&page=").append(page);
-        Elements elements = getDOMIntoJsoup(str,".tbl_board tr:has(td)");
+        Elements elements = fetchDOM(str,".tbl_board tr:has(td)");
         return buildKaraokes(elements);
     }
 

@@ -11,7 +11,6 @@ import javax.annotation.PostConstruct;
 import java.util.LinkedHashMap;
 import java.util.List;
 import java.util.Map;
-import java.util.concurrent.ConcurrentHashMap;
 
 @Component
 @Slf4j
@@ -29,15 +28,20 @@ public class CacheManager {
         map = new LinkedHashMap<>();
     }
 
-    public List<Karaoke> manageCache(Argument argument, int page) {
+    public List<Karaoke> loadCache(Argument argument, int page) {
         List<Karaoke> list = this.loadKaraokesByWord(argument, page);
         if (list == null) {
             list = service.parseKaraoke(argument, page);
-            log.info("Check timeStamp {}",list.toString());
+            log.info("Check timeStamp {}", list.toString());
             this.add(argument, page, list);
         }
         return list;
     }
+
+    public Map<String, List<Karaoke>> selectMap() {
+        return map;
+    }
+
 
     // Map key를 다른걸로 만들 수 없을까 고민해볼 것.
     private List<Karaoke> loadKaraokesByWord(Argument word, int page) {
@@ -45,6 +49,6 @@ public class CacheManager {
     }
 
     private void add(Argument arg, int page, List<Karaoke> list) {
-        map.put(arg.toString()  + page, list);
+        map.put(arg.toString() + page, list);
     }
 }

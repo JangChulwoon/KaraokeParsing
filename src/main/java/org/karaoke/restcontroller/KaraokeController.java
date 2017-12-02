@@ -28,7 +28,7 @@ public class KaraokeController {
     //Rest Controller
     @GetMapping("/{company}/{category}/{word}")
     public List<?> selectKaraoke(@ModelAttribute Argument argument, @RequestParam(required = false, defaultValue = "1") int page) throws IOException {
-        return parser.parseKaraoke(argument, page);
+        return parser.parseKaraoke(argument, page).getKaraokes();
     }
 
     //GraphQL Controller

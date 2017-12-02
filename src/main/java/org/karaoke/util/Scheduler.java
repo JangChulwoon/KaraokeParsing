@@ -2,6 +2,7 @@ package org.karaoke.util;
 
 import lombok.extern.slf4j.Slf4j;
 import org.karaoke.domain.Karaoke;
+import org.karaoke.domain.KaraokesTime;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.scheduling.annotation.Scheduled;
 import org.springframework.stereotype.Component;
@@ -23,13 +24,14 @@ public class Scheduler {
     // 5 분 마다 실행
     @Scheduled(initialDelay = 0, fixedDelay = 300000)
     public void clearCache() { // 실행될 로직
-       Map<String,List<Karaoke>> map =  manager.selectMap();
+       Map<String,KaraokesTime> map =  manager.selectMap();
+       Timestamp clearedStandard =  new Timestamp(System.currentTimeMillis() + ONE_DAY);
        map.entrySet().stream()
-               .filter(entry -> entry.getValue().get(0).getInputTime().before(new Timestamp(System.currentTimeMillis() + ONE_DAY)))
+               .filter(entry -> entry.getValue().getSaveTime()
+                       .before(clearedStandard))
                .map(entry -> {
                    log.info("remove :: " +entry.getKey() );
-                   map.remove(entry.getKey());
-                   return null;
+                   return map.remove(entry.getKey());
                })
                .count();
     }

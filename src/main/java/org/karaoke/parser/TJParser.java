@@ -4,13 +4,12 @@ import lombok.extern.slf4j.Slf4j;
 import org.jsoup.select.Elements;
 import org.karaoke.domain.Argument;
 import org.karaoke.domain.Category;
-import org.karaoke.domain.Karaoke;
+import org.karaoke.domain.KaraokesTime;
 import org.springframework.stereotype.Component;
 
 import javax.annotation.PostConstruct;
 import java.io.IOException;
 import java.util.HashMap;
-import java.util.List;
 import java.util.Map;
 
 import static org.karaoke.domain.Category.NUMBER;
@@ -31,7 +30,7 @@ public class TJParser extends Parser {
         URLQuery.put(SONG, "strType=1");
         URLQuery.put(NUMBER, "strType=16");
     }
-    public List<Karaoke> parse(Argument argument, int page) throws IOException {
+    public KaraokesTime parse(Argument argument, int page) throws IOException {
         StringBuilder str = new StringBuilder(URL);
         str.append(URLQuery.get(argument.getCategory()))
                 .append("&strText=")
@@ -39,7 +38,7 @@ public class TJParser extends Parser {
                 .append("&strSize02=10")
                 .append("&intPage=")
                 .append(page);
-        Elements elements = getDOMIntoJsoup(str, "table.board_type1 tr:has(td)");
+        Elements elements = fetchDOM(str, "table.board_type1 tr:has(td)");
         return buildKaraokes(elements);
     }
 }

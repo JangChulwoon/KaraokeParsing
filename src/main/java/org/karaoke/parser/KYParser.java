@@ -5,6 +5,7 @@ import org.jsoup.select.Elements;
 import org.karaoke.domain.Argument;
 import org.karaoke.domain.Category;
 import org.karaoke.domain.Karaoke;
+import org.karaoke.domain.KaraokesTime;
 import org.springframework.stereotype.Component;
 
 import javax.annotation.PostConstruct;
@@ -33,13 +34,13 @@ public class KYParser extends   Parser{
         URLQuery.put(NUMBER, "sch_sel=1");
     }
 
-    public List<Karaoke> parse(Argument argument, int page) throws IOException {
+    public KaraokesTime parse(Argument argument, int page) throws IOException {
         StringBuilder str = new StringBuilder(URL);
         str.append(URLQuery.get(argument.getCategory()))
                 .append("&sch_txt=")
                 .append(URLEncoder.encode(argument.getWord(), "euc-kr"))
                 .append("&page=").append(page);
-        Elements elements = getDOMIntoJsoup(str,".tbl_board tr:has(td)");
+        Elements elements = fetchDOM(str,".tbl_board tr:has(td)");
         return buildKaraokes(elements);
     }
 

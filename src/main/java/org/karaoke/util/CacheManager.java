@@ -1,49 +1,52 @@
 package org.karaoke.util;
 
+import lombok.extern.slf4j.Slf4j;
 import org.karaoke.domain.Argument;
 import org.karaoke.domain.Karaoke;
+import org.karaoke.domain.KaraokesTime;
 import org.karaoke.service.KaraokeService;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Component;
 
 import javax.annotation.PostConstruct;
+import java.util.LinkedHashMap;
 import java.util.List;
 import java.util.Map;
-import java.util.concurrent.ConcurrentHashMap;
 
 @Component
+@Slf4j
 public class CacheManager {
 
-    private Map<String, List<Karaoke>> map;
+    private Map<String, KaraokesTime> map;
 
     @Autowired
     private KaraokeService service;
 
-
     @PostConstruct
     public void setUp() {
-        map = new ConcurrentHashMap<>();
+        map = new LinkedHashMap<>();
     }
 
-    public List<Karaoke> manageCache(Argument argument, int page) {
-        List<Karaoke> list = this.loadKaraokesByWord(argument, page);
-        if (list == null) { // Cache가 비어있다.
-            list = service.parseKaraoke(argument, page);
-            this.add(argument, page, list);
+    public List<Karaoke> loadCache(Argument argument, int page) {
+        KaraokesTime karaokesTime = this.loadKaraokesByWord(argument, page);
+        if (karaokesTime == null) {
+            karaokesTime = service.parseKaraoke(argument, page);
+            this.add(argument, page, karaokesTime);
         }
-        return list;
+        return karaokesTime.getKaraokes();
     }
 
-    private List<Karaoke> loadKaraokesByWord(Argument word, int page) {
-        return map.get(buildKey(word) + page);
+    public Map<String, KaraokesTime> selectMap() {
+        return map;
     }
 
-    private void add(Argument arg, int page, List<Karaoke> list) {
-        map.put(buildKey(arg) + page, list);
+
+    // Map key를 다른걸로 만들 수 없을까 고민해볼 것.
+    private KaraokesTime loadKaraokesByWord(Argument word, int page) {
+        return map.get(word.toString() + page);
     }
 
-    private String buildKey(Argument arg) {
-        return arg.toString();
+    private void add(Argument arg, int page, KaraokesTime list) {
+        map.put(arg.toString() + page, list);
     }
-
 }

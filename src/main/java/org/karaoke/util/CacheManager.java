@@ -40,7 +40,6 @@ public class CacheManager {
         return map;
     }
 
-
     // Map key를 다른걸로 만들 수 없을까 고민해볼 것.
     private KaraokesTime loadKaraokesByWord(Argument word, int page) {
         return map.get(word.toString() + page);

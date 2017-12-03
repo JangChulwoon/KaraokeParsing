@@ -27,12 +27,8 @@ public class Scheduler {
        Map<String,KaraokesTime> map =  manager.selectMap();
        Timestamp clearedStandard =  new Timestamp(System.currentTimeMillis() + ONE_DAY);
        map.entrySet().stream()
-               .filter(entry -> entry.getValue().getSaveTime()
-                       .before(clearedStandard))
-               .map(entry -> {
-                   log.info("remove :: " +entry.getKey() );
-                   return map.remove(entry.getKey());
-               })
+               .filter(entry -> entry.getValue().getSaveTime().before(clearedStandard))
+               .map(entry -> map.remove(entry.getKey()))
                .count();
     }
 

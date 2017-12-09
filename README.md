@@ -25,3 +25,61 @@ GraphiQL을 통해 Graphql명세를 확인하실 수 있습니다. [API Server](
 	3. Java 8 활용
 	4. Travis 적용 
 	5. 그 외 ..  
+
+
+GraphQL에 대한 컨셉 및 개념은 다음을 [참고](https://jangchulwoon.github.io/graphql/2017/10/15/GraphQL/)하면 됩니다.
+
+#### 사용법         
+
+GraphQL을 가장 빨리 만나는 방법(?)은 아래와 같습니다. 
+	
+	query : {
+	  Karaoke(karaoke : {
+	                      company : KY , 
+	                      category : SINGER , 
+	                      keyword : "우원재"
+	                    }, 
+	    			page : 1){
+	    number
+	    title
+	    singer
+	  }
+	}
+
+
+
+
+그런데 이렇게 `정적`으로 사용한다라고 하면,  `Query Language` 라고 할 수 있을까요 ?
+    
+Language는 기본적으로 변수나 함수 라는 개념이 어느정도 있어야하지 않을까요 ? 
+
+있습니다. 
+
+즉, 함수 및 변수를 사용하는 방법은 아래와 같습니다.
+
+
+	{
+		"query": "query select($karaoke : karaoke, $page : Int){
+					Karaoke(karaoke : $karaoke, page : $page){
+						number
+						title
+						singer
+					}
+				}",
+		"variables":{
+					"karaoke":
+						{
+							"company":"KY",
+							"category":"SINGER",
+							"keyword":"우원재"
+						},
+						"page":1
+					},
+		"operationName":"select"
+	}
+
+
+
+위와 같이 VARIABLES를 둬서 유동적인 쿼리를 작성할 수 있습니다.   
+
+(....)

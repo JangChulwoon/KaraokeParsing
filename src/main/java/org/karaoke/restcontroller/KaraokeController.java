@@ -15,6 +15,7 @@ import java.io.IOException;
 import java.util.List;
 import java.util.concurrent.CompletableFuture;
 
+@CrossOrigin
 @RestController
 @Slf4j
 public class KaraokeController {

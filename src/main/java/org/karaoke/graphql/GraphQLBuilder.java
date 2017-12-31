@@ -91,7 +91,8 @@ public class GraphQLBuilder {
                                 .type(karaoke))
                         .argument(GraphQLArgument.newArgument()
                                 .name("page")
-                                .type(GraphQLInt))).build();
+                                .type(GraphQLInt)
+                                .defaultValue(1))).build();
 
         GraphQLSchema schema = GraphQLSchema.newSchema()
                 .query(objectType)

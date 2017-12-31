@@ -25,7 +25,6 @@ public class DataFetcher implements graphql.schema.DataFetcher {
                 .setCompany(Company.valueOf(map.get("company")))
                 .setCategory(Category.valueOf(map.get("category")))
                 .setWord(map.get("keyword"));
-
         return manager.loadCache(arg, env.getArgument("page"));
     }
 }

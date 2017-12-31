@@ -101,13 +101,12 @@
     function graphQLFetcher(graphQLParams) {
         // This example expects a GraphQL server at the path /graphql.
         // Change this to point wherever you host your GraphQL server.
-        return fetch('http://211.249.62.150/karaokeGraphiQL', {
+        return fetch('http://localhost/karaokeGraphiQL', {
             method: 'post',
             headers: {
                 'Accept': 'application/json',
                 'Content-Type': 'application/json',
             },
-            // json ÇüÅÂ·Î ÁÖ³ª ?
             body: JSON.stringify(graphQLParams),
             credentials: 'include',
         }).then(function (response) {

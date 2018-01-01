@@ -7,5 +7,4 @@ script:
 - mvn test
 deploy:
   provider: heroku
-  api_key : api_key
   skip_cleanup: true

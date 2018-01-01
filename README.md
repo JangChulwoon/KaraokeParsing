@@ -22,9 +22,9 @@ GraphiQL을 통해 Graphql명세를 확인하실 수 있습니다. [API Server](
 
 	1. GraphQL 적용   
 	2. Spring Scheduler를 이용한 cache clear   -> 추후 Redis로 대체 
-	3. Java 8 활용
+	3. Java 8 활용 ok
 	4. Travis 적용 
-	5. 그 외 ..  - Accept persiste query 
+	5. Accept persiste query 01.01 구현시작 
 
 
 GraphQL에 대한 컨셉 및 개념은 다음을 [참고](https://jangchulwoon.github.io/graphql/2017/10/15/GraphQL/)하면 됩니다.
@@ -82,4 +82,7 @@ Language는 기본적으로 변수나 함수 라는 개념이 어느정도 있�
 
 위와 같이 VARIABLES를 둬서 유동적인 쿼리를 작성할 수 있습니다.   
 
-(....)
+> Sample 작성해 볼 것 ! 
+
+Angular를 이용해서 간단한 Sample 한번 작성해보자 
+

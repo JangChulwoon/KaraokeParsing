@@ -23,8 +23,10 @@ GraphiQL을 통해 Graphql명세를 확인하실 수 있습니다. [API Server](
 	1. GraphQL 적용   
 	2. Spring Scheduler를 이용한 cache clear   -> 추후 Redis로 대체 
 	3. Java 8 활용 ok
-	4. Travis 적용 
+	4. Travis 적용 + heroku 적용 완료 
 	5. Accept persiste query 01.01 구현시작 
+	6. sonarQUBE 도 해보고싶다 
+
 
 
 GraphQL에 대한 컨셉 및 개념은 다음을 [참고](https://jangchulwoon.github.io/graphql/2017/10/15/GraphQL/)하면 됩니다.

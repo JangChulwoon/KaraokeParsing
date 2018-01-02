@@ -26,10 +26,11 @@ public class Scheduler {
     public void clearCache() { // 실행될 로직
        Map<String,KaraokesTime> map =  manager.selectMap();
        Timestamp clearedStandard =  new Timestamp(System.currentTimeMillis() + ONE_DAY);
-       map.entrySet().stream()
+       long count = map.entrySet().stream()
                .filter(entry -> entry.getValue().getSaveTime().before(clearedStandard))
                .map(entry -> map.remove(entry.getKey()))
                .count();
+       log.info("Clean cache count : {}",count);
     }
 
 }

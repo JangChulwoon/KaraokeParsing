@@ -46,7 +46,7 @@ public class KaraokeApplication {
     }
 
     @Bean
-    public Cache<String, PreparsedDocumentEntry> buildparsedDocumentCache() {
+    public Cache<String, PreparsedDocumentEntry> buildParsedDocumentCache() {
         return Caffeine.newBuilder().maximumSize(1000).build();
     }
 

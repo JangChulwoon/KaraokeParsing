@@ -33,8 +33,14 @@ public abstract class Parser {
         return new KaraokesTime(list,new Timestamp(System.currentTimeMillis()));
     }
 
-    protected Elements fetchDOM(StringBuilder str, String cssQuery) throws IOException {
-        Document doc = Jsoup.connect(str.toString()).timeout(5000).get();
+    protected Elements fetchDOM(String str, String cssQuery) {
+        Document doc = null;
+        try {
+            doc = Jsoup.connect(str).timeout(5000).get();
+        } catch (IOException e) {
+            log.error("Fetch Exception : {}",e);
+            return null;
+        }
         return doc.select(cssQuery);
     }
 }

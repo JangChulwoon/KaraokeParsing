@@ -21,16 +21,15 @@ import static org.karaoke.domain.Category.SONG;
 public class TJParser extends Parser {
 
     private static final String URL = "https://www.tjmedia.co.kr/tjsong/song_search_list.asp?";
-    private Map<Category, String> URLQuery;
+    private static final Map<Category, String> URLQuery = new HashMap<>();
 
     @PostConstruct
     public void setUp() {
-        URLQuery = new HashMap<>();
         URLQuery.put(SINGER, "strType=2");
         URLQuery.put(SONG, "strType=1");
         URLQuery.put(NUMBER, "strType=16");
     }
-    public KaraokesTime parse(Argument argument, int page) throws IOException {
+    public KaraokesTime parse(Argument argument, int page){
         StringBuilder str = new StringBuilder(URL);
         str.append(URLQuery.get(argument.getCategory()))
                 .append("&strText=")
@@ -38,7 +37,7 @@ public class TJParser extends Parser {
                 .append("&strSize02=10")
                 .append("&intPage=")
                 .append(page);
-        Elements elements = fetchDOM(str, "table.board_type1 tr:has(td)");
+        Elements elements = fetchDOM(str.toString(), "table.board_type1 tr:has(td)");
         return buildKaraokes(elements);
     }
 }

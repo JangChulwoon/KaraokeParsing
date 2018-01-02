@@ -10,6 +10,7 @@ import org.springframework.stereotype.Component;
 
 import javax.annotation.PostConstruct;
 import java.io.IOException;
+import java.io.UnsupportedEncodingException;
 import java.net.URLEncoder;
 import java.util.HashMap;
 import java.util.List;
@@ -24,23 +25,27 @@ import static org.karaoke.domain.Category.SONG;
 public class KYParser extends   Parser{
 
     private static final String URL = "http://www.ikaraoke.kr/isong/search_musictitle.asp?";
-    private Map<Category, String> URLQuery;
+    private static final Map<Category, String> URLQuery = new HashMap<>();
 
     @PostConstruct
     public void setUp() {
-        URLQuery = new HashMap<>();
         URLQuery.put(SINGER, "sch_sel=7");
         URLQuery.put(SONG, "sch_sel=2");
         URLQuery.put(NUMBER, "sch_sel=1");
     }
 
-    public KaraokesTime parse(Argument argument, int page) throws IOException {
+    public KaraokesTime parse(Argument argument, int page) {
         StringBuilder str = new StringBuilder(URL);
-        str.append(URLQuery.get(argument.getCategory()))
-                .append("&sch_txt=")
-                .append(URLEncoder.encode(argument.getWord(), "euc-kr"))
-                .append("&page=").append(page);
-        Elements elements = fetchDOM(str,".tbl_board tr:has(td)");
+        try {
+            str.append(URLQuery.get(argument.getCategory()))
+                    .append("&sch_txt=")
+                    .append(URLEncoder.encode(argument.getWord(), "euc-kr"))
+                    .append("&page=").append(page);
+        } catch (UnsupportedEncodingException e) {
+            log.error("Fetch Exception : {}",e);
+            return null;
+        }
+        Elements elements = fetchDOM(str.toString(),".tbl_board tr:has(td)");
         return buildKaraokes(elements);
     }
 

@@ -9,10 +9,13 @@ import org.karaoke.domain.Argument;
 import org.karaoke.domain.GraphQLQuery;
 import org.karaoke.service.KaraokeService;
 import org.springframework.beans.factory.annotation.Autowired;
+import org.springframework.http.MediaType;
 import org.springframework.web.bind.annotation.*;
 
 import java.io.IOException;
+import java.util.LinkedHashMap;
 import java.util.List;
+import java.util.Map;
 import java.util.concurrent.CompletableFuture;
 
 @CrossOrigin
@@ -57,5 +60,25 @@ public class KaraokeController {
                 .variables(graphQLQuery.getVariables())
                 .operationName(graphQLQuery.getOperationName())
                 .build();
+    }
+
+    // Test logic
+    // 이거 하기전에 react 공부해야한다... relay 쪽이 react 코드라서 ..
+    @RequestMapping(value = "/graphql", method = RequestMethod.POST, produces = MediaType.APPLICATION_JSON_VALUE)
+    @ResponseBody
+    public Object executeOperation(@RequestBody Map body) {
+        String query = (String) body.get("query");
+        Map<String, Object> variables = (Map<String, Object>) body.get("variables");
+        if (variables == null) {
+            variables = new LinkedHashMap<>();
+        }
+        ExecutionResult executionResult = graphQL.execute(query, (Object) null, variables);
+        Map<String, Object> result = new LinkedHashMap<>();
+        if (executionResult.getErrors().size() > 0) {
+            result.put("errors", executionResult.getErrors());
+            log.error("Errors: {}", executionResult.getErrors());
+        }
+        result.put("data", executionResult.getData());
+        return result;
     }
 }

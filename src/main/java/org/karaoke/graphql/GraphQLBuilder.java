@@ -4,6 +4,10 @@ import com.github.benmanes.caffeine.cache.Cache;
 import graphql.GraphQL;
 import graphql.execution.ExecutorServiceExecutionStrategy;
 import graphql.execution.preparsed.PreparsedDocumentEntry;
+import graphql.language.Definition;
+import graphql.language.DirectiveDefinition;
+import graphql.language.Document;
+import graphql.language.OperationDefinition;
 import graphql.schema.*;
 import lombok.extern.slf4j.Slf4j;
 import org.springframework.beans.factory.annotation.Autowired;
@@ -102,6 +106,13 @@ public class GraphQLBuilder {
                 .queryExecutionStrategy(new ExecutorServiceExecutionStrategy(es))
                 .preparsedDocumentProvider(parsedDocumentCache::get)
                 .build();
+
+       // Definition definition = new OperationDefinition()
+        PreparsedDocumentEntry parse = new PreparsedDocumentEntry(new Document());
+
+      //  parsedDocumentCache.put("1",PreparsedDocumentEntry);
+
+
     }
 
     @Bean

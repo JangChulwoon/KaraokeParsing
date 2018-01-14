@@ -20,11 +20,19 @@ import java.util.concurrent.CompletableFuture;
 @Slf4j
 public class KaraokeController {
 
-    @Autowired
     KaraokeService parser;
 
-    @Autowired
     GraphQL graphQL;
+
+    @Autowired
+    public void setParser(KaraokeService parser) {
+        this.parser = parser;
+    }
+
+    @Autowired
+    public void setGraphQL(GraphQL graphQL) {
+        this.graphQL = graphQL;
+    }
 
     //Rest Controller
     @GetMapping("/{company}/{category}/{word}")

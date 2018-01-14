@@ -42,4 +42,5 @@ public class KaraokeApplication {
         return new ConcurrentTaskScheduler();
     }
 
+
 }

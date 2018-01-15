@@ -7,6 +7,7 @@ import graphql.GraphQL;
 import lombok.extern.slf4j.Slf4j;
 import org.karaoke.domain.Argument;
 import org.karaoke.domain.GraphQLQuery;
+import org.karaoke.graphql.PersistentQueryMap;
 import org.karaoke.service.KaraokeService;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.http.MediaType;
@@ -26,6 +27,9 @@ public class KaraokeController {
     KaraokeService parser;
 
     GraphQL graphQL;
+
+    @Autowired
+    Map<Integer,String> persistentQuery;
 
     @Autowired
     public void setParser(KaraokeService parser) {
@@ -56,7 +60,7 @@ public class KaraokeController {
 
     private ExecutionInput buildExecutionInput(GraphQLQuery graphQLQuery) {
         return ExecutionInput.newExecutionInput()
-                .query(graphQLQuery.getQuery())
+                .query(persistentQuery.get(graphQLQuery.getKey()))
                 .variables(graphQLQuery.getVariables())
                 .operationName(graphQLQuery.getOperationName())
                 .build();

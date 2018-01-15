@@ -1,28 +1,26 @@
 package org.karaoke.domain;
 
-import lombok.RequiredArgsConstructor;
 
 import java.util.Map;
 
-@RequiredArgsConstructor
 public class GraphQLQuery {
 
-    private String query;
+    private Integer key;
     private Map<String, Object> variables;
     private String operationName;
 
-    public GraphQLQuery(String query, Map<String, Object> variables, String operationName) {
-        this.query = query;
+    public GraphQLQuery(Integer key, Map<String, Object> variables, String operationName) {
+        this.key = key;
         this.variables = variables;
         this.operationName = operationName;
     }
 
-    public String getQuery() {
-        return query;
+    public Integer getKey() {
+        return key;
     }
 
-    public GraphQLQuery setQuery(String query) {
-        this.query = query;
+    public GraphQLQuery setKey(Integer key) {
+        this.key = key;
         return this;
     }
 

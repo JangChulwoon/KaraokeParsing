@@ -29,7 +29,7 @@ public class KaraokeController {
     GraphQL graphQL;
 
     @Autowired
-    Map<Integer,String> persistentQuery;
+    Map<String,String> persistentQuery;
 
     @Autowired
     public void setParser(KaraokeService parser) {
@@ -62,7 +62,6 @@ public class KaraokeController {
         return ExecutionInput.newExecutionInput()
                 .query(persistentQuery.get(graphQLQuery.getKey()))
                 .variables(graphQLQuery.getVariables())
-                .operationName(graphQLQuery.getOperationName())
                 .build();
     }
 

@@ -10,9 +10,9 @@ import java.util.concurrent.ConcurrentHashMap;
 @Component
 public class PersistentQueryMap {
 
-    ConcurrentHashMap<Integer,String> persistentQuery;
+    ConcurrentHashMap<String,String> persistentQuery;
 
-    private final String query = "query selectquery($karaoke : karaoke){\n" +
+    private final String query = "query selectKaraoke($karaoke : karaoke){\n" +
             "  Karaoke(karaoke:$karaoke){\n" +
             "    number\n" +
             "    title\n" +
@@ -23,13 +23,11 @@ public class PersistentQueryMap {
     @PostConstruct
     public void setUp(){
         persistentQuery = new ConcurrentHashMap<>();
-        // 이런식으로 작업
-        // 추후엔 관리자가 추가할 수 있도록 작업 !
-        persistentQuery.put(1,query);
+        persistentQuery.put("1",query);
     }
 
     @Bean
-    public Map<Integer,String> getQueryMap(){
+    public Map<String,String> getQueryMap(){
         return persistentQuery;
     }
 

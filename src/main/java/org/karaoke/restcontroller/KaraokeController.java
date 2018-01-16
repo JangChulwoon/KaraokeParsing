@@ -62,7 +62,6 @@ public class KaraokeController {
                 .build();
     }
 
-    // Test logic
     // 이거 하기전에 react 공부해야한다... relay 쪽이 react 코드라서 ..
     @RequestMapping(value = "/graphql", method = RequestMethod.POST, produces = MediaType.APPLICATION_JSON_VALUE)
     @ResponseBody

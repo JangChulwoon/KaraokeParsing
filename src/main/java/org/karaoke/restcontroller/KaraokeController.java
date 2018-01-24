@@ -6,6 +6,7 @@ import graphql.ExecutionResult;
 import graphql.GraphQL;
 import lombok.extern.slf4j.Slf4j;
 import org.karaoke.domain.Argument;
+import org.karaoke.domain.GraphQLInput;
 import org.karaoke.domain.GraphQLQuery;
 import org.karaoke.graphql.PersistentQueryMap;
 import org.karaoke.service.KaraokeService;
@@ -29,7 +30,7 @@ public class KaraokeController {
     GraphQL graphQL;
 
     @Autowired
-    Map<String,String> persistentQuery;
+    PersistentQueryMap persistentQueryMap;
 
     @Autowired
     public void setParser(KaraokeService parser) {
@@ -47,9 +48,13 @@ public class KaraokeController {
         return parser.parseKaraoke(argument, page).getKaraokes();
     }
 
+    // 이거 안돌아감 ...
+    // 지금 graphIQL에서 돌아갈만한거 만드는중이야 ..
+    // 다음에 만들떄 이거부터 하면됨
+
     //GraphQL Controller
     @PostMapping("/karaokeGraphiQL")
-    public CompletableFuture<ExecutionResult> selectByGraphiQL(@RequestBody GraphQLQuery graphQLQuery) {
+    public CompletableFuture<ExecutionResult> selectByGraphiQL(@RequestBody GraphQLInput input) {
         return graphQL.executeAsync(buildExecutionInput(graphQLQuery));
     }
 
@@ -60,7 +65,7 @@ public class KaraokeController {
 
     private ExecutionInput buildExecutionInput(GraphQLQuery graphQLQuery) {
         return ExecutionInput.newExecutionInput()
-                .query(persistentQuery.get(graphQLQuery.getKey()))
+                .query(persistentQueryMap.getQuery(graphQLQuery.getQuery()))
                 .variables(graphQLQuery.getVariables())
                 .build();
     }

@@ -1,35 +1,56 @@
 package org.karaoke.domain;
 
+import lombok.RequiredArgsConstructor;
+import org.apache.commons.lang3.builder.ToStringBuilder;
 
 import java.util.Map;
 
+@RequiredArgsConstructor
 public class GraphQLQuery {
 
-    private String key;
+    private String query;
     private Map<String, Object> variables;
+    private String operationName;
 
-    public GraphQLQuery() {
-    }
-
-    public GraphQLQuery(String key, Map<String, Object> variables) {
-        this.key = key;
+    public GraphQLQuery(String query, Map<String, Object> variables, String operationName) {
+        this.query = query;
         this.variables = variables;
+        this.operationName = operationName;
     }
 
-    public String getKey() {
-        return key;
+    public String getQuery() {
+        return query;
     }
 
-    public void setKey(String key) {
-        this.key = key;
+    public GraphQLQuery setQuery(String query) {
+        this.query = query;
+        return this;
     }
 
     public Map<String, Object> getVariables() {
         return variables;
     }
 
-    public void setVariables(Map<String, Object> variables) {
+    public GraphQLQuery setVariables(Map<String, Object> variables) {
         this.variables = variables;
+        return this;
     }
 
+    public String getOperationName() {
+        return operationName;
+    }
+
+    public GraphQLQuery setOperationName(String operationName) {
+        this.operationName = operationName;
+        return this;
+    }
+
+    @Override
+    public String toString() {
+        return new ToStringBuilder(this)
+                .append("query", query)
+                .append("variables", variables)
+                .append("operationName", operationName)
+                .toString();
+    }
 }

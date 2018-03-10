@@ -53,7 +53,7 @@ public class KaraokeController {
     // 다음에 만들떄 이거부터 하면됨
 
     //GraphQL Controller
-    @PostMapping("/karaokeGraphiQL")
+/*    @PostMapping("/karaokeGraphiQL")
     public CompletableFuture<ExecutionResult> selectByGraphiQL(@RequestBody GraphQLInput input) {
         return graphQL.executeAsync(buildExecutionInput(input));
     }
@@ -68,7 +68,7 @@ public class KaraokeController {
                 .query(persistentQueryMap.getQuery(graphQLQuery.getQuery()))
                 .variables(graphQLQuery.getVariables())
                 .build();
-    }
+    }*/
 
     // Test logic
     // 이거 하기전에 react 공부해야한다... relay 쪽이 react 코드라서 ..

@@ -55,15 +55,15 @@ public class KaraokeController {
     //GraphQL Controller
     @PostMapping("/karaokeGraphiQL")
     public CompletableFuture<ExecutionResult> selectByGraphiQL(@RequestBody GraphQLInput input) {
-        return graphQL.executeAsync(buildExecutionInput(graphQLQuery));
+        return graphQL.executeAsync(buildExecutionInput(input));
     }
 
     @PostMapping("/karaokeGraphQL")
-    public CompletableFuture<ExecutionResult> selectByGraphQL(@RequestBody GraphQLQuery graphQLQuery) {
-        return graphQL.executeAsync(buildExecutionInput(graphQLQuery));
+    public CompletableFuture<ExecutionResult> selectByGraphQL(@RequestBody GraphQLInput input) {
+        return graphQL.executeAsync(buildExecutionInput(input));
     }
 
-    private ExecutionInput buildExecutionInput(GraphQLQuery graphQLQuery) {
+    private ExecutionInput buildExecutionInput(GraphQLInput input) {
         return ExecutionInput.newExecutionInput()
                 .query(persistentQueryMap.getQuery(graphQLQuery.getQuery()))
                 .variables(graphQLQuery.getVariables())

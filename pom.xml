@@ -100,11 +100,11 @@
             <version>0.8.0</version>
         </dependency>
 
-        <!-- coveralls -->
+        <!-- https://mvnrepository.com/artifact/org.kt3k.gradle.plugin/coveralls-gradle-plugin -->
         <dependency>
-            <groupId>org.eluder.coveralls</groupId>
-            <artifactId>coveralls-maven-plugin</artifactId>
-            <version>4.3.0</version>
+            <groupId>org.kt3k.gradle.plugin</groupId>
+            <artifactId>coveralls-gradle-plugin</artifactId>
+            <version>2.8.2</version>
         </dependency>
 
 

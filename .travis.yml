@@ -4,7 +4,9 @@ jdk:
 install:
 - mvn install -DskipTests=true -Dmaven.javadoc.skip=true -B -V
 script:
-- mvn test
+  - mvn test jacoco:report
+after_success:
+  - mvn coveralls:report
 deploy:
   provider: heroku
   api_key:
@@ -12,3 +14,5 @@ deploy:
   app: karaoke-parser
   on:
     repo: JangChulwoon/KaraokeParsing
+
+

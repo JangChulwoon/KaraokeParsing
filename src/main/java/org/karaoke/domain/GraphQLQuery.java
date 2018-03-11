@@ -1,6 +1,7 @@
 package org.karaoke.domain;
 
 import lombok.RequiredArgsConstructor;
+import org.apache.commons.lang3.builder.ToStringBuilder;
 
 import java.util.Map;
 
@@ -42,5 +43,14 @@ public class GraphQLQuery {
     public GraphQLQuery setOperationName(String operationName) {
         this.operationName = operationName;
         return this;
+    }
+
+    @Override
+    public String toString() {
+        return new ToStringBuilder(this)
+                .append("query", query)
+                .append("variables", variables)
+                .append("operationName", operationName)
+                .toString();
     }
 }

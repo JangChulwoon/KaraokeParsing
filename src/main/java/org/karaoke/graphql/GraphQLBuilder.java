@@ -107,12 +107,6 @@ public class GraphQLBuilder {
                 .preparsedDocumentProvider(parsedDocumentCache::get)
                 .build();
 
-       // Definition definition = new OperationDefinition()
-        PreparsedDocumentEntry parse = new PreparsedDocumentEntry(new Document());
-
-      //  parsedDocumentCache.put("1",PreparsedDocumentEntry);
-
-
     }
 
     @Bean

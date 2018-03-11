@@ -6,7 +6,9 @@ import graphql.ExecutionResult;
 import graphql.GraphQL;
 import lombok.extern.slf4j.Slf4j;
 import org.karaoke.domain.Argument;
+import org.karaoke.domain.GraphQLInput;
 import org.karaoke.domain.GraphQLQuery;
+import org.karaoke.graphql.PersistentQueryMap;
 import org.karaoke.service.KaraokeService;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.http.MediaType;
@@ -28,6 +30,9 @@ public class KaraokeController {
     GraphQL graphQL;
 
     @Autowired
+    PersistentQueryMap persistentQueryMap;
+
+    @Autowired
     public void setParser(KaraokeService parser) {
         this.parser = parser;
     }
@@ -43,24 +48,27 @@ public class KaraokeController {
         return parser.parseKaraoke(argument, page).getKaraokes();
     }
 
+    // 이거 안돌아감 ...
+    // 지금 graphIQL에서 돌아갈만한거 만드는중이야 ..
+    // 다음에 만들떄 이거부터 하면됨
+
     //GraphQL Controller
-    @PostMapping("/karaokeGraphiQL")
-    public CompletableFuture<ExecutionResult> selectByGraphiQL(@RequestBody GraphQLQuery graphQLQuery) {
-        return graphQL.executeAsync(buildExecutionInput(graphQLQuery));
+/*    @PostMapping("/karaokeGraphiQL")
+    public CompletableFuture<ExecutionResult> selectByGraphiQL(@RequestBody GraphQLInput input) {
+        return graphQL.executeAsync(buildExecutionInput(input));
     }
 
     @PostMapping("/karaokeGraphQL")
-    public CompletableFuture<ExecutionResult> selectByGraphQL(@RequestBody GraphQLQuery graphQLQuery) {
-        return graphQL.executeAsync(buildExecutionInput(graphQLQuery));
+    public CompletableFuture<ExecutionResult> selectByGraphQL(@RequestBody GraphQLInput input) {
+        return graphQL.executeAsync(buildExecutionInput(input));
     }
 
-    private ExecutionInput buildExecutionInput(GraphQLQuery graphQLQuery) {
+    private ExecutionInput buildExecutionInput(GraphQLInput input) {
         return ExecutionInput.newExecutionInput()
-                .query(graphQLQuery.getQuery())
+                .query(persistentQueryMap.getQuery(graphQLQuery.getQuery()))
                 .variables(graphQLQuery.getVariables())
-                .operationName(graphQLQuery.getOperationName())
                 .build();
-    }
+    }*/
 
     // 이거 하기전에 react 공부해야한다... relay 쪽이 react 코드라서 ..
     @RequestMapping(value = "/graphql", method = RequestMethod.POST, produces = MediaType.APPLICATION_JSON_VALUE)

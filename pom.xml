@@ -140,7 +140,7 @@
                 <artifactId>jacoco-maven-plugin</artifactId>
                 <version>0.8.1</version>
                 <configuration>
-                    <destFile>${basedir}/target/coverage-reports/jacoco-unit.exec</destFile>
+                    <destFile>${basedir}/target/jacoco/jacoco.xml</destFile>
                 </configuration>
                 <executions>
                     <execution>
@@ -162,22 +162,9 @@
                 <groupId>org.eluder.coveralls</groupId>
                 <artifactId>coveralls-maven-plugin</artifactId>
                 <version>4.3.0</version>
-
                 <configuration>
-                    <coberturaReports>
-                        <coberturaReport>
-                            ${basedir}/target/coverage-reports/jacoco-unit.exec
-                        </coberturaReport>
-                    </coberturaReports>
-                    <sourceEncoding>UTF-8</sourceEncoding>
-                    <serviceName>travis-ci</serviceName>
-
+                    <jacocoReports>${basedir}/target/jacoco/jacoco.xml</jacocoReports>
                 </configuration>
-            </plugin>
-            <plugin>
-                <groupId>org.codehaus.mojo</groupId>
-                <artifactId>cobertura-maven-plugin</artifactId>
-                <version>2.7</version>
             </plugin>
         </plugins>
     </build>

@@ -17,8 +17,10 @@ script:
   on:
     repo: JangChulwoon/KaraokeParsing
 
+
 after_success:
   - mvn clean test jacoco:report coveralls:report
+
 
 
 

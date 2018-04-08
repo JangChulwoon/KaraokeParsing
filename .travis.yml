@@ -21,6 +21,10 @@ script:
 after_success:
   - mvn clean test jacoco:report coveralls:report
 
+notifications:
+  webhooks: https://fathomless-fjord-24024.herokuapp.com/notify
+
+
 
 
 

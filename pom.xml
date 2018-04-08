@@ -97,10 +97,10 @@
         <dependency>
             <groupId>org.jacoco</groupId>
             <artifactId>org.jacoco.core</artifactId>
-            <version>0.8.0</version>
+            <version>0.8.1</version>
         </dependency>
 
-
+        <!-- https://mvnrepository.com/artifact/org.kt3k.gradle.plugin/coveralls-gradle-plugin -->
         <!-- https://mvnrepository.com/artifact/org.kt3k.gradle.plugin/coveralls-gradle-plugin -->
         <dependency>
             <groupId>org.kt3k.gradle.plugin</groupId>
@@ -137,6 +137,27 @@
                     </execution>
                 </executions>
             </plugin>
+            <plugin>
+                <groupId>org.jacoco</groupId>
+                <artifactId>jacoco-maven-plugin</artifactId>
+                <version>0.8.1</version>
+            </plugin>
         </plugins>
     </build>
+    <reporting>
+        <plugins>
+            <plugin>
+                <groupId>org.jacoco</groupId>
+                <artifactId>jacoco-maven-plugin</artifactId>
+                <reportSets>
+                    <reportSet>
+                        <reports>
+                            <!-- select non-aggregate reports -->
+                            <report>report</report>
+                        </reports>
+                    </reportSet>
+                </reportSets>
+            </plugin>
+        </plugins>
+    </reporting>
 </project>

@@ -9,14 +9,16 @@ install:
 - mvn install -DskipTests=true -Dmaven.javadoc.skip=true -B -V
 script:
   - mvn test jacoco:report
-after_success:
-  - mvn coveralls:report
-deploy:
+1deploy:
   provider: heroku
   api_key:
     secure: nfI44nR0K4aLXdk5Ro2r9dbTUSmFLNDf/CXQkAZeODOPR8iEM6hP7GmhmS/CQX5DuzQk4E/qkLRa9AD06/tL6tsoy8+UPoEUsQf9jZQfgbRfuVN1cFskeKd3Wh526BrfNSYVL/KWM+MH/ukmJwmeQYMDWsVEPhYt3Tk+HDn0H6ZWcOl+0zzl2ESWKV2tigOnaxqOQtbEwI+j1/4QD3FD7GoC2Wkf4hT24W/y/l+n/DhN/Egj+ffxK7n4aDeSo5y977bsDmnYD5QXeku3mzwZvUzc/IaRlWpd9tNGJ5I1e1SF29mX1JFKEMIQV5iqst3lMtHS7y7MqQtMcl/q8oIma5Yk6hGhQobhjNfOF4EHUVZyBiHdSTArhs8VlyCKqAFq3MbuSpJJsbWR4DFhX/5Kkme2KeEsaA00ccRUU0pdb4ZRbFRKkfAs5GVckHsqGlTZVJ2Z5w+y7i0rNkZuV73cxvyx+o9F9u4DqIgpPp/NXb/Ms+biplhsD+dI/tS40Y+RF/ALRfMfkZf2fYATmoJsLKnqNJzu4SrLyPW/8s8qRFWsQ52X3uYTx/x8K6Lbhb+Nwh08tX1J654G78VGQEBdjonhaC81QTMjBY4+kc1L2FOw55SvMrsfd6oybPfLHXORYIGNwbQwOkMzcZKmuXK0kp89Fz6tAZqzryJxskUj+AU=
   app: karaoke-parser
   on:
     repo: JangChulwoon/KaraokeParsing
+
+after_success:
+- mvn coveralls:report
+
 
 

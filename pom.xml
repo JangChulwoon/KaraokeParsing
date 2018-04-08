@@ -97,7 +97,7 @@
         <dependency>
             <groupId>org.jacoco</groupId>
             <artifactId>org.jacoco.core</artifactId>
-            <version>0.8.1</version>
+            <version>0.7.6.201602180812</version>
         </dependency>
 
         <!-- https://mvnrepository.com/artifact/org.eluder.coveralls/coveralls-maven-plugin -->
@@ -138,22 +138,12 @@
             <plugin>
                 <groupId>org.jacoco</groupId>
                 <artifactId>jacoco-maven-plugin</artifactId>
-                <version>0.8.1</version>
-                <configuration>
-                    <destFile>${basedir}/target/jacoco/jacoco.xml</destFile>
-                </configuration>
+                <version>0.7.6.201602180812</version>
                 <executions>
                     <execution>
-                        <id>jacoco-initialize</id>
+                        <id>prepare-agent</id>
                         <goals>
                             <goal>prepare-agent</goal>
-                        </goals>
-                    </execution>
-                    <execution>
-                        <id>jacoco-site</id>
-                        <phase>package</phase>
-                        <goals>
-                            <goal>report</goal>
                         </goals>
                     </execution>
                 </executions>
@@ -163,7 +153,7 @@
                 <artifactId>coveralls-maven-plugin</artifactId>
                 <version>4.3.0</version>
                 <configuration>
-                    <jacocoReports>${basedir}/target/jacoco/jacoco.xml</jacocoReports>
+                    <repoToken>JcgjTI5j2UMKusYh0LnpgvSIjww4DHMO4</repoToken>
                 </configuration>
             </plugin>
         </plugins>

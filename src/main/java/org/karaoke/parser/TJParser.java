@@ -4,11 +4,10 @@ import lombok.extern.slf4j.Slf4j;
 import org.jsoup.select.Elements;
 import org.karaoke.domain.Argument;
 import org.karaoke.domain.Category;
-import org.karaoke.domain.KaraokesTime;
+import org.karaoke.domain.KaraokesWrapper;
 import org.springframework.stereotype.Component;
 
 import javax.annotation.PostConstruct;
-import java.io.IOException;
 import java.util.HashMap;
 import java.util.Map;
 
@@ -29,7 +28,7 @@ public class TJParser extends Parser {
         URLQuery.put(SONG, "strType=1");
         URLQuery.put(NUMBER, "strType=16");
     }
-    public KaraokesTime parse(Argument argument, int page){
+    public KaraokesWrapper parse(Argument argument, int page){
         StringBuilder str = new StringBuilder(URL);
         str.append(URLQuery.get(argument.getCategory()))
                 .append("&strText=")

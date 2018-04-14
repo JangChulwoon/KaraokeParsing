@@ -51,10 +51,13 @@ public class KaraokeController {
     //GraphQL Controller
     @PostMapping("/karaokeGraphiQL")
     public CompletableFuture<ExecutionResult> selectByGraphiQL(@RequestBody GraphQLInput input) {
-
         return graphQL.executeAsync(buildExecutionInput(input));
     }
 
+    // argument resolver 를 써서 적용해볼까
+    // 객체 자체를 담아서 사용하자
+    // caching 은 어떻게 하지?   ~
+    // Test 코드도 해야되는데 ..
     @PostMapping("/karaokeGraphQL")
     public CompletableFuture<ExecutionResult> selectByGraphQL(@RequestBody GraphQLInput input) {
         return graphQL.executeAsync(buildExecutionInput(input));

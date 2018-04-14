@@ -20,17 +20,19 @@ public class CacheManager {
 
     private Map<String, KaraokesWrapper> map;
 
-    @Autowired
     private KaraokeService service;
+
+    public CacheManager(KaraokeService service) {
+        this.service = service;
+    }
 
     @PostConstruct
     public void setUp() {
         map = new LinkedHashMap<>();
     }
 
-    public List<Karaoke> loadCache(Argument argument, int page) {
-        return loadKaraokesByWord(argument, page)
-                .orElse(getKaraokeList(argument, page))
+    public List<Karaoke> loadCache(final Argument argument) {
+        return loadKaraokesByWord(argument)
                 .getKaraokes();
     }
 
@@ -38,14 +40,19 @@ public class CacheManager {
         return map;
     }
 
-    private Optional<KaraokesWrapper> loadKaraokesByWord(Argument word, int page) {
-        return Optional.of(map.get(word.toString() + page));
+    private KaraokesWrapper loadKaraokesByWord(final Argument argument) {
+        return Optional.ofNullable(map.get(makeKey(argument)))
+                .orElse(getKaraokeList(argument));
     }
 
-    private KaraokesWrapper getKaraokeList(Argument argument, int page) {
-        KaraokesWrapper karaokesWrapper = service.parseKaraoke(argument, page);
-        map.put(argument.toString() + page, karaokesWrapper);
+    private KaraokesWrapper getKaraokeList(final Argument argument) {
+        KaraokesWrapper karaokesWrapper = service.parseKaraoke(argument);
+        map.put(makeKey(argument), karaokesWrapper);
         return karaokesWrapper;
+    }
+
+    private String makeKey(final Argument argument) {
+        return argument.toString();
     }
 
 }

@@ -15,8 +15,13 @@ import java.util.Map;
 @Slf4j
 public class DataFetcher implements graphql.schema.DataFetcher {
 
+
+    private CacheManager manager;
+
     @Autowired
-    CacheManager manager;
+    public DataFetcher(CacheManager manager) {
+        this.manager = manager;
+    }
 
     @Override
     public Object get(DataFetchingEnvironment env) {
@@ -24,7 +29,8 @@ public class DataFetcher implements graphql.schema.DataFetcher {
         Argument arg = new Argument()
                 .setCompany(Company.valueOf(map.get("company")))
                 .setCategory(Category.valueOf(map.get("category")))
-                .setWord(map.get("keyword"));
-        return manager.loadCache(arg, env.getArgument("page"));
+                .setWord(map.get("keyword"))
+                .setPage(env.getArgument("page"));
+        return manager.loadCache(arg);
     }
 }

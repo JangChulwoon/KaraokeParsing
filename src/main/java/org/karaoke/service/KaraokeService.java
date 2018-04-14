@@ -14,15 +14,20 @@ import java.io.IOException;
 @Slf4j
 public class KaraokeService {
 
-    @Autowired
+
     private ApplicationContext context;
+
+    @Autowired
+    public KaraokeService(ApplicationContext context) {
+        this.context = context;
+    }
 
     // 차라리 Map에 객체를 들고 있는게 좋으려나 ?
     // 이게 좋은 코드 일까 ?
-    public KaraokesWrapper parseKaraoke(Argument argument, int page){
+    public KaraokesWrapper parseKaraoke(Argument argument){
         Parser karaokeParser = (Parser) context.getBean(argument.getCompany().toString());
         try {
-            return karaokeParser.parse(argument,page);
+            return karaokeParser.parse(argument);
         } catch (IOException e) {
             log.error("Cause : {} , Message : {}",e.getCause(),e.getMessage());
         }

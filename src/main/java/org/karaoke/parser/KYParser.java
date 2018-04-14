@@ -31,13 +31,13 @@ public class KYParser extends   Parser{
         URLQuery.put(NUMBER, "sch_sel=1");
     }
 
-    public KaraokesWrapper parse(Argument argument, int page) {
+    public KaraokesWrapper parse(Argument argument) {
         StringBuilder str = new StringBuilder(URL);
         try {
             str.append(URLQuery.get(argument.getCategory()))
                     .append("&sch_txt=")
                     .append(URLEncoder.encode(argument.getWord(), "euc-kr"))
-                    .append("&page=").append(page);
+                    .append("&page=").append(argument.getPage());
         } catch (UnsupportedEncodingException e) {
             log.error("Fetch Exception : {}",e);
             return null;

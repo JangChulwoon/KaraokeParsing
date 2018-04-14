@@ -25,27 +25,23 @@ import java.util.concurrent.CompletableFuture;
 @Slf4j
 public class KaraokeController {
 
-    KaraokeService parser;
+    private KaraokeService parser;
 
-    GraphQL graphQL;
+    private GraphQL graphQL;
+
+    private PersistentQueryMap persistentQueryMap;
 
     @Autowired
-    PersistentQueryMap persistentQueryMap;
-
-    @Autowired
-    public void setParser(KaraokeService parser) {
+    public KaraokeController(KaraokeService parser, GraphQL graphQL, PersistentQueryMap persistentQueryMap) {
         this.parser = parser;
-    }
-
-    @Autowired
-    public void setGraphQL(GraphQL graphQL) {
         this.graphQL = graphQL;
+        this.persistentQueryMap = persistentQueryMap;
     }
 
     //Rest Controller
     @GetMapping("/{company}/{category}/{word}")
-    public List<?> selectKaraoke(@ModelAttribute Argument argument, @RequestParam(required = false, defaultValue = "1") int page) throws IOException {
-        return parser.parseKaraoke(argument, page).getKaraokes();
+    public List<?> selectKaraoke(@ModelAttribute Argument argument, @RequestParam(required = false, defaultValue = "1") int page) {
+        return parser.parseKaraoke(argument).getKaraokes();
     }
 
     //GraphQL Controller

@@ -28,14 +28,14 @@ public class TJParser extends Parser {
         URLQuery.put(SONG, "strType=1");
         URLQuery.put(NUMBER, "strType=16");
     }
-    public KaraokesWrapper parse(Argument argument, int page){
+    public KaraokesWrapper parse(Argument argument){
         StringBuilder str = new StringBuilder(URL);
         str.append(URLQuery.get(argument.getCategory()))
                 .append("&strText=")
                 .append(argument.getWord())
                 .append("&strSize02=10")
                 .append("&intPage=")
-                .append(page);
+                .append(argument.getPage());
         Elements elements = fetchDOM(str.toString(), "table.board_type1 tr:has(td)");
         return buildKaraokes(elements);
     }

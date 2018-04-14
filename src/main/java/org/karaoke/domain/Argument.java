@@ -7,6 +7,7 @@ public class Argument {
     private Company company;
     private Category category;
     private String word;
+    private int page;
 
     public Company getCompany() {
         return company;
@@ -32,6 +33,15 @@ public class Argument {
 
     public Argument setWord(String word) {
         this.word = word;
+        return this;
+    }
+
+    public Integer getPage() {
+        return page == 0 ? 1 : page;
+    }
+
+    public Argument setPage(Integer page) {
+        this.page = page;
         return this;
     }
 

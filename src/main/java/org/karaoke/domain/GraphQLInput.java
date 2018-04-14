@@ -5,7 +5,7 @@ import java.util.Map;
 public class GraphQLInput {
     private String key;
     private String query;
-    private Map variable;
+    private Map<String, Object> variable;
 
     public String getKey() {
         return key;

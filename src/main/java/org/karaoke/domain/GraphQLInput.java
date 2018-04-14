@@ -4,18 +4,9 @@ import java.util.Collections;
 import java.util.Map;
 
 public class GraphQLInput {
-    private String key;
+
     private String query;
-    private Map<String, Object> variable;
-
-    public String getKey() {
-        return key;
-    }
-
-    public GraphQLInput setKey(String key) {
-        this.key = key;
-        return this;
-    }
+    private Map variables;
 
     public String getQuery() {
         return query;
@@ -26,11 +17,11 @@ public class GraphQLInput {
         return this;
     }
 
-    public Map getVariable() {
-        return variable;
+    public Map getVariables() {
+        return variables;
     }
 
-    public void setVariable(Map input) {
-        this.variable = Collections.synchronizedMap(input);
+    public void setVariables(Map variables) {
+        this.variables = Collections.synchronizedMap(variables);
     }
 }

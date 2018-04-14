@@ -62,7 +62,7 @@ public class KaraokeController {
     private ExecutionInput buildExecutionInput(GraphQLInput input) {
         return ExecutionInput.newExecutionInput()
                 .query(input.getQuery())
-                .variables(input.getVariable())
+                .variables(input.getVariables())
                 .build();
     }
 

@@ -28,9 +28,9 @@ public class PersistController {
 
     @PostMapping("/queries")
     public ResponseEntity<String> selectAll(@RequestBody GraphQLInput query){
-        if(verifyQuery(query.getKey(),query.getQuery())){
+        /*if(verifyQuery(query.getKey(),query.getQuery())){
             return ResponseEntity.ok("Success");
-        }
+        }*/
         return ResponseEntity.status(400).body("wrong input");
     }
 

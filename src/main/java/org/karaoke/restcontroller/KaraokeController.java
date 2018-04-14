@@ -48,13 +48,10 @@ public class KaraokeController {
         return parser.parseKaraoke(argument, page).getKaraokes();
     }
 
-    // 이거 안돌아감 ...
-    // 지금 graphIQL에서 돌아갈만한거 만드는중이야 ..
-    // 다음에 만들떄 이거부터 하면됨
-
     //GraphQL Controller
-/*    @PostMapping("/karaokeGraphiQL")
+    @PostMapping("/karaokeGraphiQL")
     public CompletableFuture<ExecutionResult> selectByGraphiQL(@RequestBody GraphQLInput input) {
+
         return graphQL.executeAsync(buildExecutionInput(input));
     }
 
@@ -65,27 +62,10 @@ public class KaraokeController {
 
     private ExecutionInput buildExecutionInput(GraphQLInput input) {
         return ExecutionInput.newExecutionInput()
-                .query(persistentQueryMap.getQuery(graphQLQuery.getQuery()))
-                .variables(graphQLQuery.getVariables())
+                .query(input.getQuery())
+                .variables(input.getVariable())
                 .build();
-    }*/
-
-    // 이거 하기전에 react 공부해야한다... relay 쪽이 react 코드라서 ..
-    @RequestMapping(value = "/graphql", method = RequestMethod.POST, produces = MediaType.APPLICATION_JSON_VALUE)
-    @ResponseBody
-    public Object executeOperation(@RequestBody Map body) {
-        String query = (String) body.get("query");
-        Map<String, Object> variables = (Map<String, Object>) body.get("variables");
-        if (variables == null) {
-            variables = new LinkedHashMap<>();
-        }
-        ExecutionResult executionResult = graphQL.execute(query, (Object) null, variables);
-        Map<String, Object> result = new LinkedHashMap<>();
-        if (executionResult.getErrors().size() > 0) {
-            result.put("errors", executionResult.getErrors());
-            log.error("Errors: {}", executionResult.getErrors());
-        }
-        result.put("data", executionResult.getData());
-        return result;
     }
+
+
 }

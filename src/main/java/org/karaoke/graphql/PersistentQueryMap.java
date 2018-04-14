@@ -20,10 +20,12 @@ public class PersistentQueryMap {
             "  }\n" +
             "}";
 
-    private final String structureQuery = "query IntrospectionQuery {\n" +
+    private final String structureQuery ="\n" +
+            "  query IntrospectionQuery {\n" +
             "    __schema {\n" +
             "      queryType { name }\n" +
             "      mutationType { name }\n" +
+            "      subscriptionType { name }\n" +
             "      types {\n" +
             "        ...FullType\n" +
             "      }\n" +
@@ -109,7 +111,7 @@ public class PersistentQueryMap {
             "        }\n" +
             "      }\n" +
             "    }\n" +
-            "  }";
+            "  }\n";
 
     @PostConstruct
     public void setUp(){

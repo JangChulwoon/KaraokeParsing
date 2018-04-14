@@ -35,18 +35,13 @@ GraphQL에 대한 컨셉 및 개념은 다음을 [참고](https://jangchulwoon.g
 
 GraphQL을 가장 빨리 만나는 방법(?)은 아래와 같습니다. 
 	
-	query : {
-	  Karaoke(karaoke : {
-	                      company : KY , 
-	                      category : SINGER , 
-	                      keyword : "우원재"
-	                    }, 
-	    			page : 1){
-	    number
-	    title
-	    singer
-	  }
-	}
+    {
+      Karaoke(karaoke: {company: TJ, category: SINGER, keyword: "우원재", page: 1}) {
+        number
+        title
+        singer
+      }
+    }
 
 
 
@@ -60,25 +55,7 @@ Language는 기본적으로 변수나 함수 라는 개념이 어느정도 있�
 즉, 함수 및 변수를 사용하는 방법은 아래와 같습니다.
 
 
-	{
-		"query": "query select($karaoke : karaoke, $page : Int){
-					Karaoke(karaoke : $karaoke, page : $page){
-						number
-						title
-						singer
-					}
-				}",
-		"variables":{
-					"karaoke":
-						{
-							"company":"KY",
-							"category":"SINGER",
-							"keyword":"우원재"
-						},
-						"page":1
-					},
-		"operationName":"select"
-	}
+~ 작성중 
 
 
 
@@ -86,5 +63,5 @@ Language는 기본적으로 변수나 함수 라는 개념이 어느정도 있�
 
 > Sample 작성해 볼 것 ! 
 
-Angular를 이용해서 간단한 Sample 한번 작성해보자 
+
 

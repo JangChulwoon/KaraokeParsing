@@ -27,3 +27,4 @@ nbdist/
 ### .coveralls
 
 .coveralls.yml
+application.properties

@@ -1,0 +1,12 @@
+{
+  "query": "\n  query select($karaoke :karaoke){\n    Karaoke(karaoke : $karaoke){\n    number\n    title\n    singer\n  }\n  }\n  \n",
+  "variables": {
+    "karaoke": {
+      "company": "TJ",
+      "category": "SINGER",
+      "keyword": "우원재",
+      "page": 1
+    }
+  },
+  "operationName": "select"
+}

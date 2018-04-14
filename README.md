@@ -54,14 +54,25 @@ Language는 기본적으로 변수나 함수 라는 개념이 어느정도 있�
 
 즉, 함수 및 변수를 사용하는 방법은 아래와 같습니다.
 
-
-~ 작성중 
-
-
+    {
+      "query": "\n  query select($karaoke :karaoke){\n    Karaoke(karaoke : $karaoke){\n    number\n    title\n    singer\n  }\n  }\n  \n",
+      "variables": {
+        "karaoke": {
+          "company": "TJ",
+          "category": "SINGER",
+          "keyword": "우원재",
+          "page": 1
+        }
+      },
+      "operationName": "select"
+    }
 
 위와 같이 VARIABLES를 둬서 유동적인 쿼리를 작성할 수 있습니다.   
 
-> Sample 작성해 볼 것 ! 
+해당 소스는 현재 [heroku](https://karaoke-parser.herokuapp.com/)를 통해 확인해 보실 수 있습니다.
+
+> 아무래도 외국에 서버가 있다보니, 반응이 느린점 양해부탁드립니다 ..
+
 
 
 

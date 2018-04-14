@@ -83,6 +83,11 @@ public class GraphQLBuilder {
                         .name("keyword")
                         .type(GraphQLString)
                         .build())
+                .field(GraphQLInputObjectField.newInputObjectField()
+                        .name("page")
+                        .type(GraphQLInt)
+                        .defaultValue(1)
+                        .build())
                 .build();
 
         GraphQLObjectType objectType = newObject().name("selectKaraoke")
@@ -92,11 +97,8 @@ public class GraphQLBuilder {
                         .dataFetcher(dataFetcher)
                         .argument(GraphQLArgument.newArgument()
                                 .name("karaoke")
-                                .type(karaoke))
-                        .argument(GraphQLArgument.newArgument()
-                                .name("page")
-                                .type(GraphQLInt)
-                                .defaultValue(1))).build();
+                                .type(karaoke)))
+                .build();
 
         GraphQLSchema schema = GraphQLSchema.newSchema()
                 .query(objectType)

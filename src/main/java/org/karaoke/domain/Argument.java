@@ -40,7 +40,7 @@ public class Argument {
         return page == 0 ? 1 : page;
     }
 
-    public Argument setPage(Integer page) {
+    public Argument setPage(int page) {
         this.page = page;
         return this;
     }

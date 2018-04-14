@@ -12,6 +12,7 @@ import javax.annotation.PostConstruct;
 import java.util.LinkedHashMap;
 import java.util.List;
 import java.util.Map;
+import java.util.Optional;
 
 @Component
 @Slf4j
@@ -28,24 +29,23 @@ public class CacheManager {
     }
 
     public List<Karaoke> loadCache(Argument argument, int page) {
-        KaraokesWrapper karaokesWrapper = this.loadKaraokesByWord(argument, page);
-        if (karaokesWrapper == null) {
-            karaokesWrapper = service.parseKaraoke(argument, page);
-            this.add(argument, page, karaokesWrapper);
-        }
-        return karaokesWrapper.getKaraokes();
+        return loadKaraokesByWord(argument, page)
+                .orElse(getKaraokeList(argument, page))
+                .getKaraokes();
     }
 
     public Map<String, KaraokesWrapper> selectMap() {
         return map;
     }
 
-    // Map key를 다른걸로 만들 수 없을까 고민해볼 것.
-    private KaraokesWrapper loadKaraokesByWord(Argument word, int page) {
-        return map.get(word.toString() + page);
+    private Optional<KaraokesWrapper> loadKaraokesByWord(Argument word, int page) {
+        return Optional.of(map.get(word.toString() + page));
     }
 
-    private void add(Argument arg, int page, KaraokesWrapper list) {
-        map.put(arg.toString() + page, list);
+    private KaraokesWrapper getKaraokeList(Argument argument, int page) {
+        KaraokesWrapper karaokesWrapper = service.parseKaraoke(argument, page);
+        map.put(argument.toString() + page, karaokesWrapper);
+        return karaokesWrapper;
     }
+
 }

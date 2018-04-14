@@ -42,6 +42,4 @@ public class KaraokeApplication {
         return new ConcurrentTaskScheduler();
     }
 
-    // 왜 graphQL을 썻는가 ?
-
 }

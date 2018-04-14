@@ -1,5 +1,6 @@
 package org.karaoke.domain;
 
+import java.util.Collections;
 import java.util.Map;
 
 public class GraphQLInput {
@@ -29,8 +30,7 @@ public class GraphQLInput {
         return variable;
     }
 
-    // 이코드 조금 위험함
-    public void setVariable(Map variable) {
-        this.variable = variable;
+    public void setVariable(Map input) {
+        this.variable = Collections.synchronizedMap(input);
     }
 }

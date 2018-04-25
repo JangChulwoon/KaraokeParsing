@@ -22,8 +22,6 @@ public class KaraokeService {
         this.context = context;
     }
 
-    // 차라리 Map에 객체를 들고 있는게 좋으려나 ?
-    // 이게 좋은 코드 일까 ?
     public KaraokesWrapper parseKaraoke(Argument argument){
         Parser karaokeParser = (Parser) context.getBean(argument.getCompany().toString());
         try {

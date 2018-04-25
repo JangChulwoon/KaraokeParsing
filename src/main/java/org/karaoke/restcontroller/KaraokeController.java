@@ -7,17 +7,12 @@ import graphql.GraphQL;
 import lombok.extern.slf4j.Slf4j;
 import org.karaoke.domain.Argument;
 import org.karaoke.domain.GraphQLInput;
-import org.karaoke.domain.GraphQLQuery;
 import org.karaoke.graphql.PersistentQueryMap;
 import org.karaoke.service.KaraokeService;
 import org.springframework.beans.factory.annotation.Autowired;
-import org.springframework.http.MediaType;
 import org.springframework.web.bind.annotation.*;
 
-import java.io.IOException;
-import java.util.LinkedHashMap;
 import java.util.List;
-import java.util.Map;
 import java.util.concurrent.CompletableFuture;
 
 @CrossOrigin
@@ -29,18 +24,15 @@ public class KaraokeController {
 
     private GraphQL graphQL;
 
-    private PersistentQueryMap persistentQueryMap;
-
     @Autowired
-    public KaraokeController(KaraokeService parser, GraphQL graphQL, PersistentQueryMap persistentQueryMap) {
+    public KaraokeController(KaraokeService parser, GraphQL graphQL) {
         this.parser = parser;
         this.graphQL = graphQL;
-        this.persistentQueryMap = persistentQueryMap;
     }
 
-    //Rest Controller
+    //Rest Controlle
     @GetMapping("/{company}/{category}/{word}")
-    public List<?> selectKaraoke(@ModelAttribute Argument argument, @RequestParam(required = false, defaultValue = "1") int page) {
+    public List<?> selectKaraoke(@ModelAttribute Argument argument) {
         return parser.parseKaraoke(argument).getKaraokes();
     }
 

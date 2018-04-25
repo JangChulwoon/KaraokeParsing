@@ -13,9 +13,7 @@ import java.net.URLEncoder;
 import java.util.HashMap;
 import java.util.Map;
 
-import static org.karaoke.domain.Category.NUMBER;
-import static org.karaoke.domain.Category.SINGER;
-import static org.karaoke.domain.Category.SONG;
+import static org.karaoke.domain.Category.*;
 
 @Component("KY")
 @Slf4j

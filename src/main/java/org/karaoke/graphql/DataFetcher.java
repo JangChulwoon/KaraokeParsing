@@ -5,7 +5,6 @@ import lombok.extern.slf4j.Slf4j;
 import org.karaoke.domain.Argument;
 import org.karaoke.domain.Category;
 import org.karaoke.domain.Company;
-import org.karaoke.domain.Karaoke;
 import org.karaoke.util.CacheManager;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Component;

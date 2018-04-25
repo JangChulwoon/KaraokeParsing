@@ -4,10 +4,6 @@ import com.github.benmanes.caffeine.cache.Cache;
 import graphql.GraphQL;
 import graphql.execution.ExecutorServiceExecutionStrategy;
 import graphql.execution.preparsed.PreparsedDocumentEntry;
-import graphql.language.Definition;
-import graphql.language.DirectiveDefinition;
-import graphql.language.Document;
-import graphql.language.OperationDefinition;
 import graphql.schema.*;
 import lombok.extern.slf4j.Slf4j;
 import org.springframework.beans.factory.annotation.Autowired;
@@ -15,7 +11,6 @@ import org.springframework.context.annotation.Bean;
 import org.springframework.stereotype.Component;
 
 import javax.annotation.PostConstruct;
-
 import java.util.concurrent.ExecutorService;
 
 import static graphql.Scalars.GraphQLInt;

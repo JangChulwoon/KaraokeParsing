@@ -3,14 +3,12 @@ package org.karaoke.parser;
 import lombok.extern.slf4j.Slf4j;
 import org.joda.time.DateTime;
 import org.jsoup.Jsoup;
-import org.jsoup.nodes.Document;
 import org.jsoup.select.Elements;
 import org.karaoke.domain.Argument;
 import org.karaoke.domain.Karaoke;
 import org.karaoke.domain.KaraokesWrapper;
 
 import java.io.IOException;
-import java.sql.Timestamp;
 import java.util.List;
 import java.util.stream.Collectors;
 

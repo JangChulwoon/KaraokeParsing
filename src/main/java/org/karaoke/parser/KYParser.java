@@ -17,9 +17,10 @@ import static org.karaoke.domain.Category.*;
 
 @Component("KY")
 @Slf4j
-public class KYParser extends   Parser{
+public class KYParser extends Parser {
 
     private static final String URL = "http://www.ikaraoke.kr/isong/search_musictitle.asp?";
+    private static final String DOC_QUERY = ".tbl_board tr:has(td)";
     private static final Map<Category, String> URLQuery = new HashMap<>();
 
     @PostConstruct
@@ -29,19 +30,23 @@ public class KYParser extends   Parser{
         URLQuery.put(NUMBER, "sch_sel=1");
     }
 
-    public KaraokesWrapper parse(Argument argument) {
+    public KaraokesWrapper extract(Argument argument) {
         StringBuilder str = new StringBuilder(URL);
+        appendParameter(argument, str);
+        return extractKaraokes(fetchDOM(str.toString(), DOC_QUERY));
+    }
+
+    private void appendParameter(Argument argument, StringBuilder str) {
+
         try {
             str.append(URLQuery.get(argument.getCategory()))
                     .append("&sch_txt=")
                     .append(URLEncoder.encode(argument.getWord(), "euc-kr"))
                     .append("&page=").append(argument.getPage());
         } catch (UnsupportedEncodingException e) {
-            log.error("Fetch Exception : {}",e);
-            return null;
+            e.printStackTrace();
+            log.error("message : {}", e.getMessage());
         }
-        Elements elements = fetchDOM(str.toString(),".tbl_board tr:has(td)");
-        return buildKaraokes(elements);
     }
 
 

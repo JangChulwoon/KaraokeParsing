@@ -7,7 +7,6 @@ import graphql.GraphQL;
 import lombok.extern.slf4j.Slf4j;
 import org.karaoke.domain.Argument;
 import org.karaoke.domain.GraphQLInput;
-import org.karaoke.graphql.PersistentQueryMap;
 import org.karaoke.service.KaraokeService;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.web.bind.annotation.*;
@@ -33,7 +32,7 @@ public class KaraokeController {
     //Rest Controlle
     @GetMapping("/{company}/{category}/{word}")
     public List<?> selectKaraoke(@ModelAttribute Argument argument) {
-        return parser.parseKaraoke(argument).getKaraokes();
+        return parser.extractKarake(argument).getKaraokes();
     }
 
     //GraphQL Controller
@@ -42,10 +41,6 @@ public class KaraokeController {
         return graphQL.executeAsync(buildExecutionInput(input));
     }
 
-    // argument resolver 를 써서 적용해볼까
-    // 객체 자체를 담아서 사용하자
-    // caching 은 어떻게 하지?   ~
-    // Test 코드도 해야되는데 ..
     @PostMapping("/karaokeGraphQL")
     public CompletableFuture<ExecutionResult> selectByGraphQL(@RequestBody GraphQLInput input) {
         return graphQL.executeAsync(buildExecutionInput(input));

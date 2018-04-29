@@ -3,6 +3,7 @@ package org.karaoke.parser;
 import lombok.extern.slf4j.Slf4j;
 import org.joda.time.DateTime;
 import org.jsoup.Jsoup;
+import org.jsoup.nodes.Element;
 import org.jsoup.select.Elements;
 import org.karaoke.domain.Argument;
 import org.karaoke.domain.Karaoke;
@@ -15,25 +16,33 @@ import java.util.stream.Collectors;
 @Slf4j
 public abstract class Parser {
 
-    public abstract KaraokesWrapper parse(Argument argument) throws IOException;
+    private static final int NUMBER_INDEX = 0;
+    private static final int TITLE_INDEX = 1;
+    private static final int SINGER_INDEX = 2;
+    private static final int CONNECT_TIMEOUT = 5000;
 
-    protected KaraokesWrapper buildKaraokes(Elements elements) {
-        List<Karaoke> list =  elements.stream()
-                .filter(e -> e.children().size() > 1)
-                .map(e ->
-                     new Karaoke()
-                            .setNumber(e.child(0).text())
-                            .setTitle(e.child(1).text())
-                            .setSinger(e.child(2).text())
-                ).collect(Collectors.toList());
-        return new KaraokesWrapper(list,new DateTime());
+    public abstract KaraokesWrapper extract(Argument argument) throws IOException;
+
+    protected KaraokesWrapper extractKaraokes(Elements elements) {
+        List<Karaoke> list = elements.stream()
+                .filter(e -> e.children().size() > 1) // if result is 0, not operate.
+                .map(this::populateKaraoke)
+                .collect(Collectors.toList());
+        return new KaraokesWrapper(list, new DateTime());
     }
 
-    protected Elements fetchDOM(String str, String cssQuery) {
+    private Karaoke populateKaraoke(Element e) {
+        return new Karaoke()
+                .setNumber(e.child(NUMBER_INDEX).text())
+                .setTitle(e.child(TITLE_INDEX).text())
+                .setSinger(e.child(SINGER_INDEX).text());
+    }
+
+    protected Elements fetchDOM(String str, String docQuery) {
         try {
-            return Jsoup.connect(str).timeout(5000).get().select(cssQuery);
+            return Jsoup.connect(str).timeout(CONNECT_TIMEOUT).get().select(docQuery);
         } catch (IOException e) {
-            log.error("Fetch Exception : {}",e);
+            log.error("Fetch Exception : {}", e);
             return null;
         }
     }

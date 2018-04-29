@@ -20,6 +20,7 @@ import static org.karaoke.domain.Category.SONG;
 public class TJParser extends Parser {
 
     private static final String URL = "https://www.tjmedia.co.kr/tjsong/song_search_list.asp?";
+    private static final String DOC_QUERY = "table.board_type1 tr:has(td)";
     private static final Map<Category, String> URLQuery = new HashMap<>();
 
     @PostConstruct
@@ -28,15 +29,19 @@ public class TJParser extends Parser {
         URLQuery.put(SONG, "strType=1");
         URLQuery.put(NUMBER, "strType=16");
     }
-    public KaraokesWrapper parse(Argument argument){
-        StringBuilder str = new StringBuilder(URL);
+
+    public KaraokesWrapper extract(Argument argument) {
+        StringBuilder url = new StringBuilder(URL);
+        appendParameter(argument, url);
+        return extractKaraokes(fetchDOM(url.toString(), DOC_QUERY));
+    }
+
+    private void appendParameter(Argument argument, StringBuilder str) {
         str.append(URLQuery.get(argument.getCategory()))
                 .append("&strText=")
                 .append(argument.getWord())
                 .append("&strSize02=10")
                 .append("&intPage=")
                 .append(argument.getPage());
-        Elements elements = fetchDOM(str.toString(), "table.board_type1 tr:has(td)");
-        return buildKaraokes(elements);
     }
 }

@@ -45,7 +45,7 @@ public class CacheManager {
     }
 
     private KaraokesWrapper getKaraokeList(final Argument argument) {
-        KaraokesWrapper karaokesWrapper = service.parseKaraoke(argument);
+        KaraokesWrapper karaokesWrapper = service.extractKarake(argument);
         map.put(makeKey(argument), karaokesWrapper);
         return karaokesWrapper;
     }

@@ -11,12 +11,16 @@ import java.util.Map;
 
 @Component
 @Slf4j
-public class CacheScheduler {
+public class CacheScheduler { // redis 로 바꾸고싶다
 
     private final static int STANDARD_DAY = 1;
 
-    @Autowired
     CacheManager manager;
+
+    @Autowired
+    public CacheScheduler(CacheManager manager) {
+        this.manager = manager;
+    }
 
     @Scheduled(initialDelay = 0, fixedDelay = 300000)
     public void clearCache() { // 실행될 로직

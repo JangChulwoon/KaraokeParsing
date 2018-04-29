@@ -9,8 +9,8 @@ public class Argument {
     private String word;
     private int page;
 
-    public Company getCompany() {
-        return company;
+    public String getCompany() {
+        return company.toString();
     }
 
     public Argument setCompany(Company company) {

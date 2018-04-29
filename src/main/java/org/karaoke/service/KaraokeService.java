@@ -22,10 +22,10 @@ public class KaraokeService {
         this.context = context;
     }
 
-    public KaraokesWrapper parseKaraoke(Argument argument){
-        Parser karaokeParser = (Parser) context.getBean(argument.getCompany().toString());
+    public KaraokesWrapper extractKarake(Argument argument){
+        Parser karaokeParser = (Parser) context.getBean(argument.getCompany());
         try {
-            return karaokeParser.parse(argument);
+            return karaokeParser.extract(argument);
         } catch (IOException e) {
             log.error("Cause : {} , Message : {}",e.getCause(),e.getMessage());
         }

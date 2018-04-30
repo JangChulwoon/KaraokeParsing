@@ -41,6 +41,12 @@
             <artifactId>spring-boot-starter-web</artifactId>
         </dependency>
 
+        <!-- spring-boot-starter-data-redis -->
+        <dependency>
+            <groupId>org.springframework.boot</groupId>
+            <artifactId>spring-boot-starter-data-redis</artifactId>
+        </dependency>
+
         <dependency>
             <groupId>org.springframework.boot</groupId>
             <artifactId>spring-boot-devtools</artifactId>
@@ -119,6 +125,7 @@
             <artifactId>sonar-maven-plugin</artifactId>
             <version>3.2</version>
         </dependency>
+
     </dependencies>
 
     <build>

@@ -4,11 +4,13 @@ import lombok.extern.slf4j.Slf4j;
 import org.jsoup.select.Elements;
 import org.karaoke.domain.Argument;
 import org.karaoke.domain.Category;
+import org.karaoke.domain.Karaoke;
 import org.karaoke.domain.KaraokesWrapper;
 import org.springframework.stereotype.Component;
 
 import javax.annotation.PostConstruct;
 import java.util.HashMap;
+import java.util.List;
 import java.util.Map;
 
 import static org.karaoke.domain.Category.NUMBER;
@@ -30,7 +32,7 @@ public class TJParser extends Parser {
         URLQuery.put(NUMBER, "strType=16");
     }
 
-    public KaraokesWrapper extract(Argument argument) {
+    public List<Karaoke> extract(Argument argument) {
         StringBuilder url = new StringBuilder(URL);
         appendParameter(argument, url);
         return extractKaraokes(fetchDOM(url.toString(), DOC_QUERY));

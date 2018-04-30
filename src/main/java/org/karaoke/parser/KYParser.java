@@ -4,6 +4,7 @@ import lombok.extern.slf4j.Slf4j;
 import org.jsoup.select.Elements;
 import org.karaoke.domain.Argument;
 import org.karaoke.domain.Category;
+import org.karaoke.domain.Karaoke;
 import org.karaoke.domain.KaraokesWrapper;
 import org.springframework.stereotype.Component;
 
@@ -11,6 +12,7 @@ import javax.annotation.PostConstruct;
 import java.io.UnsupportedEncodingException;
 import java.net.URLEncoder;
 import java.util.HashMap;
+import java.util.List;
 import java.util.Map;
 
 import static org.karaoke.domain.Category.*;
@@ -30,7 +32,7 @@ public class KYParser extends Parser {
         URLQuery.put(NUMBER, "sch_sel=1");
     }
 
-    public KaraokesWrapper extract(Argument argument) {
+    public List<Karaoke> extract(Argument argument) {
         StringBuilder str = new StringBuilder(URL);
         appendParameter(argument, str);
         return extractKaraokes(fetchDOM(str.toString(), DOC_QUERY));

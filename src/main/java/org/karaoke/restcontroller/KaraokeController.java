@@ -32,7 +32,7 @@ public class KaraokeController {
     //Rest Controlle
     @GetMapping("/{company}/{category}/{word}")
     public List<?> selectKaraoke(@ModelAttribute Argument argument) {
-        return parser.extractKarake(argument).getKaraokes();
+        return parser.extractKaraoke(argument);
     }
 
     //GraphQL Controller

@@ -47,6 +47,6 @@ public class Argument {
 
     @Override
     public String toString() {
-        return ToStringBuilder.reflectionToString(this, ToStringStyle.JSON_STYLE);
+        return company + ":" + category + ":" + word + ":" + page;
     }
 }

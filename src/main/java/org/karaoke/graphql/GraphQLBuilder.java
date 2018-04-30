@@ -24,13 +24,13 @@ import static graphql.schema.GraphQLObjectType.newObject;
 public class GraphQLBuilder {
 
     @Autowired
-    DataFetcher dataFetcher;
+    private DataFetcher dataFetcher;
 
     @Autowired
-    ExecutorService es;
+    private ExecutorService es;
 
     @Autowired
-    Cache<String, PreparsedDocumentEntry> parsedDocumentCache;
+    private Cache<String, PreparsedDocumentEntry> parsedDocumentCache;
 
     private GraphQL graphQL;
 

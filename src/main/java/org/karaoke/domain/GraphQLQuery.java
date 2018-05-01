@@ -12,12 +12,6 @@ public class GraphQLQuery {
     private Map<String, Object> variables;
     private String operationName;
 
-    public GraphQLQuery(String query, Map<String, Object> variables, String operationName) {
-        this.query = query;
-        this.variables = variables;
-        this.operationName = operationName;
-    }
-
     public String getQuery() {
         return query;
     }

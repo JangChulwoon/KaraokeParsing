@@ -23,16 +23,18 @@ import static graphql.schema.GraphQLObjectType.newObject;
 @Slf4j
 public class GraphQLBuilder {
 
-    @Autowired
     private DataFetcher dataFetcher;
-
-    @Autowired
     private ExecutorService es;
+    private Cache<String, PreparsedDocumentEntry> parsedDocumentCache;
+    private GraphQL graphQL;
 
     @Autowired
-    private Cache<String, PreparsedDocumentEntry> parsedDocumentCache;
-
-    private GraphQL graphQL;
+    public GraphQLBuilder(DataFetcher dataFetcher, ExecutorService es,
+                          Cache<String, PreparsedDocumentEntry> parsedDocumentCache) {
+        this.dataFetcher = dataFetcher;
+        this.es = es;
+        this.parsedDocumentCache = parsedDocumentCache;
+    }
 
     @PostConstruct
     public void setUp() {

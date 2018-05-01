@@ -1,26 +1,17 @@
 package org.karaoke.parser;
 
 import lombok.extern.slf4j.Slf4j;
-import org.joda.time.DateTime;
 import org.jsoup.Jsoup;
 import org.jsoup.nodes.Element;
 import org.jsoup.select.Elements;
 import org.karaoke.domain.Argument;
 import org.karaoke.domain.Karaoke;
-import org.karaoke.domain.KaraokesWrapper;
-import org.sonarsource.scanner.api.internal.shaded.minimaljson.Json;
-import org.springframework.beans.factory.annotation.Autowired;
-import org.springframework.data.redis.core.ListOperations;
-import org.springframework.data.redis.core.RedisTemplate;
-import org.springframework.data.redis.repository.configuration.EnableRedisRepositories;
 
-import javax.annotation.Resource;
 import java.io.IOException;
 import java.util.List;
 import java.util.stream.Collectors;
 
 @Slf4j
-@EnableRedisRepositories
 public abstract class Parser {
 
     private static final int NUMBER_INDEX = 0;
@@ -31,15 +22,10 @@ public abstract class Parser {
     public abstract List<Karaoke> extract(Argument argument) throws IOException;
 
     protected List<Karaoke> extractKaraokes(Elements elements) {
-        if (elements == null) {
-            return null;
-        }
-        List<Karaoke> list = elements.stream()
+        return elements.stream()
                 .filter(e -> e.children().size() > 1) // if result is 0, not operate.
                 .map(this::populateKaraoke)
                 .collect(Collectors.toList());
-        //redisTemplate.opsForList().leftPush()
-        return list;
     }
 
     private Karaoke populateKaraoke(Element e) {

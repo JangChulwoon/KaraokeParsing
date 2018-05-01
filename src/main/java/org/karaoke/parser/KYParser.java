@@ -1,11 +1,9 @@
 package org.karaoke.parser;
 
 import lombok.extern.slf4j.Slf4j;
-import org.jsoup.select.Elements;
 import org.karaoke.domain.Argument;
 import org.karaoke.domain.Category;
 import org.karaoke.domain.Karaoke;
-import org.karaoke.domain.KaraokesWrapper;
 import org.springframework.stereotype.Component;
 
 import javax.annotation.PostConstruct;

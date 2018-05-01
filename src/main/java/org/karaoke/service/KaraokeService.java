@@ -28,7 +28,7 @@ public class KaraokeService {
 
     public List<Karaoke> getKaraoke(Argument argument) {
         Parser karaokeParser = (Parser) context.getBean(argument.getCompany());
-        List<Karaoke> karaokes = getKaraokesForCache(argument);
+        List<Karaoke> karaokes = getKaraokesFromCache(argument);
 
         if (karaokes != null) {
             return karaokes;
@@ -59,7 +59,7 @@ public class KaraokeService {
         }
     }
 
-    private List<Karaoke> getKaraokesForCache(Argument argument) {
+    private List<Karaoke> getKaraokesFromCache(Argument argument) {
         return (List<Karaoke>) redisTemplate.opsForList()
                 .rightPopAndLeftPush(argument.toString(), argument.toString());
     }

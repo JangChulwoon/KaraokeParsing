@@ -1,6 +1,8 @@
 package org.karaoke.parser;
 
 import lombok.extern.slf4j.Slf4j;
+import org.apache.commons.httpclient.Header;
+import org.apache.commons.httpclient.methods.HeadMethod;
 import org.jsoup.Jsoup;
 import org.jsoup.nodes.Element;
 import org.jsoup.select.Elements;
@@ -37,7 +39,6 @@ public abstract class Parser {
 
     /**
      * TODO 2018.05.01
-     * before parse the Document, I should check the resource using the head method.
      * If resource is not present, It is occur the connect time out.
      * @param str
      * @param docQuery
@@ -45,6 +46,16 @@ public abstract class Parser {
      * @throws IOException
      */
     protected Elements fetchDOM(String str, String docQuery) throws IOException {
+       /* HeadMethod head = new HeadMethod(str);
+        Header[] headers = head.getResponseHeaders();
+        String contentLength = head.getResponseHeader("Content-Length").getValue();
+        if (contentLength.equals("0")){
+            return null;
+        }*/
+
+        // If resource is not present, It is occur the connect time out.
+        // also Head method occur it...
+        // I might find the other way to connet "KY" url...
         return Jsoup.connect(str).timeout(CONNECT_TIMEOUT).get().select(docQuery);
     }
 }

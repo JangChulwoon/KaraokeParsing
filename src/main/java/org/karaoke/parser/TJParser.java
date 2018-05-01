@@ -9,6 +9,7 @@ import org.karaoke.domain.KaraokesWrapper;
 import org.springframework.stereotype.Component;
 
 import javax.annotation.PostConstruct;
+import java.io.IOException;
 import java.util.HashMap;
 import java.util.List;
 import java.util.Map;
@@ -32,7 +33,7 @@ public class TJParser extends Parser {
         URLQuery.put(NUMBER, "strType=16");
     }
 
-    public List<Karaoke> extract(Argument argument) {
+    public List<Karaoke> extract(Argument argument) throws IOException {
         StringBuilder url = new StringBuilder(URL);
         appendParameter(argument, url);
         return extractKaraokes(fetchDOM(url.toString(), DOC_QUERY));

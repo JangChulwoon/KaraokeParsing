@@ -9,6 +9,7 @@ import org.karaoke.domain.KaraokesWrapper;
 import org.springframework.stereotype.Component;
 
 import javax.annotation.PostConstruct;
+import java.io.IOException;
 import java.io.UnsupportedEncodingException;
 import java.net.URLEncoder;
 import java.util.HashMap;
@@ -32,14 +33,13 @@ public class KYParser extends Parser {
         URLQuery.put(NUMBER, "sch_sel=1");
     }
 
-    public List<Karaoke> extract(Argument argument) {
+    public List<Karaoke> extract(Argument argument) throws IOException {
         StringBuilder str = new StringBuilder(URL);
         appendParameter(argument, str);
         return extractKaraokes(fetchDOM(str.toString(), DOC_QUERY));
     }
 
     private void appendParameter(Argument argument, StringBuilder str) {
-
         try {
             str.append(URLQuery.get(argument.getCategory()))
                     .append("&sch_txt=")

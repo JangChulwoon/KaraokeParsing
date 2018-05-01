@@ -31,7 +31,7 @@ public abstract class Parser {
     public abstract List<Karaoke> extract(Argument argument) throws IOException;
 
     protected List<Karaoke> extractKaraokes(Elements elements) {
-        if(elements == null){
+        if (elements == null) {
             return null;
         }
         List<Karaoke> list = elements.stream()
@@ -49,12 +49,16 @@ public abstract class Parser {
                 .setSinger(e.child(SINGER_INDEX).text());
     }
 
-    protected Elements fetchDOM(String str, String docQuery) {
-        try {
-            return Jsoup.connect(str).timeout(CONNECT_TIMEOUT).get().select(docQuery);
-        } catch (IOException e) {
-            log.error("Fetch Exception : {}", e);
-            return null;
-        }
+    /**
+     * TODO 2018.05.01
+     * before parse the Document, I should check the resource using the head method.
+     * If resource is not present, It is occur the connect time out.
+     * @param str
+     * @param docQuery
+     * @return
+     * @throws IOException
+     */
+    protected Elements fetchDOM(String str, String docQuery) throws IOException {
+        return Jsoup.connect(str).timeout(CONNECT_TIMEOUT).get().select(docQuery);
     }
 }

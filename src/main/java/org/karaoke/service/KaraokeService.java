@@ -23,27 +23,47 @@ public class KaraokeService {
     private RedisTemplate redisTemplate;
 
     @Autowired
-    public KaraokeService(ApplicationContext context,RedisTemplate redisTemplate) {
+    public KaraokeService(ApplicationContext context, RedisTemplate redisTemplate) {
         this.context = context;
         this.redisTemplate = redisTemplate;
     }
 
-    // 여기에 redis를 넣자 ~!
-    public List<Karaoke> extractKaraoke(Argument argument){
+    public List<Karaoke> getKaraoke(Argument argument) {
         Parser karaokeParser = (Parser) context.getBean(argument.getCompany());
+        List<Karaoke> karaokes = getKaraokesForCache(argument);
 
-        List<Karaoke> karaokes = (List<Karaoke>) redisTemplate.opsForList().rightPopAndLeftPush(argument.toString(),argument.toString());
-        if(karaokes != null){
+        if (karaokes != null) {
             return karaokes;
         }
+
+        return extractKaraoke(argument, karaokeParser);
+    }
+
+    /**
+     * TODO 2018.05.01
+     * I should consider the Exception process.
+     * Where should the exceptions be handled?
+     * 1. controller.
+     * 2. Exception
+     * 3. Spring container (?)
+     * @param argument
+     * @param karaokeParser
+     * @return
+     */
+    private List<Karaoke> extractKaraoke(Argument argument, Parser karaokeParser) {
         try {
-            List<Karaoke> karaokes1 = karaokeParser.extract(argument); // 구조를 조금 바꿔야할듯 ?
-            redisTemplate.opsForList().rightPush(argument.toString(), karaokes1);
-            return karaokes1;
+            List<Karaoke> karaokes = karaokeParser.extract(argument);
+            redisTemplate.opsForList().rightPush(argument.toString(), karaokes);
+            return karaokes;
         } catch (IOException e) {
-            log.error("Cause : {} , Message : {}",e.getCause(),e.getMessage());
+            log.error("Cause : {} , Message : {}", e.getCause(), e.getMessage());
+            return null;
         }
-        return null;
+    }
+
+    private List<Karaoke> getKaraokesForCache(Argument argument) {
+        return (List<Karaoke>) redisTemplate.opsForList()
+                .rightPopAndLeftPush(argument.toString(), argument.toString());
     }
 
 }

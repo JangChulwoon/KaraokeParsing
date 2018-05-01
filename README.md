@@ -77,7 +77,7 @@ Language는 기본적으로 변수나 함수 라는 개념이 어느정도 있�
 
 물론 REST하게 접근할 수 있도록 진행했습니다 ~
    
-   http://ec2-18-219-31-27.us-east-2.compute.amazonaws.com:8080/TJ/SONG/
+   http://ec2-18-219-31-27.us-east-2.compute.amazonaws.com:8080/TJ/SONG/향수 
    
 > 이렇게도 사용가능합니다
 

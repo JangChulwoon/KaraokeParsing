@@ -1,4 +1,3 @@
-target/*.properties
 !.mvn/wrapper/maven-wrapper.jar
 
 ### STS ###
@@ -23,7 +22,8 @@ nbbuild/
 dist/
 nbdist/
 .nb-gradle/
-
+target/
 ### .coveralls
 
 .coveralls.yml
+src/main/resources/application.properties

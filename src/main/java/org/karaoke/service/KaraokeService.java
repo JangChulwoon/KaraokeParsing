@@ -33,8 +33,10 @@ public class KaraokeService {
         if (karaokes != null) {
             return karaokes;
         }
-
-        return extractKaraoke(argument, karaokeParser);
+        // Todo
+        // extract is search , saveCache is instructions
+        // search and instructions is not used the "same function".
+        return extractAndSaveCache((Argument) argument, (Parser) karaokeParser);
     }
 
     /**
@@ -44,19 +46,29 @@ public class KaraokeService {
      * 1. controller.
      * 2. Exception
      * 3. Spring container (?)
+     *
      * @param argument
      * @param karaokeParser
      * @return
      */
-    private List<Karaoke> extractKaraoke(Argument argument, Parser karaokeParser) {
+    private List<Karaoke> extractAndSaveCache(Argument argument, Parser karaokeParser) {
+        List karaokes = extractKaraokes(argument, karaokeParser);
+        insertFromCache(argument.toString(), karaokes);
+        // most exception is not momentary. so I save the `null` into cache.
+        return karaokes;
+    }
+
+    private List extractKaraokes(Argument argument, Parser karaokeParser) {
         try {
-            List<Karaoke> karaokes = karaokeParser.extract(argument);
-            redisTemplate.opsForList().rightPush(argument.toString(), karaokes);
-            return karaokes;
+            return karaokeParser.extract(argument);
         } catch (IOException e) {
             log.error("Cause : {} , Message : {}", e.getCause(), e.getMessage());
             return null;
         }
+    }
+
+    private void insertFromCache(String key, List<Karaoke> values) {
+        redisTemplate.opsForList().rightPush(key, values);
     }
 
     private List<Karaoke> getKaraokesFromCache(Argument argument) {

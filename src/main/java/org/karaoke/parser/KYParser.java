@@ -1,6 +1,7 @@
 package org.karaoke.parser;
 
 import lombok.extern.slf4j.Slf4j;
+import org.jsoup.select.Elements;
 import org.karaoke.domain.Argument;
 import org.karaoke.domain.Category;
 import org.karaoke.domain.Karaoke;
@@ -30,23 +31,19 @@ public class KYParser extends Parser {
         URLQuery.put(SONG, "sch_sel=2");
         URLQuery.put(NUMBER, "sch_sel=1");
     }
-
-    public List<Karaoke> extract(Argument argument) throws IOException {
-        StringBuilder str = new StringBuilder(URL);
-        appendParameter(argument, str);
-        return extractKaraokes(fetchDOM(str.toString(), DOC_QUERY));
+    // I would make the abstract function.
+    public List<Karaoke> tryToExtract(Argument argument) throws IOException {
+        Elements dom = fetchDOM(getUrl(argument), DOC_QUERY);
+        return extractKaraokes(dom);
     }
 
-    private void appendParameter(Argument argument, StringBuilder str) {
-        try {
-            str.append(URLQuery.get(argument.getCategory()))
-                    .append("&sch_txt=")
-                    .append(URLEncoder.encode(argument.getWord(), "euc-kr"))
-                    .append("&page=").append(argument.getPage());
-        } catch (UnsupportedEncodingException e) {
-            e.printStackTrace();
-            log.error("message : {}", e.getMessage());
-        }
+    private String getUrl(Argument argument) throws IOException {
+        return new StringBuilder(URL)
+                .append(URLQuery.get(argument.getCategory()))
+                .append("&sch_txt=")
+                .append(URLEncoder.encode(argument.getWord(), "euc-kr"))
+                .append("&page=").append(argument.getPage()).toString();
+
     }
 
 

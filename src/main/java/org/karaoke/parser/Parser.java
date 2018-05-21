@@ -21,7 +21,7 @@ public abstract class Parser {
     private static final int SINGER_INDEX = 2;
     private static final int CONNECT_TIMEOUT = 5000;
 
-    public abstract List<Karaoke> extract(Argument argument) throws IOException;
+    public abstract List<Karaoke> tryToExtract(Argument argument) throws IOException;
 
     protected List<Karaoke> extractKaraokes(Elements elements) {
         return elements.stream()

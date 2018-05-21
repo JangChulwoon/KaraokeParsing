@@ -1,6 +1,7 @@
 package org.karaoke.parser;
 
 import lombok.extern.slf4j.Slf4j;
+import org.jsoup.select.Elements;
 import org.karaoke.domain.Argument;
 import org.karaoke.domain.Category;
 import org.karaoke.domain.Karaoke;
@@ -31,18 +32,18 @@ public class TJParser extends Parser {
         URLQuery.put(NUMBER, "strType=16");
     }
 
-    public List<Karaoke> extract(Argument argument) throws IOException {
-        StringBuilder url = new StringBuilder(URL);
-        appendParameter(argument, url);
-        return extractKaraokes(fetchDOM(url.toString(), DOC_QUERY));
+    public List<Karaoke> tryToExtract(Argument argument) throws IOException {
+        Elements dom = fetchDOM(getUrl(argument), DOC_QUERY);
+        return extractKaraokes(dom);
     }
 
-    private void appendParameter(Argument argument, StringBuilder str) {
-        str.append(URLQuery.get(argument.getCategory()))
+    private String getUrl(Argument argument) {
+        return new StringBuilder(URL)
+                .append(URLQuery.get(argument.getCategory()))
                 .append("&strText=")
                 .append(argument.getWord())
                 .append("&strSize02=10")
                 .append("&intPage=")
-                .append(argument.getPage());
+                .append(argument.getPage()).toString();
     }
 }

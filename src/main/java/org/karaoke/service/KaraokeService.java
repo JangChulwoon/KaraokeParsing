@@ -60,7 +60,7 @@ public class KaraokeService {
 
     private List extractKaraokes(Argument argument, Parser karaokeParser) {
         try {
-            return karaokeParser.extract(argument);
+            return karaokeParser.tryToExtract(argument);
         } catch (IOException e) {
             log.error("Cause : {} , Message : {}", e.getCause(), e.getMessage());
             return null;

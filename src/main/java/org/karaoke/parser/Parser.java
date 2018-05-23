@@ -21,13 +21,25 @@ public abstract class Parser {
     private static final int SINGER_INDEX = 2;
     private static final int CONNECT_TIMEOUT = 5000;
 
-    public abstract List<Karaoke> tryToExtract(Argument argument) throws IOException;
+    // It will implement at the sub-class..
+    public abstract String getUrl(Argument argument) throws IOException;
+
+    public abstract String getQuery();
+
+    public List<Karaoke> tryToExtract(Argument argument) throws IOException {
+        Elements dom = fetchDOM(getUrl(argument), getQuery());
+        return extractKaraokes(dom);
+    }
 
     protected List<Karaoke> extractKaraokes(Elements elements) {
         return elements.stream()
-                .filter(e -> e.children().size() > 1) // if result is 0, not operate.
+                .filter(this::hasChildElement)
                 .map(this::populateKaraoke)
                 .collect(Collectors.toList());
+    }
+
+    private boolean hasChildElement(Element element) {
+        return element.children().size() > 0;
     }
 
     private Karaoke populateKaraoke(Element e) {
@@ -37,25 +49,10 @@ public abstract class Parser {
                 .setSinger(e.child(SINGER_INDEX).text());
     }
 
-    /**
-     * TODO 2018.05.01
-     * If resource is not present, It is occur the connect time out.
-     * @param str
-     * @param docQuery
-     * @return
-     * @throws IOException
-     */
-    protected Elements fetchDOM(String str, String docQuery) throws IOException {
-       /* HeadMethod head = new HeadMethod(str);
-        Header[] headers = head.getResponseHeaders();
-        String contentLength = head.getResponseHeader("Content-Length").getValue();
-        if (contentLength.equals("0")){
-            return null;
-        }*/
-
-        // If resource is not present, It is occur the connect time out.
-        // also Head method occur it...
-        // I might find the other way to connet "KY" url...
+    // if result of KY is not exist,It is occur time out ..
+    // I don't know how to solve the issue. :(
+    private Elements fetchDOM(String str, String docQuery) throws IOException {
         return Jsoup.connect(str).timeout(CONNECT_TIMEOUT).get().select(docQuery);
     }
+
 }

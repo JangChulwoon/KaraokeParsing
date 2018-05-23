@@ -31,13 +31,8 @@ public class KYParser extends Parser {
         URLQuery.put(SONG, "sch_sel=2");
         URLQuery.put(NUMBER, "sch_sel=1");
     }
-    // I would make the abstract function.
-    public List<Karaoke> tryToExtract(Argument argument) throws IOException {
-        Elements dom = fetchDOM(getUrl(argument), DOC_QUERY);
-        return extractKaraokes(dom);
-    }
 
-    private String getUrl(Argument argument) throws IOException {
+    public String getUrl(Argument argument) throws IOException {
         return new StringBuilder(URL)
                 .append(URLQuery.get(argument.getCategory()))
                 .append("&sch_txt=")
@@ -46,5 +41,9 @@ public class KYParser extends Parser {
 
     }
 
+    @Override
+    public String getQuery() {
+        return DOC_QUERY;
+    }
 
 }

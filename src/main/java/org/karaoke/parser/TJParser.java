@@ -20,7 +20,7 @@ import static org.karaoke.domain.Category.SONG;
 
 @Component("TJ")
 @Slf4j
-public class TJParser extends Parser {
+public class TJParser implements Parser {
 
     private static final String URL = "https://www.tjmedia.co.kr/tjsong/song_search_list.asp?";
     private static final String DOC_QUERY = "table.board_type1 tr:has(td)";

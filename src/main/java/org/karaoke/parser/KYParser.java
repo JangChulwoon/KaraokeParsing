@@ -19,7 +19,7 @@ import static org.karaoke.domain.Category.*;
 
 @Component("KY")
 @Slf4j
-public class KYParser extends Parser {
+public class KYParser implements Parser {
 
     private static final String URL = "http://www.ikaraoke.kr/isong/search_musictitle.asp?";
     private static final String DOC_QUERY = ".tbl_board tr:has(td)";

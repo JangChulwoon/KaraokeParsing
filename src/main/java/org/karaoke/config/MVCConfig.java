@@ -1,4 +1,4 @@
-package org.karaoke;
+package org.karaoke.config;
 
 import org.karaoke.Interceptor.RefererChecker;
 import org.springframework.beans.factory.annotation.Autowired;

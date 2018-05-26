@@ -20,10 +20,13 @@ public class KaraokeService {
 
     private RedisTemplate redisTemplate;
 
+    private KaraokeExtractor karaokeExtractor;
+
     @Autowired
-    public KaraokeService(ApplicationContext context, RedisTemplate redisTemplate) {
+    public KaraokeService(ApplicationContext context, RedisTemplate redisTemplate, KaraokeExtractor karaokeExtractor) {
         this.context = context;
         this.redisTemplate = redisTemplate;
+        this.karaokeExtractor = karaokeExtractor;
     }
 
     public List<Karaoke> getKaraoke(Argument argument) {
@@ -36,7 +39,7 @@ public class KaraokeService {
         // Todo
         // extract is search , saveCache is instructions
         // search and instructions is not used the "same function".
-        return extractAndSaveCache((Argument) argument, (Parser) karaokeParser);
+        return tryExtractKaraokes((Argument) argument, (Parser) karaokeParser);
     }
 
     /**
@@ -51,20 +54,23 @@ public class KaraokeService {
      * @param karaokeParser
      * @return
      */
-    private List<Karaoke> extractAndSaveCache(Argument argument, Parser karaokeParser) {
-        List karaokes = extractKaraokes(argument, karaokeParser);
+    private List<Karaoke> tryExtractKaraokes(Argument argument, Parser karaokeParser) {
+        List karaokes = null;
+        try {
+            karaokes = extractKaraokes(argument, karaokeParser);
+        } catch (IOException e) {
+            log.error(e.getMessage());
+        }
         insertFromCache(argument.toString(), karaokes);
-        // most exception is not momentary. so I save the `null` into cache.
+
+        // when result is empty, timeout exception occur.
+        // most exception is Timeout Exception. so I save the `null` into cache.
+        // .. bad ...
         return karaokes;
     }
 
-    private List extractKaraokes(Argument argument, Parser karaokeParser) {
-        try {
-            return karaokeParser.tryToExtract(argument);
-        } catch (IOException e) {
-            log.error("Cause : {} , Message : {}", e.getCause(), e.getMessage());
-            return null;
-        }
+    private List extractKaraokes(Argument argument, Parser parser) throws IOException {
+        return karaokeExtractor.tryToExtract(parser, argument);
     }
 
     private void insertFromCache(String key, List<Karaoke> values) {
@@ -75,5 +81,6 @@ public class KaraokeService {
         return (List<Karaoke>) redisTemplate.opsForList()
                 .rightPopAndLeftPush(argument.toString(), argument.toString());
     }
+
 
 }
